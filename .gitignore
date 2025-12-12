@@ -46,3 +46,10 @@ $RECYCLE.BIN/
 **/__pycache__/
 **/.venv/
 **/venv/
+
+# AI files and folders
+.claude/
+.clavix/
+.opencode/
+.CLAUDE.md
+.AGENTS.md

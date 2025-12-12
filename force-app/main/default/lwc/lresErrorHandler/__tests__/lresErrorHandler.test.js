@@ -1,6 +1,6 @@
-import { parseError } from "../errorHandler";
+import { parseError } from "../lresErrorHandler";
 
-describe("errorHandler.parseError", () => {
+describe("lresErrorHandler.parseError", () => {
   it("returns default message when no details are provided", () => {
     const result = parseError({});
     expect(result.message).toBe("An unexpected error occurred.");
@@ -15,7 +15,9 @@ describe("errorHandler.parseError", () => {
   });
 
   it("handles array bodies", () => {
-    const result = parseError({ body: [{ message: "First" }, { message: "Second" }] });
+    const result = parseError({
+      body: [{ message: "First" }, { message: "Second" }]
+    });
     expect(result.message).toBe("First\nSecond");
     expect(result.messages).toEqual(["First", "Second"]);
   });

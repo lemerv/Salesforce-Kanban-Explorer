@@ -208,9 +208,9 @@ describe("c-lres-kanban-parent-selector", () => {
     expect(dropdown.style.width).toBe("46ch");
   });
 
-  it("shows search input only when there are more than 10 options", async () => {
+  it("shows search input only when there are more than 25 options", async () => {
     fetchParentRecords.mockResolvedValue(
-      Array.from({ length: 11 }).map((_, index) => ({
+      Array.from({ length: 26 }).map((_, index) => ({
         id: `p${index}`,
         label: `Parent ${index}`,
         fields: {}
@@ -229,7 +229,7 @@ describe("c-lres-kanban-parent-selector", () => {
 
   it("filters options with a debounced search and resets on clear", async () => {
     fetchParentRecords.mockResolvedValue(
-      Array.from({ length: 12 }).map((_, index) => ({
+      Array.from({ length: 30 }).map((_, index) => ({
         id: `p${index}`,
         label: index % 2 === 0 ? `Match ${index}` : `Other ${index}`,
         fields: {}
@@ -256,7 +256,7 @@ describe("c-lres-kanban-parent-selector", () => {
       const filteredRows = element.shadowRoot.querySelectorAll(
         ".parent-selector_option-row"
       );
-      expect(filteredRows.length).toBe(6); // matches even indices
+      expect(filteredRows.length).toBe(15); // matches even indices
 
       search.value = "";
       search.dispatchEvent(new CustomEvent("change"));
@@ -267,7 +267,7 @@ describe("c-lres-kanban-parent-selector", () => {
       const resetRows = element.shadowRoot.querySelectorAll(
         ".parent-selector_option-row"
       );
-      expect(resetRows.length).toBe(12);
+      expect(resetRows.length).toBe(30);
     } finally {
       jest.useRealTimers();
     }
@@ -275,7 +275,7 @@ describe("c-lres-kanban-parent-selector", () => {
 
   it("filters options in multi-select mode and restores when cleared", async () => {
     fetchParentRecords.mockResolvedValue(
-      Array.from({ length: 12 }).map((_, index) => ({
+      Array.from({ length: 30 }).map((_, index) => ({
         id: `p${index}`,
         label: index % 2 === 0 ? `Keep ${index}` : `Drop ${index}`,
         fields: {}
@@ -305,7 +305,7 @@ describe("c-lres-kanban-parent-selector", () => {
       const filteredRows = element.shadowRoot.querySelectorAll(
         ".parent-selector_option-row"
       );
-      expect(filteredRows.length).toBe(6);
+      expect(filteredRows.length).toBe(15);
 
       search.value = "";
       search.dispatchEvent(new CustomEvent("change"));
@@ -316,7 +316,7 @@ describe("c-lres-kanban-parent-selector", () => {
       const resetRows = element.shadowRoot.querySelectorAll(
         ".parent-selector_option-row"
       );
-      expect(resetRows.length).toBe(12);
+      expect(resetRows.length).toBe(30);
     } finally {
       jest.useRealTimers();
     }

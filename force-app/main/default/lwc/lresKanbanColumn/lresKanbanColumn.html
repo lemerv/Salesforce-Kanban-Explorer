@@ -1,0 +1,29 @@
+<template>
+    <section
+        class={sectionClass}
+        style={columnSectionStyle}
+        data-column-key={columnKey}
+        ondragover={handleDragOver}
+        ondragenter={handleDragEnter}
+        ondragleave={handleDragLeave}
+        ondrop={handleDrop}
+    >
+        <header class="kanban-column_header">
+            <span class="kanban-column_title">{columnLabel}</span>
+            <span class="kanban-column_count">{columnCount}</span>
+        </header>
+        <div class={bodyClass} style={columnBodyStyle}>
+            <template for:each={columnRecords} for:item="card">
+                <c-lres-kanban-card
+                    key={card.id}
+                    card={card}
+                    column-key={columnKey}
+                    show-card-field-labels={showCardFieldLabels}
+                    dragged-record-id={draggedRecordId}
+                    drag-disabled={dragDisabled}
+                    oncardopenexternallink={handleCardExternalLink}
+                ></c-lres-kanban-card>
+            </template>
+        </div>
+    </section>
+</template>

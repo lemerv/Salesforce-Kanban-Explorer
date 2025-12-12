@@ -1,0 +1,21 @@
+{
+  "orgName": "KanbanExplorerScratchOrg",
+  "edition": "Developer",
+  "hasSampleData": true,
+  "features": [
+    "Communities",
+    "ServiceCloud",
+    "LightningServiceConsole",
+    "ServiceUser",
+    "EnableSetPasswordInApi",
+    "FieldAuditTrail"
+  ],
+  "settings": {
+    "communitiesSettings": {
+      "enableNetworksEnabled": true
+    },
+    "securitySettings": {
+      "enableAdminLoginAsAnyUser": true
+    }
+  }
+}

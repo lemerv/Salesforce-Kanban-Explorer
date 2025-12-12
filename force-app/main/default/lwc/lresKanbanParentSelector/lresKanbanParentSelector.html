@@ -1,0 +1,263 @@
+<template>
+  <div class="parent-selector slds-p-horizontal_medium slds-p-top_small">
+    <div class="parent-selector_row">
+      <div class="parent-mode-toggle-container">
+        <lightning-spinner
+          if:true={_isToggling}
+          class="toggle-spinner"
+          size="small"
+        ></lightning-spinner>
+        <span
+          id="mode-live-region"
+          class="slds-assistive-text"
+          aria-live="polite"
+          aria-atomic="true"
+        ></span>
+        <fieldset class="parent-mode-toggle-control slds-form-element">
+          <legend class="slds-assistive-text">
+            Parent selection mode. Current mode: {currentModeLabel}
+          </legend>
+          <div
+            class="slds-form-element__control"
+            role="group"
+            aria-label="Parent selection mode. Current mode: {currentModeLabel}"
+            aria-describedby="mode-description"
+          >
+            <div class="slds-radio_button-group">
+              <template for:each={parentModeOptionView} for:item="option">
+                <span
+                  key={option.value}
+                  class="slds-button slds-radio_button parent-mode-button"
+                >
+                  <input
+                    type="radio"
+                    id={option.inputId}
+                    name="parentMode"
+                    value={option.value}
+                    checked={option.selected}
+                    onchange={handleParentModeChange}
+                    disabled={_isToggling}
+                  />
+                  <label class="slds-radio_button__label" for={option.inputId}>
+                    <span class="slds-radio_faux">{option.label}</span>
+                  </label>
+                </span>
+              </template>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div id="mode-description" class="slds-assistive-text">
+        Toggle between single parent selection and multiple parent selection
+        modes
+      </div>
+      <div class="parent-selector_dropdown" onclick={handleParentMenuClick}>
+        <div class="slds-combobox_container">
+          <div
+            class={parentSelectorComboboxClass}
+            aria-expanded={isParentSelectorMenuOpen}
+            aria-haspopup="listbox"
+            role="combobox"
+            aria-label={parentSelectorLabel}
+          >
+            <div
+              class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+            >
+              <button
+                type="button"
+                class={parentSelectorButtonClass}
+                aria-haspopup="listbox"
+                aria-expanded={isParentSelectorMenuOpen}
+                aria-label={parentSelectorLabel}
+                onclick={toggleParentSelectorMenu}
+                disabled={parentSelectorDisabled}
+              >
+                <span class="slds-truncate parent-selector_button-label">
+                  {parentSelectorButtonLabel}
+                </span>
+                <lightning-icon
+                  icon-name="utility:down"
+                  size="xx-small"
+                  alternative-text=""
+                  class="slds-input__icon slds-input__icon_right"
+                ></lightning-icon>
+              </button>
+            </div>
+            <template if:true={isParentSelectorMenuOpen}>
+              <div
+                class="slds-dropdown slds-dropdown_left slds-dropdown_length-5 parent-selector_menu"
+                role="listbox"
+                style={parentSelectorMenuStyle}
+              >
+                <template if:true={shouldShowSearchInput}>
+                  <div
+                    class="parent-selector_search slds-p-horizontal_small slds-p-top_x-small slds-p-bottom_x-small"
+                  >
+                    <lightning-input
+                      type="search"
+                      variant="label-hidden"
+                      label="Search parents"
+                      placeholder="Search parents"
+                      value={searchInputValue}
+                      onchange={handleSearchInput}
+                    ></lightning-input>
+                  </div>
+                </template>
+                <template if:true={defaultToMultipleParentSelection}>
+                  <div
+                    class="parent-selector_menu-actions slds-grid slds-p-horizontal_small slds-p-top_x-small slds-p-bottom_x-small slds-text-body_small"
+                  >
+                    <a
+                      href="javascript:void(0);"
+                      class="parent-selector_menu-link"
+                      onclick={handleParentSelectAll}
+                    >
+                      Select All
+                    </a>
+                    <a
+                      href="javascript:void(0);"
+                      class="parent-selector_menu-link parent-selector_menu-link--right"
+                      onclick={handleParentSelectionClear}
+                    >
+                      Clear All
+                    </a>
+                  </div>
+                  <ul
+                    class="slds-listbox slds-listbox_vertical parent-selector_menu-list"
+                    role="listbox"
+                    aria-multiselectable="true"
+                  >
+                    <template for:each={parentOptionViewData} for:item="option">
+                      <li
+                        key={option.value}
+                        role="presentation"
+                        class="slds-listbox__item parent-selector_menu-item"
+                      >
+                        <div
+                          class="slds-media slds-listbox__option slds-listbox__option_plain parent-selector_option-row"
+                          role="option"
+                          aria-selected={option.selected}
+                          data-value={option.value}
+                          onclick={handleParentOptionRowClick}
+                        >
+                          <lightning-input
+                            type="checkbox"
+                            data-value={option.value}
+                            checked={option.selected}
+                            label={option.label}
+                            variant="label-hidden"
+                            onchange={handleParentOptionToggle}
+                            class="parent-selector_option"
+                          ></lightning-input>
+                          <span class="slds-truncate" title={option.label}>
+                            {option.label}
+                          </span>
+                        </div>
+                      </li>
+                    </template>
+                  </ul>
+                </template>
+                <template if:false={defaultToMultipleParentSelection}>
+                  <ul
+                    class="slds-listbox slds-listbox_vertical parent-selector_menu-list"
+                    role="listbox"
+                    aria-multiselectable="false"
+                  >
+                    <template for:each={parentOptionViewData} for:item="option">
+                      <li
+                        key={option.value}
+                        role="presentation"
+                        class="slds-listbox__item parent-selector_menu-item"
+                      >
+                        <div
+                          class="slds-media slds-listbox__option slds-listbox__option_plain parent-selector_option-row"
+                          role="option"
+                          aria-selected={option.selected}
+                          data-value={option.value}
+                          onclick={handleParentOptionRowClick}
+                        >
+                          <lightning-input
+                            type="radio"
+                            name="parentSelectorSingle"
+                            data-value={option.value}
+                            checked={option.selected}
+                            label={option.label}
+                            variant="label-hidden"
+                            onchange={handleParentSingleOptionSelect}
+                            class="parent-selector_option"
+                          ></lightning-input>
+                          <span class="slds-truncate" title={option.label}>
+                            {option.label}
+                          </span>
+                        </div>
+                      </li>
+                    </template>
+                  </ul>
+                </template>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+      <template if:true={showParentRecordSummaryRow}>
+        <div class="parent-selector_summary">
+          <template if:true={hasMultipleParentSelection}>
+            <a
+              class="parent-selector_summary-link parent-selector_clear-link"
+              href="javascript:void(0);"
+              onclick={handleParentSelectionClear}
+            >
+              Clear Selection
+            </a>
+          </template>
+          <template if:false={hasMultipleParentSelection}>
+            <div class="parent-selector_summary-fields-scroll">
+              <template if:true={parentRecordSummaryHasValues}>
+                <span class="parent-selector_summary-fields">
+                  <template for:each={parentRecordSummaryItems} for:item="item">
+                    <span key={item.key} class="parent-selector_summary-field">
+                      <template if:true={item.label}>
+                        <span class="parent-selector_summary-label"
+                          >{item.label}</span
+                        >
+                      </template>
+                      <span class="parent-selector_summary-value"
+                        >{item.value}</span
+                      >
+                    </span>
+                  </template>
+                </span>
+              </template>
+            </div>
+            <a
+              class="parent-selector_summary-link parent-selector_view-link"
+              href="javascript:void(0);"
+              onclick={handleParentViewClick}
+            >
+              View
+              <lightning-icon
+                icon-name="utility:new_window"
+                size="xx-small"
+                alternative-text="Open in new tab"
+                class="parent-selector_summary-icon"
+              ></lightning-icon>
+            </a>
+          </template>
+        </div>
+      </template>
+    </div>
+    <template if:true={parentRecordsLoading}>
+      <div class="parent-selector_spinner">
+        <lightning-spinner
+          alternative-text="Loading parent records"
+          size="x-small"
+        ></lightning-spinner>
+      </div>
+    </template>
+    <template if:true={parentRecordError}>
+      <div class="parent-selector_error slds-text-color_error">
+        {parentRecordError}
+      </div>
+    </template>
+  </div>
+</template>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>LRES Kanban Explorer</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig
+      targets="lightning__RecordPage,lightning__AppPage,lightning__HomePage"
+    >
+            <property
+        name="boardTitle"
+        type="String"
+        label="Board Title"
+        description="Overrides the card title shown at the top of the Kanban."
+      />
+            <property
+        name="parentObjectApiName"
+        type="String"
+        label="Parent Object API Name"
+        description="API name of the parent object to use when the component is placed on an app or home page (for example, Account). Leave blank to run the board in parentless mode."
+      />
+            <property
+        name="parentRecordFieldApiNames"
+        type="String"
+        label="Parent Record Field API Names"
+        description="Comma-separated list of fields to display beside the parent record selector (for example, Industry, Owner.Name)."
+      />
+            <property
+        name="showParentRecordFieldLabels"
+        type="Boolean"
+        label="Show Parent Record Field Labels"
+        description="Display the field labels before each value beside the parent record selector."
+        default="false"
+      />
+            <property
+        name="parentRecordsWhereClause"
+        type="String"
+        label="Parent Records WHERE Clause"
+        description="SOQL WHERE clause used to filter selectable parent records (omit the WHERE keyword)."
+      />
+            <property
+        name="parentRecordsOrderByClause"
+        type="String"
+        label="Parent Records ORDER BY Clause"
+        description="SOQL ORDER BY clause used to sort selectable parent records (omit the ORDER BY keyword). Example: Name ASC, CreatedDate DESC."
+      />
+            <property
+        name="parentRecordsLimit"
+        type="Integer"
+        label="Parent Records LIMIT"
+        description="Maximum parent records to fetch into the selector (1-200). Defaults to 100."
+        default="100"
+      />
+            <property
+        name="defaultToMultipleParentSelection"
+        type="Boolean"
+        label="Default to Multi-Parent Selection"
+        description="When true, the parent selection mode will default to &quot;multi-select&quot; mode."
+        default="false"
+      />
+            <property
+        name="childRelationshipName"
+        type="String"
+        label="Child Relationship Name"
+        description="Exact name of the child relationship. Each lookup field has its own unique child relationship name. For example, the child relationship name for Opportunities on Account is &quot;Opportunities&quot;. For custom objects, be sure to include the &quot;__r&quot; suffix."
+      />
+            <property
+        name="cardObjectApiName"
+        type="String"
+        label="Card Object API Name"
+        description="API name of the related object (for example, Opportunity)."
+        required="true"
+      />
+            <property
+        name="groupingFieldApiName"
+        type="String"
+        label="Grouping Field API Name"
+        description="Field on the card object used to create Kanban lanes (for example, StageName). Only supports Picklist and Text fields."
+        required="true"
+      />
+            <property
+        name="cardFieldApiNames"
+        type="String"
+        label="Card Field API Names"
+        description="Comma-separated list of fields to display on each card. The first field becomes the card title."
+      />
+            <property
+        name="cardFieldIcons"
+        type="String"
+        label="Card Field Icons"
+        description="Comma-separated list of SLDS icon names or emoji codes to display beside each field (for example, account, graph, store, U+1F389)."
+      />
+            <property
+        name="showCardFieldLabels"
+        type="Boolean"
+        label="Show Card Field Labels"
+        description="Display field labels alongside the values on each card."
+        default="false"
+      />
+            <property
+        name="cardRecordsWhereClause"
+        type="String"
+        label="Card Records WHERE Clause"
+        description="SOQL WHERE clause applied when loading related records (omit the WHERE keyword)."
+      />
+            <property
+        name="cardRecordsOrderByClause"
+        type="String"
+        label="Card Records ORDER BY Clause"
+        description="SOQL ORDER BY clause applied when loading related records (omit the ORDER BY keyword)."
+      />
+            <property
+        name="cardRecordsLimit"
+        type="Integer"
+        label="Card Records LIMIT"
+        description="Maximum card records to pull into the board (1-1000)."
+        default="200"
+      />
+            <property
+        name="filterFieldApiNames"
+        type="String"
+        label="Filter Field API Names"
+        description="Comma-separated list of fields that render as multi-select filters in the component toolbar."
+      />
+            <property
+        name="sortFieldApiNames"
+        type="String"
+        label="Sort Field API Names"
+        description="Comma-separated list of fields that users can choose for sorting in the component toolbar."
+      />
+            <property
+        name="searchFieldApiNames"
+        type="String"
+        label="Search Field API Names"
+        description="Comma-separated list of fields to search when users type in the search box."
+      />
+            <property
+        name="emptyGroupLabel"
+        type="String"
+        label="Empty Group Label"
+        description="Text used for cards without a value in the grouping field."
+        default="Unassigned"
+      />
+            <property
+        name="dateTimeFormat"
+        type="String"
+        label="Date and Time Format"
+        description="Java SimpleDateFormat pattern applied to date and datetime fields (for example, dd/MM/yyyy h:mm a). Leave blank to use the default dd/MM/yyyy h:mm a format."
+      />
+            <property
+        name="debugLogging"
+        type="Boolean"
+        label="Enable Debug Logging"
+        description="Enable verbose console logging for troubleshooting."
+        default="false"
+      />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

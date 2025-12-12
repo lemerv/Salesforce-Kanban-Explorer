@@ -1,0 +1,38 @@
+<template>
+  <lightning-modal-header>
+    <h2 class="slds-text-heading_medium slds-truncate" title={headerTitle}>
+      {headerTitle}
+    </h2>
+  </lightning-modal-header>
+  <lightning-modal-body>
+
+    <lightning-record-form
+      record-id={recordId}
+      object-api-name={objectApiName}
+      mode={formMode}
+      layout-type="Full"
+      columns="2"
+      onsuccess={handleSuccess}
+      onsubmit={handleSubmit}
+      onerror={handleError}
+      oncancel={handleCancelEdit}
+    ></lightning-record-form>
+
+    <template if:true={errorMessage}>
+      <div class="slds-text-color_error slds-m-top_small">
+        {errorMessage}
+      </div>
+    </template>
+  </lightning-modal-body>
+  <lightning-modal-footer>
+    <lightning-button
+      if:true={recordId}
+      label="Edit"
+      variant="brand"
+      onclick={handleEdit}
+      class="slds-m-right_x-small"
+      disabled={isEditDisabled}
+    ></lightning-button>
+    <lightning-button label="Close" onclick={handleCloseClick}></lightning-button>
+  </lightning-modal-footer>
+</template>

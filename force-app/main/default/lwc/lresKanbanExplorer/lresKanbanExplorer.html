@@ -1,0 +1,60 @@
+<template>
+  <lightning-card title={resolvedBoardTitle} icon-name="standard:kanban">
+    <template if:true={actionsAvailable}>
+      <c-lres-kanban-board-actions
+        slot="actions"
+        filters-available={filtersAvailable}
+        filter-definitions={filterDefinitions}
+        clear-filters-disabled={clearFiltersDisabled}
+        search-available={searchAvailable}
+        search-value={searchValue}
+        sort-field-options={sortFieldOptions}
+        sort-button-class={sortButtonClass}
+        is-sort-menu-open={isSortMenuOpen}
+        selected-sort-label={selectedSortLabel}
+        sort-direction-icon={sortDirectionIcon}
+        sort-direction-alt-text={sortDirectionAltText}
+        refresh-button-disabled={refreshButtonDisabled}
+        onclearfilters={handleClearFilters}
+        onsearchinput={handleSearchInput}
+        onsearchkeyup={handleSearchKeyup}
+        onsortmenutoggle={toggleSortMenu}
+        onsortmenuclick={handleSortMenuClick}
+        onsortmenukeydown={handleSortMenuKeydown}
+        onsortoptionchange={handleSortOptionChange}
+        onsortdirectiontoggle={handleSortDirectionToggle}
+        onmanualrefresh={handleManualRefresh}
+        onfiltertoggle={toggleFilterMenu}
+        onfilteroptiontoggle={handleFilterOptionToggle}
+        onfilterescapepressed={handleFilterMenuKeydown}
+      ></c-lres-kanban-board-actions>
+    </template>
+    <template if:true={showParentSelector}>
+      <c-lres-kanban-parent-selector
+        parent-object-api-name={parentObjectApiName}
+        parent-records-where-clause={parentRecordsWhereClause}
+        parent-records-order-by-clause={parentRecordsOrderByClause}
+        parent-records-limit={parentRecordsLimit}
+        parent-record-field-api-names={parentRecordFieldApiNames}
+        show-parent-record-field-labels={showParentRecordFieldLabels}
+        default-to-multiple-parent-selection={defaultToMultipleParentSelection}
+        selected-parent-record-ids={_selectedParentRecordIds}
+        date-time-format={effectiveDateTimeFormat}
+        onparentselectionchange={handleParentSelectorChange}
+        onparentoptionschange={handleParentOptionsChange}
+        onparentrecordview={handleParentViewClick}
+        onparentmodechange={handleParentModeChange}
+      ></c-lres-kanban-parent-selector>
+    </template>
+    <c-lres-kanban-board-container
+      columns={columns}
+      show-card-field-labels={showCardFieldLabels}
+      is-loading={isLoading}
+      error-message={errorMessage}
+      show-empty-state={showEmptyState}
+      oncolumndrop={handleColumnDrop}
+      oncardtitleclick={handleTitleClick}
+      oncardopenexternallink={handleExternalOpen}
+    ></c-lres-kanban-board-container>
+  </lightning-card>
+</template>

@@ -53,7 +53,7 @@ This table shows what configuration properties are needed for which mode.
 
 ✓ Required \
 • Optional \
-✗ Not Required (see note) \
+✗ Not Required (see note)
 
 | Property                       | Parentless Mode | Parent Mode | Record Page Mode |
 | ------------------------------ | --------------- | ----------- | ---------------- |

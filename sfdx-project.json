@@ -1,12 +1,19 @@
 {
   "packageDirectories": [
     {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
       "path": "force-app",
-      "default": true
+      "default": true,
+      "package": "Lightning Record Explorer Suite",
+      "versionDescription": "A suite of lightning web components for Salesforce."
     }
   ],
   "name": "Lightning-Record-Explorer-Suite",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "64.0"
+  "sourceApiVersion": "64.0",
+  "packageAliases": {
+    "Lightning Record Explorer Suite": "0HogK0000000jUzSAI"
+  }
 }

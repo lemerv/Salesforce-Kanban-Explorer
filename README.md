@@ -26,7 +26,7 @@ Kanban Explorer is a sophisticated Lightning Web Component that transforms your 
 ## Quick Start
 
 1. **Install the latest package** from the [releases page](https://github.com/lemerv/Lightning-Record-Explorer-Suite/releases)
-2. **Add Kanban Explorer** to your Lightning page using the App Builder
+2. **Add LRES Kanban Explorer** to your Lightning page using the App Builder
 3. **Configure basic properties** (card object, grouping field, and card fields)
 4. **Save and activate** your page to start using your kanban board!
 

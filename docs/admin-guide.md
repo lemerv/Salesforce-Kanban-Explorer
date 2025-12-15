@@ -23,7 +23,7 @@
 
 1. Go to **Setup → Lightning App Builder**
 2. Create a new page or edit an existing one
-3. Check that "Kanban Explorer" appears in the components list under "Custom Components"
+3. Check that "LRES Kanban Explorer" appears in the components list under "Custom Components"
 
 ## Basic Page Setup <!-- omit from toc -->
 
@@ -33,7 +33,7 @@
    - **Home Page**: Dashboard-style kanban for teams
 
 2. **Add the component**:
-   - Drag "Kanban Explorer" onto your page
+   - Drag "LRES Kanban Explorer" onto your page
    - Configure basic properties (see next section)
    - Save and activate the page
 

@@ -34,7 +34,7 @@ Kanban Explorer is a sophisticated Lightning Web Component that transforms your 
 
 ### 🔧 For Salesforce Admins
 
-- **[Admin Guide](admin-guide.md)** - Complete installation, configuration, and setup instructions
+- **[Admin Guide](/docs/admin-guide.md)** - Complete installation, configuration, and setup instructions
 
 ## Popular Use Cases
 
@@ -97,4 +97,4 @@ If you encounter issues, have questions, find a bug, or want to request a featur
 
 ---
 
-**Ready to get started?** Begin with the [Admin Guide](admin-guide.md) for setup instructions.
+**Ready to get started?** Begin with the [Admin Guide](/docs/admin-guide.md) for setup instructions.

@@ -12,13 +12,13 @@ The powerful kanban board component for Salesforce that brings true kanban funct
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 
-Kanban Explorer is a sophisticated Lightning Web Component that transforms your Salesforce records into interactive kanban boards. Unlike standard Salesforce list views, Kanban Explorer provides:
+Kanban Explorer is a Lightning Web Component that transforms your Salesforce records into interactive kanban boards.
 
 🚀 **Key Features**
 
 - **Dynamic kanban boards** - drag-and-drop functionality
 - **Context-aware operation** - works on record pages, app pages, and home pages
-- **Multiple data modes** - parent mode, parentless mode, record page mode, and multi-parent selection
+- **Multiple data modes** - parent mode (single select and multi select), parentless mode, and record page mode
 - **Rich customization** - configurable fields, filters, search, and sorting
 - **Visual enhancements** - icons, emojis, and custom card layouts
 - **Real-time updates** - record changes sync instantly with Salesforce
@@ -36,14 +36,14 @@ Kanban Explorer is a sophisticated Lightning Web Component that transforms your 
 
 - **[Admin Guide](/docs/admin-guide.md)** - Complete installation, configuration, and setup instructions
 
-## Popular Use Cases
+## Typical Use Cases
 
 Kanban Explorer adapts to various business processes:
 
-- **Customer Service** - Case management by status, priority, or team
+- **Service** - Case management by status, priority, or team
 - **Sales** - Opportunity pipeline tracking through sales stages
 - **Project Management** - Task tracking by status, assignee, or milestone
-- **Custom Objects** - Any Salesforce object with a picklist field for grouping
+- **Custom Objects** - Any Salesforce object with a picklist/text field for grouping
 
 ## Key Features Overview
 
@@ -58,14 +58,14 @@ Kanban Explorer adapts to various business processes:
 - **Custom Grouping**: Group by picklist or text fields (Status, Stage, Priority, etc.)
 - **Card Customization**: Choose which fields display on cards with custom icons and formatting
 - **Advanced Filtering**: Multi-select filters, search functionality, and custom sorting
-- **SOQL Control**: Precise control over which records appear with custom WHERE clauses
+- **SOQL Control**: Precise control over which records appear with custom WHERE and ORDER BY clauses
 
 ### 🔄 Interactive Features
 
-- **Drag & Drop**: Move cards between columns to update record values instantly
-- **Record Editing**: Click cards to open modal windows for quick record editing
+- **Drag & Drop**: Move cards between columns to update record values
+- **Record Editing**: Click cards to open modal windows for quick record viewing and editing
 - **Real-time Updates**: Changes sync immediately with Salesforce
-- **Parent Selection**: Switch between different parent records or select multiple parents
+- **Parent Selection**: Switch between different parent records or select multiple parents to view thier child records
 
 ### 🎨 Visual Customization
 
@@ -89,7 +89,6 @@ If you encounter issues, have questions, find a bug, or want to request a featur
 
 - **Salesforce Platform**: Compatible with Lightning Experience
 - **Permissions**: Standard user permissions sufficient for basic usage
-- **Browser**: Modern browsers with JavaScript enabled
 
 ![Kanban Explorer for Cases](docs/images/Cases-Parentless-Board.png)
 

@@ -107,7 +107,7 @@ This table shows what configuration properties are needed for which mode.
 
 - **Property**: `Card Field API Names`
 - **Purpose**: Comma-separated list of fields to display on cards
-- **Example**: `CaseNumber,Subject,Origin,Priority,Owner.Name`
+- **Example**: `Subject,CaseNumber,Origin,Priority,Owner.Name`
 - **Note**: First field becomes the clickable card title. If left blank, it defaults to the standard `Name` field (or equivalent) for the object.
 
 #### Card Field Icons <!-- omit from toc -->
@@ -271,7 +271,7 @@ Use these configuration fields to control _which_ Parent records are available i
 
 1. **Field Security**: Component respects Salesforce field-level security
 2. **Object Security**: Users need appropriate object permissions
-3. **SOQL Security**: WITH SECURITY_ENFORCED automatically applied and optional clauses are sanitised
+3. **SOQL Security**: WITH_SECURITY_ENFORCED automatically applied and optional clauses are sanitised
 
 # Common Configuration Patterns
 
@@ -298,7 +298,6 @@ Parentless mode. Placed on a lightning App or Home page.
 | Property                  | Value                                |
 | ------------------------- | ------------------------------------ |
 | Card Object API Name      | Opportunity                          |
-| Child Relationship Name   | Opportunities                        |
 | Grouping Field API Name   | StageName                            |
 | Card Field API Names      | Name, Amount, CloseDate, Probability |
 | Card Records WHERE Clause | IsClosed = false                     |
@@ -371,6 +370,10 @@ When more than 25 parent record options are available in the dropdown, a search 
 ## Filter Dropdowns <!-- omit from toc -->
 
 A filter dropdown appears per field in the `Filter Field API Names` property. If this is left blank, then no filter dropdowns appear.
+
+## Hardcoded Limits <!-- omit from toc -->
+
+Currently, there is a hardcoded limit of 200 parent records and 1000 card records returned in their respective SOQL queries. This cannot be changed.
 
 ---
 

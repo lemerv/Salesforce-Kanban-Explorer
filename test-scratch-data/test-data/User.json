@@ -1,7 +1,11 @@
 {
   "username": "lemerv.minaccess@example.com",
   "email": "lemerv.minaccess@example.com",
-  "lastName": "User",
-  "alias": "tuser",
-  "profileName": "Minimum Access - Salesforce"
+  "firstName": "Lemerv",
+  "lastName": "Minaccess",
+  "alias": "lemervmin",
+  "profileName": "Minimum Access - Salesforce",
+  "localeSidKey": "en_AU",
+  "languageLocaleKey": "en_US",
+  "timeZoneSidKey": "Australia/Sydney"
 }

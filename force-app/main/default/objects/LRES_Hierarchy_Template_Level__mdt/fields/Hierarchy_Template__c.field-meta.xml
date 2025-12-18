@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hierarchy_Template__c</fullName>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Hierarchy Template</label>
+    <referenceTo>LRES_Hierarchy_Template__mdt</referenceTo>
+    <relationshipLabel>Hierarchy Template Levels</relationshipLabel>
+    <relationshipName>Hierarchy_Template_Levels</relationshipName>
+    <required>false</required>
+    <type>MetadataRelationship</type>
+    <unique>false</unique>
+</CustomField>

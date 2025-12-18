@@ -24,6 +24,14 @@
         <apexClass>LRES_KanbanParentRecordsCtrlTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customMetadataTypeAccesses>
+        <enabled>true</enabled>
+        <name>LRES_Hierarchy_Template_Level__mdt</name>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <enabled>true</enabled>
+        <name>LRES_Hierarchy_Template__mdt</name>
+    </customMetadataTypeAccesses>
     <description
   >Grants access to the Lightning Record Explorer Suite</description>
     <hasActivationRequired>false</hasActivationRequired>

@@ -25,6 +25,10 @@
 2. Create a new page or edit an existing one
 3. Check that "LRES Kanban Explorer" appears in the components list under "Custom Components"
 
+## Assign Permissions <!-- omit from toc -->
+
+Assign the `LRES_Access` permission set to any users that will use the kanban board.
+
 ## Basic Page Setup <!-- omit from toc -->
 
 1. **Choose your page type**:

@@ -1,0 +1,89 @@
+<template>
+  <div class="hierarchy-explorer">
+    <template if:true={isLoading}>
+      <div class="hierarchy-explorer_loading slds-p-around_medium">
+        <lightning-spinner
+          alternative-text="Loading hierarchy"
+          size="small"
+        ></lightning-spinner>
+      </div>
+    </template>
+
+    <template if:true={hasError}>
+      <div class="slds-notify slds-notify_alert slds-theme_error" role="alert">
+        <span class="slds-assistive-text">Error</span>
+        <span>{errorMessage}</span>
+      </div>
+    </template>
+
+    <template if:true={hasData}>
+      <div
+        class="hierarchy-explorer_viewport"
+        onpointerdown={handleCanvasPointerDown}
+        onpointermove={handleCanvasPointerMove}
+        onpointerup={handleCanvasPointerUp}
+        onpointercancel={handleCanvasPointerUp}
+      >
+        <div class="hierarchy-explorer_controls">
+          <lightning-button-icon
+            icon-name="utility:zoomin"
+            variant="border-filled"
+            alternative-text="Zoom in"
+            title="Zoom in"
+            onclick={handleZoomIn}
+          ></lightning-button-icon>
+          <lightning-button-icon
+            icon-name="utility:zoomout"
+            variant="border-filled"
+            alternative-text="Zoom out"
+            title="Zoom out"
+            onclick={handleZoomOut}
+          ></lightning-button-icon>
+        </div>
+        <div class="hierarchy-explorer_canvas" style={canvasStyle}>
+          <svg
+            class="hierarchy-explorer_svg"
+            width={canvasWidth}
+            height={canvasHeight}
+            viewBox={svgViewBox}
+            aria-hidden="true"
+          >
+            <template for:each={connectorPaths} for:item="path">
+              <path
+                key={path.key}
+                d={path.d}
+                class="hierarchy-explorer_connector"
+              ></path>
+            </template>
+          </svg>
+
+          <template for:each={positionedNodes} for:item="node">
+            <div
+              key={node.id}
+              class="hierarchy-explorer_node"
+              style={node.style}
+            >
+              <div class="hierarchy-explorer_node-scroll">
+                <c-lres-hierarchy-card
+                  card={node.card}
+                  oncardtitleclick={handleCardTitleClick}
+                  oncardopenexternallink={handleCardOpenExternalLink}
+                ></c-lres-hierarchy-card>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <template if:true={isCapped}>
+        <div
+          class="slds-notify slds-notify_alert slds-theme_warning hierarchy-explorer_warning"
+          role="status"
+        >
+          <span class="slds-assistive-text">Warning</span>
+          <span>{capMessage}</span>
+        </div>
+      </template>
+    </template>
+  </div>
+</template>

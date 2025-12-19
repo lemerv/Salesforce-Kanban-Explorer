@@ -1,0 +1,64 @@
+.hierarchy-explorer {
+  position: relative;
+  min-height: 8rem;
+}
+
+.hierarchy-explorer_viewport {
+  position: relative;
+  height: 70vh;
+  min-height: 24rem;
+  border: 1px solid var(--lwc-borderColor, #e5e5e5);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: var(--lwc-colorBackgroundAlt, #f4f6f9);
+  touch-action: none;
+}
+
+.hierarchy-explorer_controls {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.hierarchy-explorer_canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+.hierarchy-explorer_svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.hierarchy-explorer_connector {
+  fill: none;
+  stroke: var(--lwc-colorBorder, #d8dde6);
+  stroke-width: 2;
+}
+
+.hierarchy-explorer_node {
+  position: absolute;
+}
+
+.hierarchy-explorer_node-scroll {
+  max-height: 180px;
+  overflow: auto;
+}
+
+.hierarchy-explorer_warning {
+  margin-top: 0.5rem;
+}
+
+.hierarchy-explorer_loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 8rem;
+}

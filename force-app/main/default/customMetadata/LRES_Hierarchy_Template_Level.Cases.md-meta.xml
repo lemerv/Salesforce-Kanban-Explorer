@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomMetadata
+  xmlns="http://soap.sforce.com/2006/04/metadata"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
+    <label>Cases</label>
+    <protected>false</protected>
+    <values>
+        <field>Card_Field_API_Names__c</field>
+        <value
+      xsi:type="xsd:string"
+    >Subject,CaseNumber,Priority,Case.Origin,Owner.Name</value>
+    </values>
+    <values>
+        <field>Card_Field_Icons__c</field>
+        <value
+      xsi:type="xsd:string"
+    >💼,number_input,priority,add_source,🧒</value>
+    </values>
+    <values>
+        <field>Child_Object_API_Name__c</field>
+        <value xsi:nil="true" />
+    </values>
+    <values>
+        <field>Child_Object_Relationship_Name__c</field>
+        <value xsi:nil="true" />
+    </values>
+    <values>
+        <field>Filter_Field_API_Names__c</field>
+        <value xsi:type="xsd:string">Priority,Origin,Owner.Name</value>
+    </values>
+    <values>
+        <field>Hierarchy_Template__c</field>
+        <value xsi:type="xsd:string">Accounts_Contacts_Cases</value>
+    </values>
+    <values>
+        <field>Level_Number__c</field>
+        <value xsi:type="xsd:double">3.0</value>
+    </values>
+    <values>
+        <field>Object_API_Name__c</field>
+        <value xsi:type="xsd:string">Case</value>
+    </values>
+    <values>
+        <field>Records_ORDER_BY_Clause__c</field>
+        <value xsi:type="xsd:string">CreatedDate DESC</value>
+    </values>
+    <values>
+        <field>Records_WHERE_Clause__c</field>
+        <value xsi:type="xsd:string">IsClosed = false</value>
+    </values>
+    <values>
+        <field>Search_Field_API_Names__c</field>
+        <value xsi:type="xsd:string">Subject,CaseNumber,Account.Name</value>
+    </values>
+</CustomMetadata>

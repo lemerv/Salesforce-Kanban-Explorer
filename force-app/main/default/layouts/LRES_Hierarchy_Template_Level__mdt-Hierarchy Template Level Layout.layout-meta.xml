@@ -62,6 +62,10 @@
                 <behavior>Edit</behavior>
                 <field>Card_Field_Icons__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Show_Card_Field_Labels__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>

@@ -24,6 +24,8 @@ public with sharing class LRES_HierarchyExplorerDtos {
     @AuraEnabled
     public Integer levelNumber;
     @AuraEnabled
+    public Boolean showCardFieldLabels;
+    @AuraEnabled
     public String title;
     @AuraEnabled
     public String titleIcon;

@@ -65,8 +65,8 @@ describe("c-lres-hierarchy-explorer", () => {
     getHierarchy.mockResolvedValue({
       rootId: "001",
       nodes: [
-        { id: "001", title: "Root", details: [] },
-        { id: "002", title: "Child", details: [] }
+        { id: "001", title: "Root", details: [], showCardFieldLabels: true },
+        { id: "002", title: "Child", details: [], showCardFieldLabels: false }
       ],
       edges: [{ parentId: "001", childId: "002" }],
       capped: false
@@ -81,6 +81,8 @@ describe("c-lres-hierarchy-explorer", () => {
 
     const cards = element.shadowRoot.querySelectorAll("c-lres-hierarchy-card");
     expect(cards.length).toBe(2);
+    expect(cards[0].showCardFieldLabels).toBe(true);
+    expect(cards[1].showCardFieldLabels).toBe(false);
   });
 
   it("shows warning banner when capped", async () => {

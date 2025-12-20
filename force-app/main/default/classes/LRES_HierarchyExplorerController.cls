@@ -543,6 +543,7 @@ public with sharing class LRES_HierarchyExplorerController {
     node.id = String.valueOf(row.get('Id'));
     node.objectApiName = levelConfig.objectApiName;
     node.levelNumber = levelConfig.levelNumber;
+    node.showCardFieldLabels = levelConfig.showCardFieldLabels;
     node.details = new List<LRES_HierarchyExplorerDtos.DetailDto>();
 
     List<String> fields = levelConfig.cardFieldApiNames == null

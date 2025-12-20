@@ -256,6 +256,7 @@ export default class LresHierarchyExplorer extends NavigationMixin(
     });
     return {
       ...card,
+      showCardFieldLabels: Boolean(card.showCardFieldLabels),
       titleIcon: titleMeta.iconName,
       titleEmoji: titleMeta.emoji,
       details: normalizedDetails

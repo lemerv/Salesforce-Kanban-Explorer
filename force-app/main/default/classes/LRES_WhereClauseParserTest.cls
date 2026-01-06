@@ -113,13 +113,19 @@ private class LRES_WhereClauseParserTest {
 
   @IsTest
   static void debugInvalidFieldIncludesFieldName() {
+    Set<String> allowList = new Set<String>{ 'subject' };
     Boolean normalThrown = false;
     try {
-      parseCase('Bad$Field = \'Test\'');
+      LRES_WhereClauseParser.parse(
+        'Status = \'Test\'',
+        'Case',
+        allowList,
+        'Card record filter cannot include '
+      );
     } catch (AuraHandledException ex) {
       normalThrown = true;
       System.assert(
-        !ex.getMessage().contains('Bad$Field'),
+        !ex.getMessage().contains('Status'),
         'Non-debug errors should not include field names.'
       );
     }
@@ -127,11 +133,17 @@ private class LRES_WhereClauseParserTest {
 
     Boolean debugThrown = false;
     try {
-      parseCaseDebug('Bad$Field = \'Test\'');
+      LRES_WhereClauseParser.parse(
+        'Status = \'Test\'',
+        'Case',
+        allowList,
+        'Card record filter cannot include ',
+        true
+      );
     } catch (AuraHandledException ex) {
       debugThrown = true;
       System.assert(
-        ex.getMessage().contains('Bad$Field'),
+        ex.getMessage().contains('Status'),
         'Debug errors should include invalid field names.'
       );
     }
@@ -246,5 +258,44 @@ private class LRES_WhereClauseParserTest {
     String clause = 'Status IN (' + String.join(items, ', ') + ')';
     LRES_WhereClauseParser.ParseResult result = parseCase(clause);
     System.assertEquals(clause, result.canonicalWhere);
+  }
+
+  @IsTest
+  static void reusesDescribeCacheAndAllowsReset() {
+    String prefix = 'Filter cannot include ';
+    LRES_WhereClauseParser.clearDescribeCache();
+
+    LRES_WhereClauseParser.ParseResult first = LRES_WhereClauseParser.parse(
+      'Status = \'New\'',
+      'Case',
+      null,
+      prefix
+    );
+    System.assertEquals('Status = \'New\'', first.canonicalWhere);
+
+    LRES_WhereClauseParser.ParseResult second = LRES_WhereClauseParser.parse(
+      'Status = \'Closed\'',
+      'Case',
+      null,
+      prefix
+    );
+    System.assertEquals('Status = \'Closed\'', second.canonicalWhere);
+
+    LRES_WhereClauseParser.ParseResult third = LRES_WhereClauseParser.parse(
+      'Name = \'Acme\'',
+      'Account',
+      null,
+      prefix
+    );
+    System.assertEquals('Name = \'Acme\'', third.canonicalWhere);
+
+    LRES_WhereClauseParser.clearDescribeCache();
+    LRES_WhereClauseParser.ParseResult afterClear = LRES_WhereClauseParser.parse(
+      'Status = \'New\'',
+      'Case',
+      null,
+      prefix
+    );
+    System.assertEquals('Status = \'New\'', afterClear.canonicalWhere);
   }
 }

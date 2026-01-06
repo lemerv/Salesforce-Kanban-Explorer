@@ -204,6 +204,10 @@ public with sharing class LRES_WhereClauseParser {
   private static final Integer MAX_IN_ITEMS = 100;
   private static final Integer MAX_STRING_LENGTH = 500;
 
+  private static Map<String, Schema.DescribeSObjectResult> describeCache = new Map<String, Schema.DescribeSObjectResult>();
+  private static Map<String, Map<String, Schema.SObjectField>> fieldMapCache = new Map<String, Map<String, Schema.SObjectField>>();
+  private static Map<String, Map<String, Schema.DescribeFieldResult>> relationshipFieldCache = new Map<String, Map<String, Schema.DescribeFieldResult>>();
+
   private static final Set<String> LOGICAL_KEYWORDS = new Set<String>{
     'AND',
     'OR',
@@ -696,15 +700,13 @@ public with sharing class LRES_WhereClauseParser {
     if (String.isBlank(state.objectApiName)) {
       return new FieldInfo(normalizedPath, Schema.DisplayType.STRING, false);
     }
-    Schema.SObjectType sObjectType = Schema.getGlobalDescribe()
-      .get(state.objectApiName);
-    if (sObjectType == null) {
+    Schema.DescribeSObjectResult describe = getDescribe(state.objectApiName);
+    if (describe == null) {
       throw buildException(
         state.blockedClausePrefix,
         'invalid object reference.'
       );
     }
-    Schema.DescribeSObjectResult describe = sObjectType.getDescribe();
     FieldInfo info = walkDescribeForField(
       describe,
       normalizedPath,
@@ -730,9 +732,10 @@ public with sharing class LRES_WhereClauseParser {
     Schema.DescribeSObjectResult currentDescribe = describe;
     for (Integer i = 0; i < segments.size(); i++) {
       String segment = segments[i];
-      Map<String, Schema.SObjectField> fields = currentDescribe.fields.getMap();
+      Map<String, Schema.SObjectField> fields = getFieldMap(currentDescribe);
       if (fields == null || !fields.containsKey(segment)) {
         Schema.DescribeFieldResult relationshipField = findRelationshipField(
+          currentDescribe,
           fields,
           segment
         );
@@ -764,11 +767,19 @@ public with sharing class LRES_WhereClauseParser {
   }
 
   private static Schema.DescribeFieldResult findRelationshipField(
+    Schema.DescribeSObjectResult describe,
     Map<String, Schema.SObjectField> fields,
     String relationshipSegment
   ) {
     if (fields == null || String.isBlank(relationshipSegment)) {
       return null;
+    }
+    Map<String, Schema.DescribeFieldResult> relationshipMap = getRelationshipFieldMap(
+      describe,
+      fields
+    );
+    if (relationshipMap != null) {
+      return relationshipMap.get(relationshipSegment.toLowerCase());
     }
     for (Schema.SObjectField field : fields.values()) {
       Schema.DescribeFieldResult fieldDescribe = field.getDescribe();
@@ -1094,5 +1105,95 @@ public with sharing class LRES_WhereClauseParser {
         String.valueOf(objectApiName) +
         ')'
     );
+  }
+
+  private static String normalizeObjectKey(String objectApiName) {
+    if (String.isBlank(objectApiName)) {
+      return null;
+    }
+    return objectApiName.trim().toLowerCase();
+  }
+
+  private static Schema.DescribeSObjectResult getDescribe(
+    String objectApiName
+  ) {
+    String key = normalizeObjectKey(objectApiName);
+    if (key == null) {
+      return null;
+    }
+    if (describeCache.containsKey(key)) {
+      return describeCache.get(key);
+    }
+    Map<String, Schema.SObjectType> globalDescribe = Schema.getGlobalDescribe();
+    if (globalDescribe == null) {
+      return null;
+    }
+    Schema.SObjectType sObjectType = globalDescribe.get(objectApiName);
+    if (sObjectType == null) {
+      return null;
+    }
+    Schema.DescribeSObjectResult describe = sObjectType.getDescribe();
+    describeCache.put(key, describe);
+    return describe;
+  }
+
+  private static Map<String, Schema.SObjectField> getFieldMap(
+    Schema.DescribeSObjectResult describe
+  ) {
+    if (describe == null) {
+      return null;
+    }
+    String key = normalizeObjectKey(describe.getName());
+    if (key == null) {
+      return null;
+    }
+    if (fieldMapCache.containsKey(key)) {
+      return fieldMapCache.get(key);
+    }
+    Map<String, Schema.SObjectField> fields = describe.fields.getMap();
+    fieldMapCache.put(key, fields);
+    return fields;
+  }
+
+  private static Map<String, Schema.DescribeFieldResult> getRelationshipFieldMap(
+    Schema.DescribeSObjectResult describe,
+    Map<String, Schema.SObjectField> fields
+  ) {
+    if (describe == null) {
+      return null;
+    }
+    String key = normalizeObjectKey(describe.getName());
+    if (key == null) {
+      return null;
+    }
+    if (relationshipFieldCache.containsKey(key)) {
+      return relationshipFieldCache.get(key);
+    }
+    if (fields == null) {
+      fields = getFieldMap(describe);
+    }
+    if (fields == null) {
+      return null;
+    }
+    Map<String, Schema.DescribeFieldResult> relationshipMap = new Map<String, Schema.DescribeFieldResult>();
+    for (Schema.SObjectField field : fields.values()) {
+      Schema.DescribeFieldResult fieldDescribe = field.getDescribe();
+      if (fieldDescribe == null) {
+        continue;
+      }
+      String relName = fieldDescribe.getRelationshipName();
+      if (String.isNotBlank(relName)) {
+        relationshipMap.put(relName.toLowerCase(), fieldDescribe);
+      }
+    }
+    relationshipFieldCache.put(key, relationshipMap);
+    return relationshipMap;
+  }
+
+  @TestVisible
+  private static void clearDescribeCache() {
+    describeCache.clear();
+    fieldMapCache.clear();
+    relationshipFieldCache.clear();
   }
 }

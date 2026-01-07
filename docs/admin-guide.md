@@ -357,9 +357,9 @@ When in multi-select parent mode, and more than one parent is selected, cards wi
 
 For the `Card Field API Names` and `Parent Field API Names`, you are able to traverse lookup relationships. For example, you can do things like:
 
-- Owner.Name
-- Case.Contact.Account
-- Project**r.Due_Date**c
+- `Owner.Name`
+- `Case.Contact.Account`
+- `Project__r.Due_Date__c`
 
 Field labels will automatically reflect this by displaying as:
 

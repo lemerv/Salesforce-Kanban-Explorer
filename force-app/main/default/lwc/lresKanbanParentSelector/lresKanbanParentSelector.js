@@ -131,7 +131,14 @@ export default class KanbanParentSelector extends LightningElement {
   }
 
   set debugLogging(value) {
-    this._debugLoggingEnabled = normalizeBoolean(value);
+    const normalized = normalizeBoolean(value);
+    if (normalized === this._debugLoggingEnabled) {
+      return;
+    }
+    this._debugLoggingEnabled = normalized;
+    if (this.parentObjectApiName) {
+      this.handleConfigChange();
+    }
   }
 
   @api

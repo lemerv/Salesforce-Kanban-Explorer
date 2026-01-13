@@ -4,6 +4,14 @@ import {
 } from "../summaryConfigUtils";
 
 describe("summaryConfigUtils.parseSummaryDefinitions", () => {
+  it("returns empty results for null, undefined, or whitespace input", () => {
+    [null, undefined, "", "   "].forEach((value) => {
+      const { summaries, warnings } = parseSummaryDefinitions(value);
+      expect(summaries).toHaveLength(0);
+      expect(warnings).toHaveLength(0);
+    });
+  });
+
   it("parses entries with trimming and case-insensitive types", () => {
     const { summaries, warnings } = parseSummaryDefinitions(
       "[ Amount | sum | Sum of amount ]; [Amount|AVG|Average amount]"
@@ -32,6 +40,17 @@ describe("summaryConfigUtils.parseSummaryDefinitions", () => {
 
     expect(summaries).toHaveLength(0);
     expect(warnings).toHaveLength(1);
+  });
+
+  it("accepts unbracketed entries and preserves labels with pipes", () => {
+    const { summaries, warnings } = parseSummaryDefinitions(
+      "Amount|SUM|Total|USD"
+    );
+
+    expect(warnings).toHaveLength(0);
+    expect(summaries).toEqual([
+      { fieldApiName: "Amount", summaryType: "SUM", label: "Total|USD" }
+    ]);
   });
 
   it("limits to three summaries", () => {

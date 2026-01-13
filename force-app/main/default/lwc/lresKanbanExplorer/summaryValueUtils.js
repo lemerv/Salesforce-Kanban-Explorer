@@ -8,6 +8,9 @@ export function coerceNumericValue(rawValue) {
     return rawValue;
   }
   const cleaned = String(rawValue).replace(/[^0-9.-]/g, "");
+  if (!cleaned) {
+    return null;
+  }
   const parsed = Number(cleaned);
   return Number.isFinite(parsed) ? parsed : null;
 }

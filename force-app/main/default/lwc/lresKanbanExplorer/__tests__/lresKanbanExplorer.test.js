@@ -186,6 +186,44 @@ describe("c-lres-kanban-explorer", () => {
     expect(container.warningMessage).toContain("BadField");
   });
 
+  it("surfaces mixed currency warnings in the board container", async () => {
+    const records = [
+      buildWireRecord({
+        id: "001",
+        fields: {
+          "Opportunity.Id": { value: "001" },
+          "Opportunity.Status__c": { value: "Open", displayValue: "Open" },
+          "Opportunity.Name": { value: "Deal A", displayValue: "Deal A" },
+          "Opportunity.Amount": { value: 10, displayValue: "10" },
+          "Opportunity.CurrencyIsoCode": { value: "USD", displayValue: "USD" }
+        }
+      }),
+      buildWireRecord({
+        id: "002",
+        fields: {
+          "Opportunity.Id": { value: "002" },
+          "Opportunity.Status__c": { value: "Open", displayValue: "Open" },
+          "Opportunity.Name": { value: "Deal B", displayValue: "Deal B" },
+          "Opportunity.Amount": { value: 20, displayValue: "20" },
+          "Opportunity.CurrencyIsoCode": { value: "EUR", displayValue: "EUR" }
+        }
+      })
+    ];
+    fetchRelatedCardRecords.mockResolvedValue(records);
+
+    const element = buildComponent();
+    element.columnSummariesDefinition = "[Amount|SUM|Total]";
+    emitMetadata();
+    await settleComponent(4);
+
+    const container = element.shadowRoot.querySelector(
+      "c-lres-kanban-board-container"
+    );
+    expect(container.warningMessage).toContain("multiple currencies");
+    const openColumn = container.columns.find((col) => col.key === "Open");
+    expect(openColumn.summaries[0].value).toBe("Mixed currencies");
+  });
+
   it("builds columns from Apex data and filters by search input", async () => {
     fetchRelatedCardRecords.mockResolvedValue(baseApexRecords);
     const element = buildComponent();

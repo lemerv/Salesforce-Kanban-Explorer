@@ -252,4 +252,138 @@ describe("columnBuilder.buildColumns", () => {
       { key: "IsClosed|COUNT_FALSE|Open", label: "Open", value: "1" }
     ]);
   });
+
+  it("flags mixed currencies and blocks the summary value", () => {
+    const options = {
+      ...baseOptions,
+      summaryDefinitions: [
+        {
+          fieldApiName: "Amount",
+          summaryType: "SUM",
+          label: "Total",
+          dataType: "currency"
+        }
+      ],
+      coerceSummaryValue: (record, summary) => record[summary.fieldApiName],
+      formatSummaryValue: (_summary, value) => {
+        if (value === null || value === undefined) {
+          return "";
+        }
+        return String(value);
+      },
+      getSummaryCurrencyCode: (record) => record.CurrencyIsoCode
+    };
+    const records = [
+      {
+        id: "1",
+        Status: "A",
+        Title: "Alpha",
+        Detail: "One",
+        Amount: 10,
+        CurrencyIsoCode: "USD"
+      },
+      {
+        id: "2",
+        Status: "A",
+        Title: "Beta",
+        Detail: "Two",
+        Amount: 20,
+        CurrencyIsoCode: "EUR"
+      }
+    ];
+
+    const columns = buildColumns(records, options);
+    const column = columns.find((col) => col.key === "A");
+    expect(column.summaries).toEqual([
+      {
+        key: "Amount|SUM|Total",
+        label: "Total",
+        value: "Mixed currencies"
+      }
+    ]);
+    expect(column.summaryWarnings).toEqual(
+      expect.arrayContaining([expect.stringContaining("multiple currencies")])
+    );
+  });
+
+  it("ignores invalid date values when computing min summaries", () => {
+    const options = {
+      ...baseOptions,
+      summaryDefinitions: [
+        {
+          fieldApiName: "CloseDate",
+          summaryType: "MIN",
+          label: "Earliest",
+          dataType: "date"
+        }
+      ],
+      coerceSummaryValue: (record, summary) => record[summary.fieldApiName],
+      formatSummaryValue: (_summary, value) => {
+        if (value === null || value === undefined) {
+          return "";
+        }
+        return String(value);
+      },
+      getSummaryCurrencyCode: () => null
+    };
+    const records = [
+      {
+        id: "1",
+        Status: "A",
+        Title: "Alpha",
+        Detail: "One",
+        CloseDate: "not-a-date"
+      },
+      {
+        id: "2",
+        Status: "A",
+        Title: "Beta",
+        Detail: "Two",
+        CloseDate: "2024-01-10"
+      }
+    ];
+
+    const columns = buildColumns(records, options);
+    const column = columns.find((col) => col.key === "A");
+    expect(column.summaries).toEqual([
+      {
+        key: "CloseDate|MIN|Earliest",
+        label: "Earliest",
+        value: "2024-01-10"
+      }
+    ]);
+  });
+
+  it("returns empty summary output when no values are present", () => {
+    const options = {
+      ...baseOptions,
+      summaryDefinitions: [
+        { fieldApiName: "Amount", summaryType: "SUM", label: "Total" }
+      ],
+      coerceSummaryValue: (record, summary) => record[summary.fieldApiName],
+      formatSummaryValue: (_summary, value) => {
+        if (value === null || value === undefined) {
+          return "EMPTY";
+        }
+        return String(value);
+      },
+      getSummaryCurrencyCode: () => null
+    };
+    const records = [
+      { id: "1", Status: "A", Title: "Alpha", Detail: "One", Amount: null },
+      {
+        id: "2",
+        Status: "A",
+        Title: "Beta",
+        Detail: "Two",
+        Amount: undefined
+      }
+    ];
+
+    const columns = buildColumns(records, options);
+    const column = columns.find((col) => col.key === "A");
+    expect(column.summaries).toEqual([
+      { key: "Amount|SUM|Total", label: "Total", value: "EMPTY" }
+    ]);
+  });
 });

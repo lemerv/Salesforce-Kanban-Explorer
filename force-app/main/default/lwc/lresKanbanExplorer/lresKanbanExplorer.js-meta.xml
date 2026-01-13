@@ -90,12 +90,6 @@
         description="Comma-separated list of fields to display on each card. The first field becomes the card title."
       />
             <property
-        name="columnSummariesDefinition"
-        type="String"
-        label="Column Summaries Definition"
-        description="Use this field to define up to 3 column summaries. Format is `[FieldApiName|SUMMARY_TYPE|Label]` and entries are separated by semicolons. Summary types: SUM, AVG, MIN, MAX, COUNT_TRUE, COUNT_FALSE. Example: `[Amount|SUM|Sum of amount];[Amount|AVG|Average amount]`. SUM/AVG require numeric fields (Number, Currency, Percent, Integer, Double). MIN/MAX allow numeric or Date/DateTime fields. COUNT_TRUE/COUNT_FALSE require Checkbox (Boolean) fields."
-      />
-            <property
         name="cardFieldIcons"
         type="String"
         label="Card Field Icons"
@@ -144,6 +138,12 @@
         type="String"
         label="Search Field API Names"
         description="Comma-separated list of fields to search when users type in the search box."
+      />
+            <property
+        name="columnSummariesDefinition"
+        type="String"
+        label="Column Summaries Definition"
+        description="Use this field to define up to 3 column summaries. Format is `[FieldApiName|SUMMARY_TYPE|Label]` and entries are separated by semicolons. Summary types: SUM, AVG, MIN, MAX, COUNT_TRUE, COUNT_FALSE. Example: `[Amount|SUM|Sum of amount];[Amount|AVG|Average amount]`. SUM/AVG require numeric fields (Number, Currency, Percent, Integer, Double). MIN/MAX allow numeric or Date/DateTime fields. COUNT_TRUE/COUNT_FALSE require Checkbox (Boolean) fields."
       />
             <property
         name="emptyGroupLabel"

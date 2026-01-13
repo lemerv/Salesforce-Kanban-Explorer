@@ -20,6 +20,7 @@ Kanban Explorer is a Lightning Web Component that transforms your Salesforce rec
 - **Context-aware** - works on record pages, app pages, and home pages
 - **Multiple data modes** - parent mode (single select and multi select), parentless mode, and record page mode
 - **Flexible customization** - configurable fields, filters, search, and sorting
+- **Column summaries** - configure up to 3 column summaries, such as SUMs, AVGs, COUNTs, and more
 - **Visual goodies** - add icons and emojis to cards
 
 ## Quick Start
@@ -72,6 +73,7 @@ Kanban Explorer is adaptable:
 - **Date Formatting**: Custom date/time display formats
 - **Field Labels**: Toggle field labels on/off for cleaner interfaces
 - **Card Counts**: Display record counts per column
+- **Column summaries**: Show up to 3 per-column metrics (SUM, AVG, MIN, MAX, COUNT_TRUE, COUNT_FALSE) for numeric, date, and checkbox fields
 
 ### 🔒 Safe and Secure
 

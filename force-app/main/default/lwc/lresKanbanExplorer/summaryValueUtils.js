@@ -28,15 +28,33 @@ export function resolveCurrencyCode(
   currencyFieldApiName,
   fallbackCurrencyCode
 ) {
+  const isValidCurrencyCode = (value) => {
+    if (!value) {
+      return false;
+    }
+    const normalized = String(value).trim().toUpperCase();
+    return /^[A-Z]{3}$/.test(normalized) ? normalized : false;
+  };
+
   if (typeof extractFieldData === "function" && currencyFieldApiName) {
     const data = extractFieldData(record, currencyFieldApiName);
-    return data?.raw ?? data?.display ?? fallbackCurrencyCode ?? null;
+    const candidate = data?.raw ?? data?.display ?? null;
+    return (
+      isValidCurrencyCode(candidate) ||
+      isValidCurrencyCode(fallbackCurrencyCode) ||
+      null
+    );
   }
   const field = record?.fields?.CurrencyIsoCode;
   if (!field) {
-    return fallbackCurrencyCode ?? null;
+    return isValidCurrencyCode(fallbackCurrencyCode) || null;
   }
-  return field.value || field.displayValue || fallbackCurrencyCode || null;
+  return (
+    isValidCurrencyCode(field.value) ||
+    isValidCurrencyCode(field.displayValue) ||
+    isValidCurrencyCode(fallbackCurrencyCode) ||
+    null
+  );
 }
 
 export function formatSummaryValue(summary, value, options = {}) {

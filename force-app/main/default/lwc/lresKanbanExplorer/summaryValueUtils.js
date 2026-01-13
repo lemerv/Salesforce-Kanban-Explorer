@@ -39,22 +39,35 @@ export function resolveCurrencyCode(
   if (typeof extractFieldData === "function" && currencyFieldApiName) {
     const data = extractFieldData(record, currencyFieldApiName);
     const candidate = data?.raw ?? data?.display ?? null;
-    return (
+    const resolved =
       isValidCurrencyCode(candidate) ||
-      isValidCurrencyCode(fallbackCurrencyCode) ||
-      null
-    );
+      isValidCurrencyCode(fallbackCurrencyCode);
+    if (!resolved) {
+      return null;
+    }
+    return {
+      code: resolved,
+      isFallback: !isValidCurrencyCode(candidate)
+    };
   }
   const field = record?.fields?.CurrencyIsoCode;
   if (!field) {
-    return isValidCurrencyCode(fallbackCurrencyCode) || null;
+    const resolved = isValidCurrencyCode(fallbackCurrencyCode);
+    return resolved ? { code: resolved, isFallback: true } : null;
   }
-  return (
+  const resolved =
     isValidCurrencyCode(field.value) ||
     isValidCurrencyCode(field.displayValue) ||
-    isValidCurrencyCode(fallbackCurrencyCode) ||
-    null
-  );
+    isValidCurrencyCode(fallbackCurrencyCode);
+  if (!resolved) {
+    return null;
+  }
+  return {
+    code: resolved,
+    isFallback:
+      !isValidCurrencyCode(field.value) &&
+      !isValidCurrencyCode(field.displayValue)
+  };
 }
 
 export function formatSummaryValue(summary, value, options = {}) {
@@ -78,6 +91,9 @@ export function formatSummaryValue(summary, value, options = {}) {
   } else if (summary?.dataType === "currency" && options.currencyCode) {
     formatterOptions.style = "currency";
     formatterOptions.currency = options.currencyCode;
+    formatterOptions.currencyDisplay = options.useNarrowCurrencySymbol
+      ? "narrowSymbol"
+      : "symbol";
   }
   return new Intl.NumberFormat(undefined, formatterOptions).format(
     normalizedValue

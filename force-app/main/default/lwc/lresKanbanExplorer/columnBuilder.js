@@ -233,6 +233,7 @@ function buildLaneSummaries(entries, options = {}) {
       const currencyCodes = new Set(
         entries
           .map((entry) => getSummaryCurrencyCode(entry.record))
+          .map((value) => (typeof value === "string" ? value : value?.code))
           .filter((value) => value)
       );
       if (currencyCodes.size > 1) {
@@ -271,16 +272,28 @@ function buildLaneSummaries(entries, options = {}) {
       result = Math.max(...values);
     }
     let currencyCode = null;
+    let useNarrowCurrencySymbol = false;
     if (summary.dataType === "currency") {
-      currencyCode =
+      const resolvedCurrency =
         entries
           .map((entry) => getSummaryCurrencyCode(entry.record))
           .find((value) => value) || null;
+      if (resolvedCurrency) {
+        if (typeof resolvedCurrency === "string") {
+          currencyCode = resolvedCurrency;
+        } else {
+          currencyCode = resolvedCurrency.code;
+          useNarrowCurrencySymbol = Boolean(resolvedCurrency.isFallback);
+        }
+      }
     }
     summaries.push({
       key: summaryKey,
       label: summary.label,
-      value: formatSummaryValue(summary, result, { currencyCode })
+      value: formatSummaryValue(summary, result, {
+        currencyCode,
+        useNarrowCurrencySymbol
+      })
     });
   });
 

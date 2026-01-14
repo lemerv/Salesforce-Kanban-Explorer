@@ -2080,8 +2080,14 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
     return getFieldLabelField(this, field);
   }
 
-  formatFieldDisplayValue(field, rawValue, displayValue) {
-    return formatFieldDisplayValueField(this, field, rawValue, displayValue);
+  formatFieldDisplayValue(field, rawValue, displayValue, record) {
+    return formatFieldDisplayValueField(
+      this,
+      field,
+      rawValue,
+      displayValue,
+      record
+    );
   }
 
   logDebug(message, detail) {

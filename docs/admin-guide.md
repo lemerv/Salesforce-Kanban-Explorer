@@ -4,6 +4,7 @@
   - [Card Record Configuration](#card-record-configuration)
   - [Parent Record Configuration](#parent-record-configuration)
   - [Card Sort, Filter, and Search Configuration](#card-sort-filter-and-search-configuration)
+  - [Column Summaries Configuration](#column-summaries-configuration)
   - [Other Configuration Fields](#other-configuration-fields)
 - [Best Practices](#best-practices)
 - [Common Configuration Patterns](#common-configuration-patterns)
@@ -229,6 +230,25 @@ Use these configuration fields to control _which_ Parent records are available i
 - **Example**: `Subject,Description,CaseNumber,Account.Name`
 - **Tip**: Search works for a field that isn't actually displayed on the board
 
+## Column Summaries Configuration
+
+### Column Summaries Definition <!-- omit from toc -->
+
+- **Property**: `Column Summaries Definition`
+- **Purpose**: Define up to three summaries that appear in each column header.
+- **Format**: `[FieldApiName|SUMMARY_TYPE|Label]` entries separated by semicolons
+- **Summary Types**: `SUM`, `AVG`, `MIN`, `MAX`, `COUNT_TRUE`, `COUNT_FALSE`
+- **Examples**:
+  - `[Amount|SUM|Total Amount];[Amount|AVG|Avg Amount]`
+  - `[CloseDate|MIN|Earliest Close];[CloseDate|MAX|Latest Close]`
+  - `[IsEscalated|COUNT_TRUE|Escalated];[IsEscalated|COUNT_FALSE|Not Escalated]`
+- **Notes**:
+  - `SUM`/`AVG` require numeric fields (Number, Currency, Percent, Integer, Double)
+  - `MIN`/`MAX` allow numeric or Date/DateTime fields
+  - `COUNT_TRUE`/`COUNT_FALSE` require Checkbox fields
+  - If a currency summary contains multiple currencies in the same column, the summary value is blocked and shows `Mixed currencies`, and a warning banner is displayed
+  - Invalid definitions are ignored and surfaced as a non-blocking warning
+
 ## Other Configuration Fields
 
 #### Empty Group Label <!-- omit from toc -->
@@ -243,9 +263,11 @@ Use these configuration fields to control _which_ Parent records are available i
 - **Purpose**: Custom date/time display format
 - **Format**: Java SimpleDateFormat pattern
 - **Examples**:
-  - `dd/MM/yyyy h:mm a` (default)
+  - `dd/MM/yyyy h:mm a`
   - `MM-dd-yy HH:mm`
   - `EEEE, MMMM d, yyyy`
+- **Notes**:
+  - Leave blank to use the running user's Salesforce locale settings
 
 #### Debug Logging <!-- omit from toc -->
 

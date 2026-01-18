@@ -179,6 +179,9 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
   _isConnected = false;
   _dataModeCache = null;
   _modalOpen = false;
+  _rebuildColumnsRafId = null;
+  _rebuildColumnsRafType = null;
+  _userRebuildTimeoutId = null;
 
   shouldAutoRefreshOnConfig() {
     return shouldAutoRefreshOnConfigService(this);
@@ -1012,6 +1015,8 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
     this.closeSortMenu();
     this.closeFilterMenus();
     this.clearParentSelectionRefreshDebounce();
+    this.cancelScheduledRebuildColumns();
+    this.cancelScheduledUserRebuild();
     clearDebouncedSearchInteractions(this);
   }
 
@@ -1151,6 +1156,60 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
       columnCount: this.columns.length,
       groupingField
     });
+  }
+
+  scheduleRebuildColumnsWithPicklist() {
+    this.cancelScheduledRebuildColumns();
+    if (typeof requestAnimationFrame === "function") {
+      this._rebuildColumnsRafType = "raf";
+      // eslint-disable-next-line @lwc/lwc/no-async-operation
+      this._rebuildColumnsRafId = requestAnimationFrame(() => {
+        this._rebuildColumnsRafId = null;
+        this._rebuildColumnsRafType = null;
+        this.rebuildColumnsWithPicklist();
+      });
+      return;
+    }
+    this._rebuildColumnsRafType = "timeout";
+    // eslint-disable-next-line @lwc/lwc/no-async-operation
+    this._rebuildColumnsRafId = setTimeout(() => {
+      this._rebuildColumnsRafId = null;
+      this._rebuildColumnsRafType = null;
+      this.rebuildColumnsWithPicklist();
+    }, 0);
+  }
+
+  scheduleUserRebuildColumnsWithPicklist() {
+    this.cancelScheduledUserRebuild();
+    // eslint-disable-next-line @lwc/lwc/no-async-operation
+    this._userRebuildTimeoutId = setTimeout(() => {
+      this._userRebuildTimeoutId = null;
+      this.scheduleRebuildColumnsWithPicklist();
+    }, 200);
+  }
+
+  cancelScheduledUserRebuild() {
+    if (!this._userRebuildTimeoutId) {
+      return;
+    }
+    clearTimeout(this._userRebuildTimeoutId);
+    this._userRebuildTimeoutId = null;
+  }
+
+  cancelScheduledRebuildColumns() {
+    if (!this._rebuildColumnsRafId) {
+      return;
+    }
+    if (
+      this._rebuildColumnsRafType === "raf" &&
+      typeof cancelAnimationFrame === "function"
+    ) {
+      cancelAnimationFrame(this._rebuildColumnsRafId);
+    } else {
+      clearTimeout(this._rebuildColumnsRafId);
+    }
+    this._rebuildColumnsRafId = null;
+    this._rebuildColumnsRafType = null;
   }
 
   @api

@@ -4,7 +4,11 @@ import fetchRelatedCardRecords from "@salesforce/apex/LRES_KanbanCardRecordsCont
 import fetchParentlessCardRecords from "@salesforce/apex/LRES_KanbanCardRecordsController.fetchParentlessCardRecords";
 import { updateRecord } from "lightning/uiRecordApi";
 import { buildFilterDefinitions as buildFilterDefinitionsInteractions } from "../boardInteractions";
-import { handleSearchInput as handleSearchInputInteractions } from "../boardInteractions";
+import {
+  handleSearchInput as handleSearchInputInteractions,
+  handleSortDirectionToggle as handleSortDirectionToggleInteractions,
+  handleFilterOptionToggle as handleFilterOptionToggleInteractions
+} from "../boardInteractions";
 import {
   getObjectInfo,
   getPicklistValuesByRecordType
@@ -264,21 +268,61 @@ describe("c-lres-kanban-explorer", () => {
     const component = {
       searchValue: "",
       logDebug: jest.fn(),
-      rebuildColumnsWithPicklist: jest.fn()
+      scheduleRebuildColumnsWithPicklist: jest.fn()
     };
 
     handleSearchInputInteractions(component, { detail: { value: "first" } });
 
     expect(component.searchValue).toBe("");
-    expect(component.rebuildColumnsWithPicklist).not.toHaveBeenCalled();
+    expect(component.scheduleRebuildColumnsWithPicklist).not.toHaveBeenCalled();
 
     handleSearchInputInteractions(component, { detail: { value: "second" } });
-    expect(component.rebuildColumnsWithPicklist).not.toHaveBeenCalled();
+    expect(component.scheduleRebuildColumnsWithPicklist).not.toHaveBeenCalled();
 
     jest.advanceTimersByTime(200);
     expect(component.searchValue).toBe("second");
-    expect(component.rebuildColumnsWithPicklist).toHaveBeenCalledTimes(1);
+    expect(component.scheduleRebuildColumnsWithPicklist).toHaveBeenCalledTimes(
+      1
+    );
     jest.useRealTimers();
+  });
+
+  it("schedules a rebuild when sort direction toggles", () => {
+    const component = {
+      sortDirection: "asc",
+      logDebug: jest.fn(),
+      scheduleUserRebuildColumnsWithPicklist: jest.fn()
+    };
+
+    handleSortDirectionToggleInteractions(component);
+
+    expect(component.sortDirection).toBe("desc");
+    expect(
+      component.scheduleUserRebuildColumnsWithPicklist
+    ).toHaveBeenCalledTimes(1);
+  });
+
+  it("schedules a rebuild when a filter option toggles", () => {
+    const component = {
+      logDebug: jest.fn(),
+      filterDefinitions: [
+        {
+          id: "Status__c",
+          selectedValues: [],
+          options: [{ value: "Open", selected: false }]
+        }
+      ],
+      scheduleUserRebuildColumnsWithPicklist: jest.fn()
+    };
+
+    handleFilterOptionToggleInteractions(component, {
+      detail: { filterId: "Status__c", value: "Open", checked: true }
+    });
+
+    expect(component.filterDefinitions[0].selectedValues).toEqual(["Open"]);
+    expect(
+      component.scheduleUserRebuildColumnsWithPicklist
+    ).toHaveBeenCalledTimes(1);
   });
 
   it("shows inline error when parent object is set without child relationship", async () => {

@@ -2,15 +2,16 @@
 
 ## 0) Implementation instructions (global)
 
-- Only implement one item at a time. Confirm with me that I am happy with your work and happy to start the next item before moving on
-- Before starting to implement an item, re-evaluate the item's plan considering what has actually been implemented for previous items. Based on what you implement for previous items, if there is any part of the current item's plan that you now think could/should change as a result, then call it out. If not, then state as much
-- Always run `npm run test`, `npm run lint`, and `npm run prettier:verify` at the end of each task and verify all tests pass and changes a ready to commit. If any of these fail, then fix them without affecting the tests (eg don't just remove or bypass a test because that is easier, actually fix it)
-- If `npm run lint` fails due to its glob/patterns, run `npx eslint` on the staged/changed files to ensure lint errors are still caught.
-- After running the test/lint/prettier checks, validate a deployment based on tracked changes with `sf project deploy start --source-dir force-app --dry-run`. If validation fails, fix the issues without compromising the intent of the item’s solution
-- Add a small line of text in the board UI with a unique 3-word combo (e.g., `lion-pear-car`) so I can verify I’m on the latest deploy. Each time you edit any code, change this value and tell me to deploy and what the new value is.
-- Once above tests pass, then I will deploy it and test in my org. State how I should test it and what performance improvement I should notice
-- Once I state I am happy with the changes, document what you actually implemented in a "Implemented Solution" section for each item, calling out any differences from the items plan
-- Once I confirm that an item is complete, mark is "Completed", write a short commit message and remind me to commit changes, and then ask if I want to start the next one
+- Work on only one plan item at a time. After finishing an item, wait for my explicit confirmation before starting the next.
+- Before starting an item, re-evaluate its plan in light of what has already been implemented. If any part should change, discuss it with me first; after agreement, record the update in `performance-improvements-plan.md`. If no changes are needed, state that explicitly.
+- Each time you edit code, update the 3-word UI marker (lowercase, hyphenated) in the same location as before, and tell me the new value so I can verify the deploy.
+- Stage files before running any checks or validations.
+- At the end of each item, run: `npm run test`, `npm run lint`, and `npm run prettier:verify`. Fix any failures properly (do not bypass tests).
+- If `npm run lint` fails due to glob/pattern issues, run `npx eslint` on the staged/changed files and fix any lint errors found.
+- After tests/lint/prettier pass, validate a deployment with: `sf project deploy start --source-dir force-app --dry-run`. If validation fails, fix it without changing the item’s intent.
+- Once checks pass, tell me how to test in my org and what performance improvement to expect.
+- After I confirm I’m happy with the changes, add an "Implemented Solution" section under the relevant item in `performance-improvements-plan.md`, noting any deviations from the plan.
+- After I confirm the item is complete, mark it "Completed" at the end of the item title and in the `## Tracking (lightweight)` section, provide a short commit message, remind me to commit, and ask whether to start the next item.
 
 ## Cleanup
 
@@ -18,19 +19,14 @@
 
 ## Tracking (lightweight)
 
-- Item 1: Fully specified
-- Item 2: Fully specified
-- Item 3: Fully specified
+- Item 1: Completed
+- Item 2: Completed
+- Item 3: Completed
 - Item 4: Fully specified
 - Item 5: Fully specified
 - Item 6: Fully specified
 - Item 7: Fully specified
-- Item 8: Pending
-- Item 9: Pending
-
-## Resume prompt
-
-Please continue item 8 (virtualize cards per column) and item 9 (server-side filtering/search/pagination) in performance-improvements-plan.md. For each item, restate the item in plain English, ask if I understand it or want clarifications, then ask one implementation question at a time with an explainer. Keep going until you’re 95% confident.
+- Item 8: Fully specified
 
 ## 1) Item: Skip full filter-definition rebuilds when records are unchanged (Completed)
 
@@ -124,7 +120,7 @@ Use a trailing-only debounce for search updates and wire a single event handler 
 - Replaced the prior debounce with a trailing-only handler that normalizes the search value and only rebuilds after the debounce delay.
 - Updated unit tests for board actions search events and search debounce behavior, plus adjusted search filter test timing to wait for the trailing update.
 
-## 3) Item: Coalesce heavy rebuilds into the next animation frame
+## 3) Item: Coalesce heavy rebuilds into the next animation frame (Completed)
 
 **What it is**
 Batch multiple rebuild triggers into a single `requestAnimationFrame` so the UI can paint before heavy work runs.
@@ -133,7 +129,7 @@ Batch multiple rebuild triggers into a single `requestAnimationFrame` so the UI 
 Rapid UI interactions can trigger repeated rebuilds; coalescing reduces redundant work and improves perceived responsiveness.
 
 **High-level approach**
-Wrap `rebuildColumnsWithPicklist()` calls in a scheduler that queues one rebuild per frame and cancels prior pending requests.
+Wrap `rebuildColumnsWithPicklist()` calls in a scheduler that coalesces user-driven rebuilds with a short trailing debounce (200ms), optionally using `requestAnimationFrame` inside the scheduled callback, and cancels prior pending requests.
 
 **Key components involved**
 
@@ -143,17 +139,26 @@ Wrap `rebuildColumnsWithPicklist()` calls in a scheduler that queues one rebuild
 **Possible strategy**
 
 - Schedule rebuilds in the specific user interaction handlers (search input + filter option toggle), not in `rebuildColumnsWithPicklist()`.
-- Use a single shared RAF scheduler for search + filter toggles, track a pending RAF id on the component and cancel/reschedule as needed.
-- RAF callback uses the latest component state (no captured args).
-- Cancel any pending RAF callback in `disconnectedCallback()`.
+- Use a single shared scheduler for user-driven filter/sort rebuilds with a 200ms trailing debounce, track a pending timeout id on the component and cancel/reschedule as needed.
+- Do not change the search debounce timing or behavior; keep search on its existing debounce.
+- Use `requestAnimationFrame` inside the debounced callback (optional) so the UI can paint before the rebuild.
+- Debounced callback uses the latest component state (no captured args).
+- Cancel any pending debounced callback in `disconnectedCallback()`.
 - Ensure the final state is applied after the last interaction in a burst.
 - Apply RAF coalescing only for user-driven rebuild triggers (search/filter/sort), not data refreshes.
 
 **Risks and edge cases**
 
-- Slight delay (1 frame) before updates appear.
+- Slight delay (200ms + 1 frame) before updates appear.
 - No additional debug logging for RAF scheduling.
 - Tests should assert scheduling is triggered in the correct handlers (via `lresKanbanExplorer` tests), without relying on RAF timing.
+
+### Implemented Solution
+
+- Added a user-interaction scheduler that debounces filter/sort-triggered rebuilds for 200ms, then schedules the rebuild on the next animation frame to coalesce bursts and allow a paint.
+- Routed filter option toggles, clear filters, sort field changes, and sort direction toggles through the user scheduler while keeping search on its existing debounce.
+- Added component cleanup for pending user rebuild scheduling on disconnect.
+- Updated unit tests to assert user rebuild scheduling for sort and filter interactions.
 
 ## 4) Item: Memoize per-record field extraction/display values
 
@@ -330,35 +335,24 @@ Introduce a windowing layer based on scroll position and only render a slice of 
 
 **Possible strategy**
 
-- Track scroll position and compute a visible range + buffer.
-- Render only the visible range and update on scroll.
+- Virtualize per column since each column body is its own vertical scroll container.
+- Measure actual card height per column; include the vertical gap in the row height.
+- Initial render shows first 10 cards to measure height, then switch to windowed rendering.
+- Render a buffer of 5 cards above and below the visible range.
+- Throttle scroll handling via `requestAnimationFrame`.
+- Recompute only on scroll and data changes (no resize handling).
+- Re-measure height when card display configuration changes.
+- Enable virtualization only when total cards in the full dataset exceed a configurable threshold.
+- Add a numeric board config field (saved with the board config) for the threshold.
+  - Label: “Performance Mode Threshold”
+  - Help: “Improve performance by rendering only visible cards when total cards exceed this number. Enter a number from 100 upwards. If left blank the default is 200. Enter 0 to disable performance mode.”
+  - Blank defaults to 200 at runtime; 0 disables; 1–99 silently auto-correct to 100.
+  - Place second from last, above the debug logging checkbox.
+- Keep column counts and summaries based on totals, not the rendered slice.
+- Use spacer elements so scroll height reflects full card count.
+- Keep drag/drop behavior unchanged (column body remains the drop target).
+- Add unit tests for threshold gating, initial measurement/slice, and window range updates.
 
 **Risks and edge cases**
 
 - Drag-and-drop interactions and scroll positioning need careful handling.
-
-## 9) Item: Server-side filtering/search/pagination
-
-**What it is**
-Move filtering/search and paging into Apex so the client handles a smaller dataset.
-
-**Why it matters**
-Large datasets amplify client-side processing; server-side filtering reduces work in the browser.
-
-**High-level approach**
-Extend Apex to accept filter/search inputs and return paged results.
-
-**Key components involved**
-
-- `force-app/main/default/lwc/lresKanbanExplorer/dataModeService.js`
-- `force-app/main/default/lwc/lresKanbanExplorer/lresKanbanExplorer.js`
-- Apex controller (e.g., `LRES_KanbanCardRecordsController`)
-
-**Possible strategy**
-
-- Add filter/search parameters to Apex methods.
-- Implement paging and update the client to request pages.
-
-**Risks and edge cases**
-
-- More complex backend logic and possible changes to filter semantics.

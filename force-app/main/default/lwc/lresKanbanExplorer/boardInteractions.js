@@ -233,7 +233,7 @@ export function handleSortDirectionToggle(component) {
     next: nextDirection
   });
   component.sortDirection = nextDirection;
-  component.rebuildColumnsWithPicklist();
+  scheduleUserRebuild(component);
 }
 
 export function handleClearFilters(component) {
@@ -253,7 +253,7 @@ export function handleClearFilters(component) {
   }));
   component.searchValue = "";
   component.closeFilterMenus();
-  component.rebuildColumnsWithPicklist();
+  scheduleUserRebuild(component);
 }
 
 export function toggleFilterMenu(component, event) {
@@ -303,7 +303,7 @@ export function handleFilterOptionToggle(component, event) {
     isChecked: checked
   });
   updateFilterSelection(component, filterId, value, checked);
-  component.rebuildColumnsWithPicklist();
+  scheduleUserRebuild(component);
 }
 
 export function updateFilterSelection(component, filterId, value, isSelected) {
@@ -444,7 +444,7 @@ export function handleSortOptionChange(component, event) {
       next: value
     });
     component.selectedSortField = value;
-    component.rebuildColumnsWithPicklist();
+    scheduleUserRebuild(component);
   }
   component.closeSortMenu();
 }
@@ -711,6 +711,22 @@ function applyNormalizedSearchValue(component, normalized) {
     next: normalized
   });
   component.searchValue = normalized;
+  scheduleSearchRebuild(component);
+}
+
+function scheduleUserRebuild(component) {
+  if (typeof component.scheduleUserRebuildColumnsWithPicklist === "function") {
+    component.scheduleUserRebuildColumnsWithPicklist();
+    return;
+  }
+  scheduleSearchRebuild(component);
+}
+
+function scheduleSearchRebuild(component) {
+  if (typeof component.scheduleRebuildColumnsWithPicklist === "function") {
+    component.scheduleRebuildColumnsWithPicklist();
+    return;
+  }
   component.rebuildColumnsWithPicklist();
 }
 

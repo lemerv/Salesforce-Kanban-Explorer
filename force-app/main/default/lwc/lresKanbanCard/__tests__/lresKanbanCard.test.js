@@ -196,23 +196,24 @@ describe("c-lres-kanban-card", () => {
   });
 
   describe("Computed Properties and CSS Classes", () => {
-    it("applies is-dragging class when draggedRecordId matches card id", () => {
+    it("adds and removes drag styling class on drag start/end", async () => {
       const element = buildComponent({
         card: { id: "001", title: "Test", details: [] },
-        draggedRecordId: "001"
+        columnKey: "col1"
       });
-
       const article = element.shadowRoot.querySelector("article");
+      const dataTransfer = createDataTransfer();
+      const dragEvent = new CustomEvent("dragstart", {
+        bubbles: true,
+        cancelable: true
+      });
+      dragEvent.dataTransfer = dataTransfer;
+      article.dispatchEvent(dragEvent);
+      await flushPromises();
       expect(article.className).toContain("is-dragging");
-    });
 
-    it("does not apply is-dragging class when draggedRecordId does not match", () => {
-      const element = buildComponent({
-        card: { id: "001", title: "Test", details: [] },
-        draggedRecordId: "002"
-      });
-
-      const article = element.shadowRoot.querySelector("article");
+      const dragEndEvent = new CustomEvent("dragend", { bubbles: true });
+      article.dispatchEvent(dragEndEvent);
       expect(article.className).not.toContain("is-dragging");
     });
 

@@ -5,7 +5,6 @@ export default class KanbanColumn extends LightningElement {
   @api columnSectionStyle;
   @api columnBodyStyle;
   @api showCardFieldLabels = false;
-  @api draggedRecordId;
   @api dragDisabled = false;
   @api activeDropKey;
 

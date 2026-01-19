@@ -4,7 +4,6 @@ export default class KanbanCard extends LightningElement {
   @api card = { details: [] };
   @api columnKey;
   @api showCardFieldLabels = false;
-  @api draggedRecordId;
   @api dragDisabled = false;
 
   get titleIcon() {
@@ -32,11 +31,7 @@ export default class KanbanCard extends LightningElement {
   }
 
   get cardClass() {
-    return `kanban-card${this.isDragging ? " is-dragging" : ""}`;
-  }
-
-  get isDragging() {
-    return this.cardId && this.cardId === this.draggedRecordId;
+    return "kanban-card";
   }
 
   get isDraggable() {
@@ -72,9 +67,12 @@ export default class KanbanCard extends LightningElement {
         composed: true
       })
     );
+    event.currentTarget?.classList.add("is-dragging");
   }
 
   handleDragEnd() {
+    const target = this.template.querySelector("article");
+    target?.classList.remove("is-dragging");
     const recordId = this.cardId;
     if (!recordId) {
       return;

@@ -24,9 +24,10 @@
 - Item 3: Completed
 - Item 4: Completed
 - Item 5: Completed
-- Item 6: Fully specified
+- Item 6: Completed
 - Item 7: Fully specified
 - Item 8: Fully specified
+- Item 9: Fully specified
 
 ## 1) Item: Skip full filter-definition rebuilds when records are unchanged (Completed)
 
@@ -243,7 +244,7 @@ Split summary rendering into two phases: a fast initial render (no summaries or 
 - Skipped placeholder summaries for empty columns and canceled pending summary rebuilds on disconnect.
 - Added unit tests to cover placeholder rendering and summary warning timing after the deferred pass.
 
-## 6) Item: Reduce drag-and-drop UI lag (hover/dragover lifecycle)
+## 6) Item: Reduce drag-and-drop UI lag (hover/dragover lifecycle) (Completed)
 
 **What it is**
 Improve responsiveness of hover, dragover, and drop-target highlighting by reducing event churn and DOM work during drag operations.
@@ -288,6 +289,13 @@ Minimize drag event work during interactions and avoid unnecessary re-renders wh
 
 - Over-throttling can make highlight feedback feel sluggish.
 - Need to ensure final drop target state is always applied.
+
+### Implemented Solution
+
+- Throttled dragover handling at the board container with leading/trailing updates and reset logic on drag end, drop, and board leave.
+- Gated active drop target updates to avoid redundant state changes while keeping dragenter/dragleave immediate.
+- Moved drag-start styling to a local card class toggle and removed dragged-record propagation.
+- Added dragover throttling and card drag styling unit tests.
 
 ## 7) Item: Optimistic drag-and-drop updates with partial refresh
 
@@ -370,3 +378,33 @@ Introduce a windowing layer based on scroll position and only render a slice of 
 **Risks and edge cases**
 
 - Drag-and-drop interactions and scroll positioning need careful handling.
+
+## 9) Item: Review implementation structure for utility extraction
+
+**What it is**
+Review all prior performance items to determine if any logic should be extracted into smaller utilities/helpers for maintainability.
+
+**Why it matters**
+The main component files are growing, and splitting out reusable helpers can improve readability and testability.
+
+**High-level approach**
+After all items are implemented, audit added logic, identify tightly-coupled vs reusable code, and propose refactors.
+
+**Key components involved**
+
+- `force-app/main/default/lwc/lresKanbanExplorer/lresKanbanExplorer.js`
+- `force-app/main/default/lwc/lresKanbanExplorer/boardInteractions.js`
+- `force-app/main/default/lwc/lresKanbanExplorer/columnBuilder.js`
+- Any new helper modules introduced by prior items
+
+**Possible strategy**
+
+- Inventory new logic added in Items 1-8 and cluster by responsibility.
+- Extract utility helpers only where it improves clarity without increasing indirection.
+- Keep stateful/component-bound logic in the component; extract pure or stateless helpers.
+- Update tests to cover any extracted helpers directly.
+- Document any refactor decisions and trade-offs in the plan.
+
+**Risks and edge cases**
+
+- Over-refactoring could obscure the flow of component state changes.

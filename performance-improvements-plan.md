@@ -26,7 +26,7 @@
 - Item 5: Completed
 - Item 6: Completed
 - Item 7: Completed
-- Item 8: Fully specified
+- Item 8: Completed
 - Item 9: Fully specified
 
 ## 1) Item: Skip full filter-definition rebuilds when records are unchanged (Completed)
@@ -344,7 +344,7 @@ Adjust local state on drop, fire the update, then reconcile on success/failure w
 - Kept counts and summaries unchanged during the optimistic phase, with a full refresh after a successful update.
 - Added tests for optimistic move, saving state, and rollback behavior.
 
-## 8) Item: Virtualize cards per column (windowing)
+## 8) Item: Virtualize cards per column (windowing) (Completed)
 
 **What it is**
 Render only visible cards per column with a small buffer; avoid rendering all cards at once.
@@ -386,6 +386,14 @@ Introduce a windowing layer based on scroll position and only render a slice of 
 **Risks and edge cases**
 
 - Drag-and-drop interactions and scroll positioning need careful handling.
+
+### Implemented Solution
+
+- Added a performance-mode threshold setting to enable/disable per-column virtualization (default 200, 0 disables).
+- Implemented windowed card rendering with spacer rows and row-height measurement in the column component.
+- Throttled scroll handling via `requestAnimationFrame` to update the visible slice.
+- Kept counts/summaries based on full totals and left drag/drop behavior unchanged.
+- Added tests for threshold gating, initial measurement slice, and window updates.
 
 ## 9) Item: Review implementation structure for utility extraction
 

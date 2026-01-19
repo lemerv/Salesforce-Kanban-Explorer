@@ -416,6 +416,45 @@ describe("c-lres-kanban-explorer", () => {
     expect(fetchRelatedCardRecords.mock.calls.length).toBeGreaterThanOrEqual(2);
   });
 
+  it("enables virtualization when total cards exceed the threshold", async () => {
+    const manyRecords = Array.from({ length: 120 }, (_, index) =>
+      buildWireRecord({
+        id: `00${index}`,
+        fields: {
+          "Opportunity.Id": { value: `00${index}` },
+          "Opportunity.Status__c": { value: "Open", displayValue: "Open" },
+          "Opportunity.Name": {
+            value: `Deal ${index}`,
+            displayValue: `Deal ${index}`
+          }
+        }
+      })
+    );
+    fetchRelatedCardRecords.mockResolvedValue(manyRecords);
+    const element = buildComponent();
+    element.performanceModeThreshold = 100;
+    emitMetadata();
+    await settleComponent(2);
+
+    const container = element.shadowRoot.querySelector(
+      "c-lres-kanban-board-container"
+    );
+    expect(container.enableVirtualization).toBe(true);
+  });
+
+  it("disables virtualization when the threshold is zero", async () => {
+    fetchRelatedCardRecords.mockResolvedValue(baseApexRecords);
+    const element = buildComponent();
+    element.performanceModeThreshold = 0;
+    emitMetadata();
+    await settleComponent(2);
+
+    const container = element.shadowRoot.querySelector(
+      "c-lres-kanban-board-container"
+    );
+    expect(container.enableVirtualization).toBe(false);
+  });
+
   it("reverts the optimistic move when the update fails", async () => {
     fetchRelatedCardRecords.mockResolvedValue(baseApexRecords);
     const element = buildComponent();

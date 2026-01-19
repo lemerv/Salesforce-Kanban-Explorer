@@ -115,6 +115,32 @@ import KanbanRecordModal from "c/lresKanbanRecordModal";
 const DEFAULT_EMPTY_LABEL = "No Value";
 const MASTER_RECORD_TYPE_ID = "012000000000000AAA";
 const SUPPORTED_GROUPING_FIELD_TYPES = new Set(["picklist", "string"]);
+const PERFORMANCE_MODE_DEFAULT_THRESHOLD = 200;
+const PERFORMANCE_MODE_MIN_THRESHOLD = 100;
+
+function normalizePerformanceModeThreshold(value) {
+  if (value === null || value === undefined || value === "") {
+    return null;
+  }
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) {
+    return null;
+  }
+  if (parsed === 0) {
+    return 0;
+  }
+  if (parsed > 0 && parsed < PERFORMANCE_MODE_MIN_THRESHOLD) {
+    return PERFORMANCE_MODE_MIN_THRESHOLD;
+  }
+  return Math.floor(parsed);
+}
+
+function resolvePerformanceModeThreshold(value) {
+  if (value === null || value === undefined) {
+    return PERFORMANCE_MODE_DEFAULT_THRESHOLD;
+  }
+  return value;
+}
 
 export default class KanbanExplorer extends NavigationMixin(LightningElement) {
   _contextRecordId;
@@ -132,6 +158,7 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
   _filterFieldApiNames = "";
   _searchFieldApiNames = "";
   _cardRecordsLimit = 200;
+  _performanceModeThreshold = null;
   _parentRecordsLimit = 100;
   _boardTitle;
   _emptyGroupLabel;
@@ -369,6 +396,34 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
       next: parsed
     });
     this._cardRecordsLimit = parsed;
+    this.handleConfigChange();
+  }
+
+  /**
+   * Threshold at which performance mode (virtualized cards) activates.
+   *
+   * @returns {number|null} Null when unset, 0 when disabled, or a positive integer.
+   */
+  @api
+  get performanceModeThreshold() {
+    return this._performanceModeThreshold;
+  }
+
+  /**
+   * Sets the threshold for enabling card virtualization.
+   *
+   * @param {number|string|null} value Threshold value, blank for default.
+   */
+  set performanceModeThreshold(value) {
+    const normalized = normalizePerformanceModeThreshold(value);
+    if (normalized === this._performanceModeThreshold) {
+      return;
+    }
+    this.logDebug("performanceModeThreshold changed.", {
+      previous: this._performanceModeThreshold,
+      next: normalized
+    });
+    this._performanceModeThreshold = normalized;
     this.handleConfigChange();
   }
 
@@ -2348,6 +2403,29 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
 
   formatError(error) {
     return formatErrorLogger(this, error);
+  }
+
+  get effectivePerformanceModeThreshold() {
+    return resolvePerformanceModeThreshold(this._performanceModeThreshold);
+  }
+
+  get enableVirtualization() {
+    if (this._performanceModeThreshold === 0) {
+      return false;
+    }
+    const threshold = this.effectivePerformanceModeThreshold;
+    if (!threshold) {
+      return false;
+    }
+    const totalCards = this.relatedRecords?.length || 0;
+    return totalCards > threshold;
+  }
+
+  get cardDisplayConfigKey() {
+    const fieldsKey = (this.cardFieldsQualified || []).join(",");
+    return `${fieldsKey}|${this.showCardFieldLabels ? 1 : 0}|${
+      this.shouldDisplayParentReferenceOnCards ? 1 : 0
+    }|${this.parentBadgeLabel || ""}`;
   }
 
   get showEmptyState() {

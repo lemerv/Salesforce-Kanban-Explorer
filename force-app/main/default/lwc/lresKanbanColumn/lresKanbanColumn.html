@@ -34,8 +34,11 @@
         </div>
       </template>
     </header>
-    <div class={bodyClass} style={columnBodyStyle}>
-      <template for:each={columnRecords} for:item="card">
+    <div class={bodyClass} style={columnBodyStyle} onscroll={handleBodyScroll}>
+      <template if:true={isWindowed}>
+        <div class="kanban-column_spacer" style={topSpacerStyle}></div>
+      </template>
+      <template for:each={visibleRecords} for:item="card">
         <c-lres-kanban-card
           key={card.id}
           card={card}
@@ -44,6 +47,9 @@
           drag-disabled={dragDisabled}
           oncardopenexternallink={handleCardExternalLink}
         ></c-lres-kanban-card>
+      </template>
+      <template if:true={isWindowed}>
+        <div class="kanban-column_spacer" style={bottomSpacerStyle}></div>
       </template>
     </div>
   </section>

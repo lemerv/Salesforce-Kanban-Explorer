@@ -96,3 +96,7 @@
   flex-direction: column;
   gap: 0.75rem;
 }
+
+.kanban-column_spacer {
+  flex: 0 0 auto;
+}

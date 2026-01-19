@@ -1,6 +1,6 @@
 <template>
   <lightning-card title={resolvedBoardTitle} icon-name="standard:kanban">
-    <div class="kanban-version">copper-forest-dusk</div>
+    <div class="kanban-version">ember-sage-falcon</div>
     <template if:true={actionsAvailable}>
       <c-lres-kanban-board-actions
         slot="actions"
@@ -54,6 +54,8 @@
       error-message={errorMessage}
       warning-message={warningMessage}
       show-empty-state={showEmptyState}
+      enable-virtualization={enableVirtualization}
+      card-display-config-key={cardDisplayConfigKey}
       oncolumndrop={handleColumnDrop}
       oncardtitleclick={handleTitleClick}
       oncardopenexternallink={handleExternalOpen}

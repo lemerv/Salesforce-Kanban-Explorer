@@ -1,5 +1,6 @@
 :host {
-  display: contents;
+  display: block;
+  width: 100%;
 }
 
 .kanban-card {

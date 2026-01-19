@@ -13,6 +13,8 @@ export default class KanbanBoardContainer extends LightningElement {
   _warningMessage;
   _showEmptyState = false;
   _boardHeight;
+  _enableVirtualization = false;
+  _cardDisplayConfigKey;
 
   activeDropColumnKey = null;
   lastDragOverColumnKey = null;
@@ -76,6 +78,24 @@ export default class KanbanBoardContainer extends LightningElement {
 
   set showEmptyState(value) {
     this._showEmptyState = normalizeBoolean(value);
+  }
+
+  @api
+  get enableVirtualization() {
+    return this._enableVirtualization;
+  }
+
+  set enableVirtualization(value) {
+    this._enableVirtualization = normalizeBoolean(value);
+  }
+
+  @api
+  get cardDisplayConfigKey() {
+    return this._cardDisplayConfigKey;
+  }
+
+  set cardDisplayConfigKey(value) {
+    this._cardDisplayConfigKey = value;
   }
 
   @api

@@ -1,0 +1,1504 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef1"
+      },
+      "Name": "Enterprise Software License Deal",
+      "CloseDate": "2026-12-01",
+      "StageName": "Negotiation/Review",
+      "Amount": 352696,
+      "AccountId": "@AccountRef5",
+      "LeadSource": "Trade Show",
+      "Probability": 85,
+      "Type": "New Business",
+      "Description": "Generated opportunity 1 with 352696 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef2"
+      },
+      "Name": "Cloud Migration Project",
+      "CloseDate": "2026-12-16",
+      "StageName": "Closed Won",
+      "Amount": 242500,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Cold Call",
+      "Probability": 100,
+      "Type": "Support",
+      "Description": "Generated opportunity 2 with 242500 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef3"
+      },
+      "Name": "Professional Services Contract",
+      "CloseDate": "2026-12-28",
+      "StageName": "Qualification",
+      "Amount": 45600,
+      "AccountId": "@AccountRef6",
+      "LeadSource": "Public Relations",
+      "Probability": 32,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 3 with 45600 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef4"
+      },
+      "Name": "Annual Support Renewal",
+      "CloseDate": "2026-08-30",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 87453,
+      "AccountId": "@AccountRef9",
+      "LeadSource": "Existing Customer",
+      "Probability": 61,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 4 with 87453 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef5"
+      },
+      "Name": "Custom Development Engagement",
+      "CloseDate": "2026-07-23",
+      "StageName": "Closed Lost",
+      "Amount": 101396,
+      "AccountId": "@AccountRef7",
+      "LeadSource": "Existing Customer",
+      "Probability": 0,
+      "Type": "New Business",
+      "Description": "Generated opportunity 5 with 101396 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef6"
+      },
+      "Name": "Training and Certification Package",
+      "CloseDate": "2026-05-04",
+      "StageName": "Closed Lost",
+      "Amount": 83051,
+      "AccountId": "@AccountRef4",
+      "LeadSource": "Conference",
+      "Probability": 0,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 6 with 83051 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef7"
+      },
+      "Name": "Strategic Partnership Agreement",
+      "CloseDate": "2026-06-09",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 321949,
+      "AccountId": "@AccountRef5",
+      "LeadSource": "Conference",
+      "Probability": 62,
+      "Type": "New Business",
+      "Description": "Generated opportunity 7 with 321949 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef8"
+      },
+      "Name": "Technology Infrastructure Upgrade",
+      "CloseDate": "2026-06-22",
+      "StageName": "Value Proposition",
+      "Amount": 327404,
+      "AccountId": "@AccountRef7",
+      "LeadSource": "Cold Call",
+      "Probability": 49,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 8 with 327404 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef9"
+      },
+      "Name": "Digital Transformation Initiative",
+      "CloseDate": "2027-01-07",
+      "StageName": "Prospecting",
+      "Amount": 41330,
+      "AccountId": "@AccountRef8",
+      "LeadSource": "Existing Customer",
+      "Probability": 11,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 9 with 41330 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef10"
+      },
+      "Name": "Business Process Automation",
+      "CloseDate": "2026-05-03",
+      "StageName": "Prospecting",
+      "Amount": 437358,
+      "AccountId": "@AccountRef8",
+      "LeadSource": "Conference",
+      "Probability": 12,
+      "Type": "Support",
+      "Description": "Generated opportunity 10 with 437358 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef11"
+      },
+      "Name": "Data Analytics Platform",
+      "CloseDate": "2026-08-12",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 108588,
+      "AccountId": "@AccountRef9",
+      "LeadSource": "Website",
+      "Probability": 68,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 11 with 108588 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef12"
+      },
+      "Name": "Customer Relationship Management Implementation",
+      "CloseDate": "2026-10-06",
+      "StageName": "Closed Won",
+      "Amount": 86634,
+      "AccountId": "@AccountRef1",
+      "LeadSource": "Phone",
+      "Probability": 100,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 12 with 86634 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef13"
+      },
+      "Name": "Mobile Application Development",
+      "CloseDate": "2026-06-28",
+      "StageName": "Needs Analysis",
+      "Amount": 374750,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Conference",
+      "Probability": 34,
+      "Type": "Support",
+      "Description": "Generated opportunity 13 with 374750 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef14"
+      },
+      "Name": "Integration Services",
+      "CloseDate": "2026-05-28",
+      "StageName": "Prospecting",
+      "Amount": 468537,
+      "AccountId": "@AccountRef3",
+      "LeadSource": "Web",
+      "Probability": 7,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 14 with 468537 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef15"
+      },
+      "Name": "Security Assessment and Remediation",
+      "CloseDate": "2026-11-13",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 143653,
+      "AccountId": "@AccountRef9",
+      "LeadSource": "Cold Call",
+      "Probability": 65,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 15 with 143653 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef16"
+      },
+      "Name": "Compliance Consulting Project",
+      "CloseDate": "2026-10-03",
+      "StageName": "Needs Analysis",
+      "Amount": 473596,
+      "AccountId": "@AccountRef7",
+      "LeadSource": "Cold Call",
+      "Probability": 37,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 16 with 473596 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef17"
+      },
+      "Name": "Performance Optimization Engagement",
+      "CloseDate": "2026-10-08",
+      "StageName": "Needs Analysis",
+      "Amount": 307816,
+      "AccountId": "@AccountRef8",
+      "LeadSource": "Partner Referral",
+      "Probability": 25,
+      "Type": "Support",
+      "Description": "Generated opportunity 17 with 307816 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef18"
+      },
+      "Name": "Staff Augmentation Contract",
+      "CloseDate": "2026-08-12",
+      "StageName": "Negotiation/Review",
+      "Amount": 176865,
+      "AccountId": "@AccountRef10",
+      "LeadSource": "Conference",
+      "Probability": 87,
+      "Type": "Support",
+      "Description": "Generated opportunity 18 with 176865 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef19"
+      },
+      "Name": "Managed Services Agreement",
+      "CloseDate": "2026-09-06",
+      "StageName": "Prospecting",
+      "Amount": 61786,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Trade Show",
+      "Probability": 13,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 19 with 61786 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef20"
+      },
+      "Name": "Hardware Refresh Program",
+      "CloseDate": "2027-01-29",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 13808,
+      "AccountId": "@AccountRef4",
+      "LeadSource": "Existing Customer",
+      "Probability": 70,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 20 with 13808 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef21"
+      },
+      "Name": "Network Infrastructure Expansion",
+      "CloseDate": "2026-10-28",
+      "StageName": "Closed Lost",
+      "Amount": 155390,
+      "AccountId": "@AccountRef9",
+      "LeadSource": "Website",
+      "Probability": 0,
+      "Type": "Support",
+      "Description": "Generated opportunity 21 with 155390 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef22"
+      },
+      "Name": "Disaster Recovery Planning",
+      "CloseDate": "2026-06-26",
+      "StageName": "Closed Lost",
+      "Amount": 410750,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Public Relations",
+      "Probability": 0,
+      "Type": "Other",
+      "Description": "Generated opportunity 22 with 410750 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef23"
+      },
+      "Name": "Business Continuity Services",
+      "CloseDate": "2026-08-23",
+      "StageName": "Value Proposition",
+      "Amount": 394556,
+      "AccountId": "@AccountRef4",
+      "LeadSource": "Cold Call",
+      "Probability": 59,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 23 with 394556 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef24"
+      },
+      "Name": "Cybersecurity Protection Package",
+      "CloseDate": "2026-07-24",
+      "StageName": "Closed Won",
+      "Amount": 130838,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Conference",
+      "Probability": 100,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 24 with 130838 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef25"
+      },
+      "Name": "AI Implementation Project",
+      "CloseDate": "2026-04-22",
+      "StageName": "Value Proposition",
+      "Amount": 129082,
+      "AccountId": "@AccountRef5",
+      "LeadSource": "Employee Referral",
+      "Probability": 52,
+      "Type": "New Business",
+      "Description": "Generated opportunity 25 with 129082 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef26"
+      },
+      "Name": "Machine Learning Solution",
+      "CloseDate": "2026-08-26",
+      "StageName": "Prospecting",
+      "Amount": 73566,
+      "AccountId": "@AccountRef8",
+      "LeadSource": "Employee Referral",
+      "Probability": 5,
+      "Type": "Other",
+      "Description": "Generated opportunity 26 with 73566 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef27"
+      },
+      "Name": "Predictive Analytics Platform",
+      "CloseDate": "2026-04-08",
+      "StageName": "Closed Lost",
+      "Amount": 433287,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Public Relations",
+      "Probability": 0,
+      "Type": "Other",
+      "Description": "Generated opportunity 27 with 433287 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef28"
+      },
+      "Name": "Business Intelligence Dashboard",
+      "CloseDate": "2026-04-04",
+      "StageName": "Value Proposition",
+      "Amount": 125739,
+      "AccountId": "@AccountRef7",
+      "LeadSource": "Public Relations",
+      "Probability": 59,
+      "Type": "New Business",
+      "Description": "Generated opportunity 28 with 125739 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef29"
+      },
+      "Name": "Reporting and Analytics Suite",
+      "CloseDate": "2026-09-03",
+      "StageName": "Qualification",
+      "Amount": 287292,
+      "AccountId": "@AccountRef8",
+      "LeadSource": "Public Relations",
+      "Probability": 30,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 29 with 287292 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef30"
+      },
+      "Name": "Data Warehouse Modernization",
+      "CloseDate": "2027-01-31",
+      "StageName": "Closed Lost",
+      "Amount": 32889,
+      "AccountId": "@AccountRef9",
+      "LeadSource": "Trade Show",
+      "Probability": 0,
+      "Type": "New Business",
+      "Description": "Generated opportunity 30 with 32889 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef31"
+      },
+      "Name": "API Development and Integration",
+      "CloseDate": "2026-08-12",
+      "StageName": "Negotiation/Review",
+      "Amount": 1609,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Cold Call",
+      "Probability": 89,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 31 with 1609 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef32"
+      },
+      "Name": "Custom Application Build",
+      "CloseDate": "2026-06-02",
+      "StageName": "Negotiation/Review",
+      "Amount": 204277,
+      "AccountId": "@AccountRef10",
+      "LeadSource": "Phone",
+      "Probability": 89,
+      "Type": "New Business",
+      "Description": "Generated opportunity 32 with 204277 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef33"
+      },
+      "Name": "Legacy System Migration",
+      "CloseDate": "2026-12-17",
+      "StageName": "Prospecting",
+      "Amount": 183792,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Public Relations",
+      "Probability": 13,
+      "Type": "New Business",
+      "Description": "Generated opportunity 33 with 183792 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef34"
+      },
+      "Name": "User Experience Redesign",
+      "CloseDate": "2026-05-26",
+      "StageName": "Closed Lost",
+      "Amount": 407594,
+      "AccountId": "@AccountRef9",
+      "LeadSource": "Trade Show",
+      "Probability": 0,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 34 with 407594 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef35"
+      },
+      "Name": "Customer Portal Enhancement",
+      "CloseDate": "2026-10-10",
+      "StageName": "Closed Lost",
+      "Amount": 15801,
+      "AccountId": "@AccountRef5",
+      "LeadSource": "Web",
+      "Probability": 0,
+      "Type": "Other",
+      "Description": "Generated opportunity 35 with 15801 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef36"
+      },
+      "Name": "Sales Force Automation",
+      "CloseDate": "2026-04-07",
+      "StageName": "Closed Lost",
+      "Amount": 236315,
+      "AccountId": "@AccountRef1",
+      "LeadSource": "Cold Call",
+      "Probability": 0,
+      "Type": "Support",
+      "Description": "Generated opportunity 36 with 236315 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef37"
+      },
+      "Name": "Marketing Automation Platform",
+      "CloseDate": "2026-09-18",
+      "StageName": "Closed Lost",
+      "Amount": 95634,
+      "AccountId": "@AccountRef5",
+      "LeadSource": "Existing Customer",
+      "Probability": 0,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 37 with 95634 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef38"
+      },
+      "Name": "Lead Generation System",
+      "CloseDate": "2026-10-16",
+      "StageName": "Value Proposition",
+      "Amount": 32256,
+      "AccountId": "@AccountRef1",
+      "LeadSource": "Employee Referral",
+      "Probability": 54,
+      "Type": "Support",
+      "Description": "Generated opportunity 38 with 32256 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef39"
+      },
+      "Name": "Customer Data Platform",
+      "CloseDate": "2026-09-01",
+      "StageName": "Needs Analysis",
+      "Amount": 352182,
+      "AccountId": "@AccountRef3",
+      "LeadSource": "Conference",
+      "Probability": 28,
+      "Type": "Other",
+      "Description": "Generated opportunity 39 with 352182 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef40"
+      },
+      "Name": "Marketing Technology Stack",
+      "CloseDate": "2026-05-25",
+      "StageName": "Value Proposition",
+      "Amount": 221021,
+      "AccountId": "@AccountRef5",
+      "LeadSource": "Web",
+      "Probability": 48,
+      "Type": "Other",
+      "Description": "Generated opportunity 40 with 221021 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef41"
+      },
+      "Name": "Customer Journey Mapping",
+      "CloseDate": "2026-11-08",
+      "StageName": "Closed Won",
+      "Amount": 474580,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Partner Referral",
+      "Probability": 100,
+      "Type": "Support",
+      "Description": "Generated opportunity 41 with 474580 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef42"
+      },
+      "Name": "Personalization Engine",
+      "CloseDate": "2026-05-15",
+      "StageName": "Prospecting",
+      "Amount": 365268,
+      "AccountId": "@AccountRef3",
+      "LeadSource": "Website",
+      "Probability": 14,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 42 with 365268 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef43"
+      },
+      "Name": "Content Management System",
+      "CloseDate": "2026-11-16",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 72387,
+      "AccountId": "@AccountRef1",
+      "LeadSource": "Public Relations",
+      "Probability": 66,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 43 with 72387 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef44"
+      },
+      "Name": "Digital Asset Management",
+      "CloseDate": "2026-10-07",
+      "StageName": "Closed Lost",
+      "Amount": 81639,
+      "AccountId": "@AccountRef10",
+      "LeadSource": "Phone",
+      "Probability": 0,
+      "Type": "Other",
+      "Description": "Generated opportunity 44 with 81639 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef45"
+      },
+      "Name": "Web Experience Platform",
+      "CloseDate": "2026-06-07",
+      "StageName": "Closed Won",
+      "Amount": 182817,
+      "AccountId": "@AccountRef4",
+      "LeadSource": "Public Relations",
+      "Probability": 100,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 45 with 182817 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef46"
+      },
+      "Name": "E-commerce Solution",
+      "CloseDate": "2026-11-16",
+      "StageName": "Negotiation/Review",
+      "Amount": 406568,
+      "AccountId": "@AccountRef4",
+      "LeadSource": "Phone",
+      "Probability": 91,
+      "Type": "Other",
+      "Description": "Generated opportunity 46 with 406568 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef47"
+      },
+      "Name": "Mobile Commerce Platform",
+      "CloseDate": "2026-09-25",
+      "StageName": "Needs Analysis",
+      "Amount": 118737,
+      "AccountId": "@AccountRef8",
+      "LeadSource": "Partner Referral",
+      "Probability": 37,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 47 with 118737 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef48"
+      },
+      "Name": "Payment Processing System",
+      "CloseDate": "2026-06-17",
+      "StageName": "Closed Lost",
+      "Amount": 258753,
+      "AccountId": "@AccountRef9",
+      "LeadSource": "Employee Referral",
+      "Probability": 0,
+      "Type": "New Business",
+      "Description": "Generated opportunity 48 with 258753 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef49"
+      },
+      "Name": "Supply Chain Management",
+      "CloseDate": "2027-01-31",
+      "StageName": "Prospecting",
+      "Amount": 55556,
+      "AccountId": "@AccountRef7",
+      "LeadSource": "Trade Show",
+      "Probability": 14,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 49 with 55556 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef50"
+      },
+      "Name": "Inventory Optimization",
+      "CloseDate": "2026-05-12",
+      "StageName": "Negotiation/Review",
+      "Amount": 75169,
+      "AccountId": "@AccountRef7",
+      "LeadSource": "Conference",
+      "Probability": 88,
+      "Type": "New Business",
+      "Description": "Generated opportunity 50 with 75169 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef51"
+      },
+      "Name": "Logistics and Tracking System",
+      "CloseDate": "2026-04-22",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 388334,
+      "AccountId": "@AccountRef4",
+      "LeadSource": "Trade Show",
+      "Probability": 76,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 51 with 388334 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef52"
+      },
+      "Name": "Warehouse Management Solution",
+      "CloseDate": "2026-06-21",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 30104,
+      "AccountId": "@AccountRef7",
+      "LeadSource": "Cold Call",
+      "Probability": 61,
+      "Type": "New Business",
+      "Description": "Generated opportunity 52 with 30104 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef53"
+      },
+      "Name": "Distribution Network Software",
+      "CloseDate": "2026-07-14",
+      "StageName": "Qualification",
+      "Amount": 232845,
+      "AccountId": "@AccountRef9",
+      "LeadSource": "Website",
+      "Probability": 27,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 53 with 232845 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef54"
+      },
+      "Name": "Procurement Automation",
+      "CloseDate": "2026-11-05",
+      "StageName": "Qualification",
+      "Amount": 242639,
+      "AccountId": "@AccountRef8",
+      "LeadSource": "Employee Referral",
+      "Probability": 24,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 54 with 242639 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef55"
+      },
+      "Name": "Financial Management System",
+      "CloseDate": "2026-08-26",
+      "StageName": "Prospecting",
+      "Amount": 367073,
+      "AccountId": "@AccountRef5",
+      "LeadSource": "Web",
+      "Probability": 9,
+      "Type": "Support",
+      "Description": "Generated opportunity 55 with 367073 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef56"
+      },
+      "Name": "Budget Planning Tool",
+      "CloseDate": "2026-10-26",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 163816,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Existing Customer",
+      "Probability": 60,
+      "Type": "New Business",
+      "Description": "Generated opportunity 56 with 163816 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef57"
+      },
+      "Name": "Expense Management Platform",
+      "CloseDate": "2026-06-28",
+      "StageName": "Negotiation/Review",
+      "Amount": 379385,
+      "AccountId": "@AccountRef9",
+      "LeadSource": "Conference",
+      "Probability": 92,
+      "Type": "Support",
+      "Description": "Generated opportunity 57 with 379385 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef58"
+      },
+      "Name": "Invoice Processing System",
+      "CloseDate": "2026-04-15",
+      "StageName": "Value Proposition",
+      "Amount": 321120,
+      "AccountId": "@AccountRef4",
+      "LeadSource": "Public Relations",
+      "Probability": 44,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 58 with 321120 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef59"
+      },
+      "Name": "Revenue Recognition Software",
+      "CloseDate": "2026-10-15",
+      "StageName": "Closed Won",
+      "Amount": 145884,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Website",
+      "Probability": 100,
+      "Type": "Other",
+      "Description": "Generated opportunity 59 with 145884 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef60"
+      },
+      "Name": "Financial Reporting Suite",
+      "CloseDate": "2026-12-25",
+      "StageName": "Prospecting",
+      "Amount": 43299,
+      "AccountId": "@AccountRef9",
+      "LeadSource": "Public Relations",
+      "Probability": 9,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 60 with 43299 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef61"
+      },
+      "Name": "Human Resources Information System",
+      "CloseDate": "2026-08-11",
+      "StageName": "Prospecting",
+      "Amount": 273929,
+      "AccountId": "@AccountRef7",
+      "LeadSource": "Employee Referral",
+      "Probability": 12,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 61 with 273929 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef62"
+      },
+      "Name": "Talent Management Platform",
+      "CloseDate": "2026-09-13",
+      "StageName": "Value Proposition",
+      "Amount": 250911,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Employee Referral",
+      "Probability": 60,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 62 with 250911 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef63"
+      },
+      "Name": "Performance Management System",
+      "CloseDate": "2026-05-13",
+      "StageName": "Closed Lost",
+      "Amount": 242145,
+      "AccountId": "@AccountRef10",
+      "LeadSource": "Partner Referral",
+      "Probability": 0,
+      "Type": "Other",
+      "Description": "Generated opportunity 63 with 242145 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef64"
+      },
+      "Name": "Learning Management System",
+      "CloseDate": "2027-01-15",
+      "StageName": "Prospecting",
+      "Amount": 16618,
+      "AccountId": "@AccountRef10",
+      "LeadSource": "Phone",
+      "Probability": 6,
+      "Type": "New Business",
+      "Description": "Generated opportunity 64 with 16618 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef65"
+      },
+      "Name": "Employee Engagement Platform",
+      "CloseDate": "2026-04-12",
+      "StageName": "Value Proposition",
+      "Amount": 294030,
+      "AccountId": "@AccountRef8",
+      "LeadSource": "Partner Referral",
+      "Probability": 59,
+      "Type": "New Business",
+      "Description": "Generated opportunity 65 with 294030 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef66"
+      },
+      "Name": "Workforce Analytics",
+      "CloseDate": "2027-01-26",
+      "StageName": "Closed Won",
+      "Amount": 388327,
+      "AccountId": "@AccountRef4",
+      "LeadSource": "Public Relations",
+      "Probability": 100,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 66 with 388327 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef67"
+      },
+      "Name": "Payroll Processing System",
+      "CloseDate": "2026-06-01",
+      "StageName": "Closed Lost",
+      "Amount": 402267,
+      "AccountId": "@AccountRef3",
+      "LeadSource": "Public Relations",
+      "Probability": 0,
+      "Type": "Support",
+      "Description": "Generated opportunity 67 with 402267 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef68"
+      },
+      "Name": "Benefits Administration",
+      "CloseDate": "2027-01-16",
+      "StageName": "Closed Won",
+      "Amount": 371030,
+      "AccountId": "@AccountRef5",
+      "LeadSource": "Phone",
+      "Probability": 100,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 68 with 371030 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef69"
+      },
+      "Name": "Time and Attendance Tracking",
+      "CloseDate": "2026-12-23",
+      "StageName": "Closed Won",
+      "Amount": 43941,
+      "AccountId": "@AccountRef1",
+      "LeadSource": "Partner Referral",
+      "Probability": 100,
+      "Type": "Other",
+      "Description": "Generated opportunity 69 with 43941 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef70"
+      },
+      "Name": "Project Management Solution",
+      "CloseDate": "2026-04-30",
+      "StageName": "Prospecting",
+      "Amount": 99642,
+      "AccountId": "@AccountRef1",
+      "LeadSource": "Employee Referral",
+      "Probability": 11,
+      "Type": "Other",
+      "Description": "Generated opportunity 70 with 99642 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef71"
+      },
+      "Name": "Resource Planning Tool",
+      "CloseDate": "2027-01-19",
+      "StageName": "Closed Lost",
+      "Amount": 395324,
+      "AccountId": "@AccountRef4",
+      "LeadSource": "Conference",
+      "Probability": 0,
+      "Type": "Other",
+      "Description": "Generated opportunity 71 with 395324 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef72"
+      },
+      "Name": "Portfolio Management Platform",
+      "CloseDate": "2027-01-04",
+      "StageName": "Closed Won",
+      "Amount": 32767,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Conference",
+      "Probability": 100,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 72 with 32767 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef73"
+      },
+      "Name": "Task Management System",
+      "CloseDate": "2026-11-19",
+      "StageName": "Value Proposition",
+      "Amount": 127904,
+      "AccountId": "@AccountRef6",
+      "LeadSource": "Existing Customer",
+      "Probability": 51,
+      "Type": "Support",
+      "Description": "Generated opportunity 73 with 127904 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef74"
+      },
+      "Name": "Collaboration Platform",
+      "CloseDate": "2026-12-06",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 417499,
+      "AccountId": "@AccountRef3",
+      "LeadSource": "Public Relations",
+      "Probability": 68,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 74 with 417499 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef75"
+      },
+      "Name": "Document Management System",
+      "CloseDate": "2026-12-27",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 357737,
+      "AccountId": "@AccountRef6",
+      "LeadSource": "Cold Call",
+      "Probability": 69,
+      "Type": "Other",
+      "Description": "Generated opportunity 75 with 357737 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef76"
+      },
+      "Name": "Contract Management Software",
+      "CloseDate": "2026-12-29",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 302808,
+      "AccountId": "@AccountRef1",
+      "LeadSource": "Employee Referral",
+      "Probability": 71,
+      "Type": "Support",
+      "Description": "Generated opportunity 76 with 302808 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef77"
+      },
+      "Name": "Legal Matter Tracking",
+      "CloseDate": "2027-02-03",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 411065,
+      "AccountId": "@AccountRef5",
+      "LeadSource": "Employee Referral",
+      "Probability": 67,
+      "Type": "New Business",
+      "Description": "Generated opportunity 77 with 411065 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef78"
+      },
+      "Name": "Compliance Management System",
+      "CloseDate": "2026-07-22",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 242756,
+      "AccountId": "@AccountRef4",
+      "LeadSource": "Conference",
+      "Probability": 74,
+      "Type": "Other",
+      "Description": "Generated opportunity 78 with 242756 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef79"
+      },
+      "Name": "Risk Management Platform",
+      "CloseDate": "2027-01-28",
+      "StageName": "Closed Lost",
+      "Amount": 329309,
+      "AccountId": "@AccountRef3",
+      "LeadSource": "Employee Referral",
+      "Probability": 0,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 79 with 329309 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef80"
+      },
+      "Name": "Audit and Assessment Tool",
+      "CloseDate": "2026-07-27",
+      "StageName": "Negotiation/Review",
+      "Amount": 70793,
+      "AccountId": "@AccountRef1",
+      "LeadSource": "Conference",
+      "Probability": 85,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 80 with 70793 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef81"
+      },
+      "Name": "Policy Management System",
+      "CloseDate": "2026-07-03",
+      "StageName": "Needs Analysis",
+      "Amount": 6278,
+      "AccountId": "@AccountRef9",
+      "LeadSource": "Employee Referral",
+      "Probability": 30,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 81 with 6278 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef82"
+      },
+      "Name": "Quality Management Solution",
+      "CloseDate": "2026-08-13",
+      "StageName": "Closed Lost",
+      "Amount": 97766,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Conference",
+      "Probability": 0,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 82 with 97766 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef83"
+      },
+      "Name": "Testing and Validation Platform",
+      "CloseDate": "2026-08-30",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 491429,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Website",
+      "Probability": 70,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 83 with 491429 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef84"
+      },
+      "Name": "Inspection Management System",
+      "CloseDate": "2026-08-10",
+      "StageName": "Closed Won",
+      "Amount": 110541,
+      "AccountId": "@AccountRef5",
+      "LeadSource": "Phone",
+      "Probability": 100,
+      "Type": "New Business",
+      "Description": "Generated opportunity 84 with 110541 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef85"
+      },
+      "Name": "Environmental Health and Safety",
+      "CloseDate": "2026-10-09",
+      "StageName": "Negotiation/Review",
+      "Amount": 355183,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Employee Referral",
+      "Probability": 92,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 85 with 355183 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef86"
+      },
+      "Name": "Sustainability Tracking",
+      "CloseDate": "2026-05-04",
+      "StageName": "Negotiation/Review",
+      "Amount": 227845,
+      "AccountId": "@AccountRef3",
+      "LeadSource": "Phone",
+      "Probability": 91,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 86 with 227845 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef87"
+      },
+      "Name": "Corporate Social Responsibility Platform",
+      "CloseDate": "2026-08-26",
+      "StageName": "Qualification",
+      "Amount": 143936,
+      "AccountId": "@AccountRef1",
+      "LeadSource": "Public Relations",
+      "Probability": 23,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 87 with 143936 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef88"
+      },
+      "Name": "Facility Management System",
+      "CloseDate": "2026-08-04",
+      "StageName": "Needs Analysis",
+      "Amount": 209182,
+      "AccountId": "@AccountRef5",
+      "LeadSource": "Existing Customer",
+      "Probability": 30,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 88 with 209182 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef89"
+      },
+      "Name": "Asset Tracking Platform",
+      "CloseDate": "2027-01-09",
+      "StageName": "Needs Analysis",
+      "Amount": 200316,
+      "AccountId": "@AccountRef5",
+      "LeadSource": "Conference",
+      "Probability": 38,
+      "Type": "Support",
+      "Description": "Generated opportunity 89 with 200316 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef90"
+      },
+      "Name": "Maintenance Management Software",
+      "CloseDate": "2026-07-11",
+      "StageName": "Prospecting",
+      "Amount": 328737,
+      "AccountId": "@AccountRef4",
+      "LeadSource": "Conference",
+      "Probability": 7,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 90 with 328737 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef91"
+      },
+      "Name": "Real Estate Management",
+      "CloseDate": "2026-09-30",
+      "StageName": "Qualification",
+      "Amount": 344693,
+      "AccountId": "@AccountRef10",
+      "LeadSource": "Conference",
+      "Probability": 30,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 91 with 344693 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef92"
+      },
+      "Name": "Space Planning Tool",
+      "CloseDate": "2026-06-06",
+      "StageName": "Needs Analysis",
+      "Amount": 213950,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Web",
+      "Probability": 40,
+      "Type": "Support",
+      "Description": "Generated opportunity 92 with 213950 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef93"
+      },
+      "Name": "Workplace Management Platform",
+      "CloseDate": "2026-08-03",
+      "StageName": "Closed Won",
+      "Amount": 88453,
+      "AccountId": "@AccountRef8",
+      "LeadSource": "Employee Referral",
+      "Probability": 100,
+      "Type": "Support",
+      "Description": "Generated opportunity 93 with 88453 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef94"
+      },
+      "Name": "Event Management System",
+      "CloseDate": "2026-09-27",
+      "StageName": "Closed Lost",
+      "Amount": 8735,
+      "AccountId": "@AccountRef6",
+      "LeadSource": "Website",
+      "Probability": 0,
+      "Type": "Other",
+      "Description": "Generated opportunity 94 with 8735 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef95"
+      },
+      "Name": "Conference Planning Software",
+      "CloseDate": "2026-07-22",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 191327,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Existing Customer",
+      "Probability": 74,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 95 with 191327 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef96"
+      },
+      "Name": "Trade Show Management Platform",
+      "CloseDate": "2027-02-02",
+      "StageName": "Qualification",
+      "Amount": 466443,
+      "AccountId": "@AccountRef2",
+      "LeadSource": "Web",
+      "Probability": 23,
+      "Type": "Existing Business",
+      "Description": "Generated opportunity 96 with 466443 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef97"
+      },
+      "Name": "Customer Service Platform",
+      "CloseDate": "2026-07-09",
+      "StageName": "Needs Analysis",
+      "Amount": 84385,
+      "AccountId": "@AccountRef8",
+      "LeadSource": "Phone",
+      "Probability": 34,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 97 with 84385 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef98"
+      },
+      "Name": "Help Desk Solution",
+      "CloseDate": "2026-11-11",
+      "StageName": "Qualification",
+      "Amount": 404079,
+      "AccountId": "@AccountRef7",
+      "LeadSource": "Conference",
+      "Probability": 22,
+      "Type": "Customer Training",
+      "Description": "Generated opportunity 98 with 404079 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef99"
+      },
+      "Name": "Field Service Management",
+      "CloseDate": "2026-09-27",
+      "StageName": "Qualification",
+      "Amount": 232289,
+      "AccountId": "@AccountRef3",
+      "LeadSource": "Conference",
+      "Probability": 30,
+      "Type": "Consulting",
+      "Description": "Generated opportunity 99 with 232289 USD value."
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "OpportunityRef100"
+      },
+      "Name": "Knowledge Management System",
+      "CloseDate": "2027-01-29",
+      "StageName": "Proposal/Price Quote",
+      "Amount": 4910,
+      "AccountId": "@AccountRef6",
+      "LeadSource": "Partner Referral",
+      "Probability": 60,
+      "Type": "Support",
+      "Description": "Generated opportunity 100 with 4910 USD value."
+    }
+  ]
+}

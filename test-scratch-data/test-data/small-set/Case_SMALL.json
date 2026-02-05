@@ -1,0 +1,1404 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef1"
+      },
+      "Subject": "Unable to login after password reset",
+      "Description": "Test case 5785 for First00120 Last00120",
+      "Origin": "Web",
+      "Status": "Working",
+      "Priority": "High",
+      "Type": "Question",
+      "AccountId": "@AccountRef9",
+      "ContactId": "@ContactRef11"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef2"
+      },
+      "Subject": "System running slow during peak hours",
+      "Description": "Test case 4035 for First02842 Last02842",
+      "Origin": "Web",
+      "Status": "New",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef1",
+      "ContactId": "@ContactRef18"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef3"
+      },
+      "Subject": "Need help exporting customer data to Excel",
+      "Description": "Test case 3436 for First01001 Last01001",
+      "Origin": "Web",
+      "Status": "Working",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef3",
+      "ContactId": "@ContactRef33"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef4"
+      },
+      "Subject": "Request to add custom field to opportunity layout",
+      "Description": "Test case 1756 for First00120 Last00120",
+      "Origin": "Email",
+      "Status": "Working",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef8",
+      "ContactId": "@ContactRef44"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef5"
+      },
+      "Subject": "Error when creating new contact record",
+      "Description": "Test case 726 for First02842 Last02842",
+      "Origin": "Web",
+      "Status": "Escalated",
+      "Priority": "Medium",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef9"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef6"
+      },
+      "Subject": "Update billing address for account",
+      "Description": "Test case 9596 for First01296 Last01296",
+      "Origin": "Web",
+      "Status": "Working",
+      "Priority": "Low",
+      "Type": "Question",
+      "AccountId": "@AccountRef2",
+      "ContactId": "@ContactRef37"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef7"
+      },
+      "Subject": "Integration with third-party email system failing",
+      "Description": "Test case 7086 for First02506 Last02506",
+      "Origin": "Email",
+      "Status": "Escalated",
+      "Priority": "Medium",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef5",
+      "ContactId": "@ContactRef13"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef8"
+      },
+      "Subject": "User needs access to sales reports",
+      "Description": "Test case 4535 for First00122 Last00122",
+      "Origin": "Phone",
+      "Status": "Escalated",
+      "Priority": "Medium",
+      "Type": "Problem",
+      "AccountId": "@AccountRef2",
+      "ContactId": "@ContactRef50"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef9"
+      },
+      "Subject": "Mobile app crashes when viewing opportunities",
+      "Description": "Test case 4498 for First01296 Last01296",
+      "Origin": "Email",
+      "Status": "Closed",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef14"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef10"
+      },
+      "Subject": "Dashboard not showing current quarter data",
+      "Description": "Test case 3491 for First02506 Last02506",
+      "Origin": "Phone",
+      "Status": "Escalated",
+      "Priority": "Low",
+      "Type": "Question",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef39"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef11"
+      },
+      "Subject": "Approval process not working for discounts",
+      "Description": "Test case 2920 for First02506 Last02506",
+      "Origin": "Phone",
+      "Status": "Escalated",
+      "Priority": "Low",
+      "Type": "Question",
+      "AccountId": "@AccountRef10",
+      "ContactId": "@ContactRef34"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef12"
+      },
+      "Subject": "Field validation error on case creation",
+      "Description": "Test case 2747 for First02506 Last02506",
+      "Origin": "Web",
+      "Status": "New",
+      "Priority": "Medium",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef4",
+      "ContactId": "@ContactRef15"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef13"
+      },
+      "Subject": "Cannot find customer support phone number",
+      "Description": "Test case 2701 for First03116 Last03116",
+      "Origin": "Email",
+      "Status": "Closed",
+      "Priority": "Low",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef21"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef14"
+      },
+      "Subject": "Need to reset two-factor authentication",
+      "Description": "Test case 7217 for First00122 Last00122",
+      "Origin": "Email",
+      "Status": "Escalated",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef3",
+      "ContactId": "@ContactRef11"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef15"
+      },
+      "Subject": "Custom object not visible in sales console",
+      "Description": "Test case 5249 for First01296 Last01296",
+      "Origin": "Web",
+      "Status": "Working",
+      "Priority": "Low",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef4",
+      "ContactId": "@ContactRef35"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef16"
+      },
+      "Subject": "Workflow rule not triggering properly",
+      "Description": "Test case 7428 for First02506 Last02506",
+      "Origin": "Web",
+      "Status": "New",
+      "Priority": "Low",
+      "Type": "Question",
+      "AccountId": "@AccountRef9",
+      "ContactId": "@ContactRef3"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef17"
+      },
+      "Subject": "Report filters not saving correctly",
+      "Description": "Test case 9068 for First02506 Last02506",
+      "Origin": "Email",
+      "Status": "Working",
+      "Priority": "Low",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef1",
+      "ContactId": "@ContactRef45"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef18"
+      },
+      "Subject": "Page layout changes not appearing for users",
+      "Description": "Test case 4133 for First01056 Last01056",
+      "Origin": "Email",
+      "Status": "Closed",
+      "Priority": "Medium",
+      "Type": "Problem",
+      "AccountId": "@AccountRef5",
+      "ContactId": "@ContactRef1"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef19"
+      },
+      "Subject": "Email template not sending to contacts",
+      "Description": "Test case 189 for First01056 Last01056",
+      "Origin": "Phone",
+      "Status": "Working",
+      "Priority": "Medium",
+      "Type": "Question",
+      "AccountId": "@AccountRef7",
+      "ContactId": "@ContactRef18"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef20"
+      },
+      "Subject": "Data loader import failing for accounts",
+      "Description": "Test case 6461 for First02035 Last02035",
+      "Origin": "Web",
+      "Status": "Closed",
+      "Priority": "High",
+      "Type": "Question",
+      "AccountId": "@AccountRef3",
+      "ContactId": "@ContactRef5"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef21"
+      },
+      "Subject": "Search functionality not returning results",
+      "Description": "Test case 7297 for First03404 Last03404",
+      "Origin": "Web",
+      "Status": "Closed",
+      "Priority": "High",
+      "Type": "Question",
+      "AccountId": "@AccountRef7",
+      "ContactId": "@ContactRef36"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef22"
+      },
+      "Subject": "User permissions issue with custom objects",
+      "Description": "Test case 3464 for First03660 Last03660",
+      "Origin": "Web",
+      "Status": "Closed",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef8",
+      "ContactId": "@ContactRef44"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef23"
+      },
+      "Subject": "Opportunity close date validation problem",
+      "Description": "Test case 3151 for First03660 Last03660",
+      "Origin": "Phone",
+      "Status": "Working",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef9",
+      "ContactId": "@ContactRef9"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef24"
+      },
+      "Subject": "Case assignment rules not working",
+      "Description": "Test case 2003 for First03404 Last03404",
+      "Origin": "Email",
+      "Status": "Working",
+      "Priority": "Low",
+      "Type": "Question",
+      "AccountId": "@AccountRef1",
+      "ContactId": "@ContactRef2"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef25"
+      },
+      "Subject": "Knowledge base articles not displaying",
+      "Description": "Test case 8512 for First03756 Last03756",
+      "Origin": "Email",
+      "Status": "Closed",
+      "Priority": "Low",
+      "Type": "Problem",
+      "AccountId": "@AccountRef4",
+      "ContactId": "@ContactRef26"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef26"
+      },
+      "Subject": "Forecast accuracy calculation error",
+      "Description": "Test case 7506 for First03756 Last03756",
+      "Origin": "Email",
+      "Status": "Escalated",
+      "Priority": "Low",
+      "Type": "Problem",
+      "AccountId": "@AccountRef3",
+      "ContactId": "@ContactRef22"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef27"
+      },
+      "Subject": "Campaign member status update issue",
+      "Description": "Test case 7092 for First04184 Last04184",
+      "Origin": "Email",
+      "Status": "Closed",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef3",
+      "ContactId": "@ContactRef43"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef28"
+      },
+      "Subject": "Lead conversion failing to create account",
+      "Description": "Test case 5900 for First03756 Last03756",
+      "Origin": "Web",
+      "Status": "Closed",
+      "Priority": "Low",
+      "Type": "Question",
+      "AccountId": "@AccountRef2",
+      "ContactId": "@ContactRef36"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef29"
+      },
+      "Subject": "Product price book not updating",
+      "Description": "Test case 3992 for First02733 Last02733",
+      "Origin": "Email",
+      "Status": "New",
+      "Priority": "Low",
+      "Type": "Problem",
+      "AccountId": "@AccountRef8",
+      "ContactId": "@ContactRef47"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef30"
+      },
+      "Subject": "Contract renewal reminder not sending",
+      "Description": "Test case 923 for First03756 Last03756",
+      "Origin": "Email",
+      "Status": "Working",
+      "Priority": "High",
+      "Type": "Question",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef48"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef31"
+      },
+      "Subject": "Custom button not working on opportunity",
+      "Description": "Test case 8670 for First04184 Last04184",
+      "Origin": "Email",
+      "Status": "Closed",
+      "Priority": "Medium",
+      "Type": "Problem",
+      "AccountId": "@AccountRef8",
+      "ContactId": "@ContactRef29"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef32"
+      },
+      "Subject": "Mass email approval process stuck",
+      "Description": "Test case 613 for First04184 Last04184",
+      "Origin": "Phone",
+      "Status": "Working",
+      "Priority": "Medium",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef1",
+      "ContactId": "@ContactRef1"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef33"
+      },
+      "Subject": "Duplicate detection not working",
+      "Description": "Test case 9840 for First02733 Last02733",
+      "Origin": "Email",
+      "Status": "New",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef4",
+      "ContactId": "@ContactRef47"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef34"
+      },
+      "Subject": "File upload size limit exceeded",
+      "Description": "Test case 7723 for First00564 Last00564",
+      "Origin": "Web",
+      "Status": "Escalated",
+      "Priority": "Medium",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef3",
+      "ContactId": "@ContactRef14"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef35"
+      },
+      "Subject": "API rate limit exceeded for integration",
+      "Description": "Test case 4141 for First00564 Last00564",
+      "Origin": "Phone",
+      "Status": "New",
+      "Priority": "Medium",
+      "Type": "Question",
+      "AccountId": "@AccountRef9",
+      "ContactId": "@ContactRef13"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef36"
+      },
+      "Subject": "User license assignment problem",
+      "Description": "Test case 6873 for First00564 Last00564",
+      "Origin": "Email",
+      "Status": "Working",
+      "Priority": "High",
+      "Type": "Question",
+      "AccountId": "@AccountRef2",
+      "ContactId": "@ContactRef48"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef37"
+      },
+      "Subject": "Custom report type not available",
+      "Description": "Test case 9047 for First02551 Last02551",
+      "Origin": "Phone",
+      "Status": "Closed",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef8",
+      "ContactId": "@ContactRef37"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef38"
+      },
+      "Subject": "Email-to-case not creating records",
+      "Description": "Test case 267 for First02551 Last02551",
+      "Origin": "Email",
+      "Status": "New",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef1",
+      "ContactId": "@ContactRef2"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef39"
+      },
+      "Subject": "Social customer service not configured",
+      "Description": "Test case 5999 for First00809 Last00809",
+      "Origin": "Phone",
+      "Status": "New",
+      "Priority": "Low",
+      "Type": "Problem",
+      "AccountId": "@AccountRef5",
+      "ContactId": "@ContactRef46"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef40"
+      },
+      "Subject": "Omni-channel routing not working",
+      "Description": "Test case 5371 for First02017 Last02017",
+      "Origin": "Phone",
+      "Status": "Closed",
+      "Priority": "Medium",
+      "Type": "Problem",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef6"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef41"
+      },
+      "Subject": "Service cloud console loading slowly",
+      "Description": "Test case 366 for First02017 Last02017",
+      "Origin": "Phone",
+      "Status": "Escalated",
+      "Priority": "High",
+      "Type": "Question",
+      "AccountId": "@AccountRef7",
+      "ContactId": "@ContactRef31"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef42"
+      },
+      "Subject": "Entitlement process not triggering",
+      "Description": "Test case 9045 for First00809 Last00809",
+      "Origin": "Email",
+      "Status": "New",
+      "Priority": "Medium",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef9",
+      "ContactId": "@ContactRef40"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef43"
+      },
+      "Subject": "Milestone not completing automatically",
+      "Description": "Test case 8348 for First01608 Last01608",
+      "Origin": "Phone",
+      "Status": "Closed",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef5",
+      "ContactId": "@ContactRef47"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef44"
+      },
+      "Subject": "SLA violation not being tracked",
+      "Description": "Test case 7742 for First01608 Last01608",
+      "Origin": "Phone",
+      "Status": "Closed",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef3",
+      "ContactId": "@ContactRef37"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef45"
+      },
+      "Subject": "Case escalation rules not firing",
+      "Description": "Test case 1714 for First01608 Last01608",
+      "Origin": "Phone",
+      "Status": "Escalated",
+      "Priority": "Low",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef3",
+      "ContactId": "@ContactRef31"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef46"
+      },
+      "Subject": "Customer portal access request",
+      "Description": "Test case 3621 for First01608 Last01608",
+      "Origin": "Web",
+      "Status": "Closed",
+      "Priority": "Medium",
+      "Type": "Question",
+      "AccountId": "@AccountRef5",
+      "ContactId": "@ContactRef6"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef47"
+      },
+      "Subject": "Community user login issues",
+      "Description": "Test case 4403 for First01608 Last01608",
+      "Origin": "Web",
+      "Status": "Escalated",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef2",
+      "ContactId": "@ContactRef7"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef48"
+      },
+      "Subject": "Partner relationship management setup",
+      "Description": "Test case 249 for First01608 Last01608",
+      "Origin": "Web",
+      "Status": "Working",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef3",
+      "ContactId": "@ContactRef33"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef49"
+      },
+      "Subject": "Quote generation template error",
+      "Description": "Test case 9762 for First04327 Last04327",
+      "Origin": "Phone",
+      "Status": "New",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef8",
+      "ContactId": "@ContactRef31"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef50"
+      },
+      "Subject": "Order management integration problem",
+      "Description": "Test case 5985 for First04295 Last04295",
+      "Origin": "Email",
+      "Status": "Closed",
+      "Priority": "Medium",
+      "Type": "Question",
+      "AccountId": "@AccountRef8",
+      "ContactId": "@ContactRef25"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef51"
+      },
+      "Subject": "Inventory tracking not updating",
+      "Description": "Test case 5933 for First03702 Last03702",
+      "Origin": "Email",
+      "Status": "Closed",
+      "Priority": "Medium",
+      "Type": "Question",
+      "AccountId": "@AccountRef7",
+      "ContactId": "@ContactRef12"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef52"
+      },
+      "Subject": "Custom lightning component not loading",
+      "Description": "Test case 5122 for First04155 Last04155",
+      "Origin": "Phone",
+      "Status": "New",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef36"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef53"
+      },
+      "Subject": "Visualforce page rendering incorrectly",
+      "Description": "Test case 5314 for First02321 Last02321",
+      "Origin": "Phone",
+      "Status": "Closed",
+      "Priority": "Medium",
+      "Type": "Question",
+      "AccountId": "@AccountRef5",
+      "ContactId": "@ContactRef48"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef54"
+      },
+      "Subject": "Apex test class deployment failure",
+      "Description": "Test case 4712 for First04155 Last04155",
+      "Origin": "Email",
+      "Status": "New",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef1",
+      "ContactId": "@ContactRef21"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef55"
+      },
+      "Subject": "Change set deployment stuck",
+      "Description": "Test case 4336 for First04327 Last04327",
+      "Origin": "Email",
+      "Status": "New",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef25"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef56"
+      },
+      "Subject": "Sandbox refresh data issues",
+      "Description": "Test case 3216 for First04295 Last04295",
+      "Origin": "Email",
+      "Status": "Escalated",
+      "Priority": "Low",
+      "Type": "Question",
+      "AccountId": "@AccountRef1",
+      "ContactId": "@ContactRef21"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef57"
+      },
+      "Subject": "Production access request",
+      "Description": "Test case 8602 for First04155 Last04155",
+      "Origin": "Email",
+      "Status": "Working",
+      "Priority": "Low",
+      "Type": "Problem",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef49"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef58"
+      },
+      "Subject": "Data backup verification needed",
+      "Description": "Test case 5480 for First02512 Last02512",
+      "Origin": "Email",
+      "Status": "Closed",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef17"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef59"
+      },
+      "Subject": "Compliance audit preparation",
+      "Description": "Test case 5408 for First04295 Last04295",
+      "Origin": "Email",
+      "Status": "New",
+      "Priority": "Low",
+      "Type": "Problem",
+      "AccountId": "@AccountRef5",
+      "ContactId": "@ContactRef12"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef60"
+      },
+      "Subject": "Security review for custom app",
+      "Description": "Test case 436 for First03702 Last03702",
+      "Origin": "Phone",
+      "Status": "Closed",
+      "Priority": "Low",
+      "Type": "Problem",
+      "AccountId": "@AccountRef1",
+      "ContactId": "@ContactRef31"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef61"
+      },
+      "Subject": "Performance monitoring setup",
+      "Description": "Test case 2414 for First04295 Last04295",
+      "Origin": "Email",
+      "Status": "Working",
+      "Priority": "Medium",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef3",
+      "ContactId": "@ContactRef16"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef62"
+      },
+      "Subject": "User training session request",
+      "Description": "Test case 6613 for First02802 Last02802",
+      "Origin": "Web",
+      "Status": "Escalated",
+      "Priority": "High",
+      "Type": "Question",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef38"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef63"
+      },
+      "Subject": "Documentation update needed",
+      "Description": "Test case 4804 for First03702 Last03702",
+      "Origin": "Web",
+      "Status": "New",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef2",
+      "ContactId": "@ContactRef44"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef64"
+      },
+      "Subject": "Feature toggle configuration",
+      "Description": "Test case 1024 for First04327 Last04327",
+      "Origin": "Email",
+      "Status": "Escalated",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef7",
+      "ContactId": "@ContactRef16"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef65"
+      },
+      "Subject": "System maintenance notification",
+      "Description": "Test case 8513 for First04232 Last04232",
+      "Origin": "Email",
+      "Status": "Escalated",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef9",
+      "ContactId": "@ContactRef11"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef66"
+      },
+      "Subject": "Emergency access request",
+      "Description": "Test case 7989 for First03077 Last03077",
+      "Origin": "Web",
+      "Status": "Closed",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef1",
+      "ContactId": "@ContactRef45"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef67"
+      },
+      "Subject": "Data migration planning",
+      "Description": "Test case 7682 for First04232 Last04232",
+      "Origin": "Phone",
+      "Status": "Closed",
+      "Priority": "High",
+      "Type": "Question",
+      "AccountId": "@AccountRef1",
+      "ContactId": "@ContactRef36"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef68"
+      },
+      "Subject": "UAT environment setup",
+      "Description": "Test case 7020 for First03077 Last03077",
+      "Origin": "Web",
+      "Status": "Working",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef3",
+      "ContactId": "@ContactRef7"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef69"
+      },
+      "Subject": "User acceptance testing",
+      "Description": "Test case 3933 for First02613 Last02613",
+      "Origin": "Email",
+      "Status": "Working",
+      "Priority": "Medium",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef3",
+      "ContactId": "@ContactRef13"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef70"
+      },
+      "Subject": "Go-live preparation checklist",
+      "Description": "Test case 532 for First03077 Last03077",
+      "Origin": "Web",
+      "Status": "New",
+      "Priority": "Medium",
+      "Type": "Question",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef27"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef71"
+      },
+      "Subject": "Post-implementation review",
+      "Description": "Test case 3647 for First02613 Last02613",
+      "Origin": "Web",
+      "Status": "Escalated",
+      "Priority": "Low",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef9",
+      "ContactId": "@ContactRef33"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef72"
+      },
+      "Subject": "Customer feedback collection",
+      "Description": "Test case 7424 for First01804 Last01804",
+      "Origin": "Email",
+      "Status": "Closed",
+      "Priority": "Low",
+      "Type": "Question",
+      "AccountId": "@AccountRef1",
+      "ContactId": "@ContactRef5"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef73"
+      },
+      "Subject": "System optimization request",
+      "Description": "Test case 4855 for First02613 Last02613",
+      "Origin": "Email",
+      "Status": "Closed",
+      "Priority": "Medium",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef19"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef74"
+      },
+      "Subject": "Automation workflow review",
+      "Description": "Test case 8209 for First03077 Last03077",
+      "Origin": "Email",
+      "Status": "New",
+      "Priority": "Low",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef4",
+      "ContactId": "@ContactRef43"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef75"
+      },
+      "Subject": "Custom field type conversion",
+      "Description": "Test case 7792 for First02903 Last02903",
+      "Origin": "Email",
+      "Status": "New",
+      "Priority": "Medium",
+      "Type": "Problem",
+      "AccountId": "@AccountRef8",
+      "ContactId": "@ContactRef18"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef76"
+      },
+      "Subject": "Record type assignment issue",
+      "Description": "Test case 5513 for First00260 Last00260",
+      "Origin": "Email",
+      "Status": "Escalated",
+      "Priority": "High",
+      "Type": "Question",
+      "AccountId": "@AccountRef3",
+      "ContactId": "@ContactRef20"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef77"
+      },
+      "Subject": "Sharing rule not working properly",
+      "Description": "Test case 1358 for First04166 Last04166",
+      "Origin": "Phone",
+      "Status": "Escalated",
+      "Priority": "Medium",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef7",
+      "ContactId": "@ContactRef16"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef78"
+      },
+      "Subject": "Profile permission modification",
+      "Description": "Test case 1175 for First00260 Last00260",
+      "Origin": "Email",
+      "Status": "Closed",
+      "Priority": "Low",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef7",
+      "ContactId": "@ContactRef11"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef79"
+      },
+      "Subject": "Role hierarchy update needed",
+      "Description": "Test case 5858 for First00260 Last00260",
+      "Origin": "Web",
+      "Status": "Working",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef4",
+      "ContactId": "@ContactRef10"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef80"
+      },
+      "Subject": "Queue assignment not functioning",
+      "Description": "Test case 7324 for First01305 Last01305",
+      "Origin": "Web",
+      "Status": "Closed",
+      "Priority": "High",
+      "Type": "Question",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef7"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef81"
+      },
+      "Subject": "Email notification not sending",
+      "Description": "Test case 3936 for First00431 Last00431",
+      "Origin": "Phone",
+      "Status": "Escalated",
+      "Priority": "Medium",
+      "Type": "Question",
+      "AccountId": "@AccountRef2",
+      "ContactId": "@ContactRef30"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef82"
+      },
+      "Subject": "Calendar integration problem",
+      "Description": "Test case 3702 for First01703 Last01703",
+      "Origin": "Email",
+      "Status": "Working",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef9",
+      "ContactId": "@ContactRef25"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef83"
+      },
+      "Subject": "Task assignment automation",
+      "Description": "Test case 1631 for First01305 Last01305",
+      "Origin": "Email",
+      "Status": "New",
+      "Priority": "Medium",
+      "Type": "Question",
+      "AccountId": "@AccountRef7",
+      "ContactId": "@ContactRef46"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef84"
+      },
+      "Subject": "Event management setup",
+      "Description": "Test case 7868 for First00392 Last00392",
+      "Origin": "Web",
+      "Status": "Escalated",
+      "Priority": "High",
+      "Type": "Question",
+      "AccountId": "@AccountRef7",
+      "ContactId": "@ContactRef42"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef85"
+      },
+      "Subject": "Note and attachment access",
+      "Description": "Test case 4803 for First00431 Last00431",
+      "Origin": "Phone",
+      "Status": "New",
+      "Priority": "Low",
+      "Type": "Question",
+      "AccountId": "@AccountRef3",
+      "ContactId": "@ContactRef22"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef86"
+      },
+      "Subject": "Mobile device compatibility",
+      "Description": "Test case 9821 for First00392 Last00392",
+      "Origin": "Web",
+      "Status": "Escalated",
+      "Priority": "Low",
+      "Type": "Question",
+      "AccountId": "@AccountRef9",
+      "ContactId": "@ContactRef8"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef87"
+      },
+      "Subject": "Browser compatibility issues",
+      "Description": "Test case 5341 for First02485 Last02485",
+      "Origin": "Email",
+      "Status": "Escalated",
+      "Priority": "Low",
+      "Type": "Problem",
+      "AccountId": "@AccountRef7",
+      "ContactId": "@ContactRef31"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef88"
+      },
+      "Subject": "Screen reader accessibility",
+      "Description": "Test case 3535 for First02485 Last02485",
+      "Origin": "Web",
+      "Status": "Closed",
+      "Priority": "Medium",
+      "Type": "Question",
+      "AccountId": "@AccountRef8",
+      "ContactId": "@ContactRef4"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef89"
+      },
+      "Subject": "Keyboard navigation problems",
+      "Description": "Test case 5662 for First02485 Last02485",
+      "Origin": "Phone",
+      "Status": "Working",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef9",
+      "ContactId": "@ContactRef44"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef90"
+      },
+      "Subject": "Color contrast compliance",
+      "Description": "Test case 2043 for First02485 Last02485",
+      "Origin": "Web",
+      "Status": "New",
+      "Priority": "Medium",
+      "Type": "Question",
+      "AccountId": "@AccountRef6",
+      "ContactId": "@ContactRef15"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef91"
+      },
+      "Subject": "Multi-language support request",
+      "Description": "Test case 685 for First02855 Last02855",
+      "Origin": "Phone",
+      "Status": "Closed",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef7",
+      "ContactId": "@ContactRef40"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef92"
+      },
+      "Subject": "Currency conversion error",
+      "Description": "Test case 6047 for First02485 Last02485",
+      "Origin": "Phone",
+      "Status": "New",
+      "Priority": "Low",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef9",
+      "ContactId": "@ContactRef39"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef93"
+      },
+      "Subject": "Tax calculation issue",
+      "Description": "Test case 4494 for First04163 Last04163",
+      "Origin": "Email",
+      "Status": "Working",
+      "Priority": "Medium",
+      "Type": "Question",
+      "AccountId": "@AccountRef2",
+      "ContactId": "@ContactRef8"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef94"
+      },
+      "Subject": "Discount approval workflow",
+      "Description": "Test case 1472 for First04163 Last04163",
+      "Origin": "Web",
+      "Status": "Working",
+      "Priority": "High",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef1",
+      "ContactId": "@ContactRef25"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef95"
+      },
+      "Subject": "Commission calculation problem",
+      "Description": "Test case 5209 for First04859 Last04859",
+      "Origin": "Phone",
+      "Status": "New",
+      "Priority": "Medium",
+      "Type": "Question",
+      "AccountId": "@AccountRef1",
+      "ContactId": "@ContactRef44"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef96"
+      },
+      "Subject": "Sales territory realignment",
+      "Description": "Test case 2110 for First03511 Last03511",
+      "Origin": "Phone",
+      "Status": "New",
+      "Priority": "Medium",
+      "Type": "Feature Request",
+      "AccountId": "@AccountRef2",
+      "ContactId": "@ContactRef46"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef97"
+      },
+      "Subject": "Account team assignment",
+      "Description": "Test case 9370 for First02642 Last02642",
+      "Origin": "Web",
+      "Status": "Closed",
+      "Priority": "High",
+      "Type": "Problem",
+      "AccountId": "@AccountRef10",
+      "ContactId": "@ContactRef16"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef98"
+      },
+      "Subject": "Opportunity team access",
+      "Description": "Test case 8199 for First02642 Last02642",
+      "Origin": "Phone",
+      "Status": "Closed",
+      "Priority": "Medium",
+      "Type": "Problem",
+      "AccountId": "@AccountRef10",
+      "ContactId": "@ContactRef40"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef99"
+      },
+      "Subject": "Contact relationship mapping",
+      "Description": "Test case 1527 for First02975 Last02975",
+      "Origin": "Email",
+      "Status": "New",
+      "Priority": "High",
+      "Type": "Question",
+      "AccountId": "@AccountRef8",
+      "ContactId": "@ContactRef19"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "CaseRef100"
+      },
+      "Subject": "Lead scoring model update",
+      "Description": "Test case 1521 for First02975 Last02975",
+      "Origin": "Web",
+      "Status": "Working",
+      "Priority": "Low",
+      "Type": "Problem",
+      "AccountId": "@AccountRef7",
+      "ContactId": "@ContactRef49"
+    }
+  ]
+}

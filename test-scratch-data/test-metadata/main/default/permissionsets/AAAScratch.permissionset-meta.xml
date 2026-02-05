@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <applicationVisibilities>
         <application>standard__AllTabSet</application>
@@ -181,6 +181,10 @@
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <tabSettings>
+        <tab>Account_Opportunities_Viewer</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
         <tab>Cases_Viewer</tab>
         <visibility>Visible</visibility>
     </tabSettings>
@@ -189,11 +193,15 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
-        <tab>Project_Tasks_Viewer</tab>
+        <tab>Opportunities_Viewer</tab>
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
         <tab>Project_Task__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Project_Tasks_Viewer</tab>
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>

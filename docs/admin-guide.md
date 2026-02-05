@@ -4,6 +4,7 @@
   - [Card Record Configuration](#card-record-configuration)
   - [Parent Record Configuration](#parent-record-configuration)
   - [Card Sort, Filter, and Search Configuration](#card-sort-filter-and-search-configuration)
+  - [Column Summaries Configuration](#column-summaries-configuration)
   - [Other Configuration Fields](#other-configuration-fields)
 - [Best Practices](#best-practices)
 - [Common Configuration Patterns](#common-configuration-patterns)
@@ -229,6 +230,25 @@ Use these configuration fields to control _which_ Parent records are available i
 - **Example**: `Subject,Description,CaseNumber,Account.Name`
 - **Tip**: Search works for a field that isn't actually displayed on the board
 
+## Column Summaries Configuration
+
+### Column Summaries Definition <!-- omit from toc -->
+
+- **Property**: `Column Summaries Definition`
+- **Purpose**: Define up to three summaries that appear in each column header.
+- **Format**: `[FieldApiName|SUMMARY_TYPE|Label]` entries separated by semicolons
+- **Summary Types**: `SUM`, `AVG`, `MIN`, `MAX`, `COUNT_TRUE`, `COUNT_FALSE`
+- **Examples**:
+  - `[Amount|SUM|Total Amount];[Amount|AVG|Avg Amount]`
+  - `[CloseDate|MIN|Earliest Close];[CloseDate|MAX|Latest Close]`
+  - `[IsEscalated|COUNT_TRUE|Escalated];[IsEscalated|COUNT_FALSE|Not Escalated]`
+- **Notes**:
+  - `SUM`/`AVG` require numeric fields (Number, Currency, Percent, Integer, Double)
+  - `MIN`/`MAX` allow numeric or Date/DateTime fields
+  - `COUNT_TRUE`/`COUNT_FALSE` require Checkbox fields
+  - If a currency summary contains multiple currencies in the same column, the summary value is blocked and shows `Mixed currencies`, and a warning banner is displayed
+  - Invalid definitions are ignored and surfaced as a non-blocking warning
+
 ## Other Configuration Fields
 
 #### Empty Group Label <!-- omit from toc -->
@@ -243,9 +263,11 @@ Use these configuration fields to control _which_ Parent records are available i
 - **Purpose**: Custom date/time display format
 - **Format**: Java SimpleDateFormat pattern
 - **Examples**:
-  - `dd/MM/yyyy h:mm a` (default)
+  - `dd/MM/yyyy h:mm a`
   - `MM-dd-yy HH:mm`
   - `EEEE, MMMM d, yyyy`
+- **Notes**:
+  - Leave blank to use the running user's Salesforce locale settings
 
 #### Debug Logging <!-- omit from toc -->
 
@@ -259,23 +281,23 @@ Use these configuration fields to control _which_ Parent records are available i
 
 ## Performance Optimization <!-- omit from toc -->
 
-1. **Limit Records**: Keep `Card Records LIMIT` reasonable (200-500)
-2. **Efficient SOQL**: Use specific WHERE clauses instead of retrieving all records
-3. **Field Selection**: Only include necessary fields on cards
-4. **Parent Limits**: Set appropriate `Parent Records LIMIT` (default 100)
+- **Limit Records**: Keep `Card Records LIMIT` reasonable (200-500)
+- **Efficient SOQL**: Use specific WHERE clauses instead of retrieving all records
+- **Field Selection**: Only include necessary fields on cards
+- **Parent Limits**: Set appropriate `Parent Records LIMIT` (default 100)
 
 ## User Experience <!-- omit from toc -->
 
-1. **Logical Grouping**: Choose intuitive grouping fields (Status, Stage, Priority)
-2. **Clear Card Titles**: First field should be easily identifiable
-3. **Consistent Icons**: Use meaningful icons or emojis
-4. **Reasonable Filters**: Provide useful but not overwhelming filter options
+- **Logical Grouping**: Choose intuitive grouping fields (Status, Stage, Priority)
+- **Clear Card Titles**: First field should be easily identifiable
+- **Consistent Icons**: Use meaningful icons or emojis
+- **Reasonable Filters**: Provide useful but not overwhelming filter options
 
 ## Security Considerations <!-- omit from toc -->
 
-1. **Field Security**: Component respects Salesforce field-level security
-2. **Object Security**: Users need appropriate object permissions
-3. **SOQL Security**: WITH_SECURITY_ENFORCED automatically applied and optional clauses are sanitised
+- **Field Security**: Component respects Salesforce field-level security
+- **Object Security**: Users need to be assigned the `LRES_Access` permission set and appropriate object permissions
+- **SOQL Security**: WITH_SECURITY_ENFORCED automatically applied and optional clauses are sanitised
 
 # Common Configuration Patterns
 
@@ -343,7 +365,7 @@ Kanban Explorer has some in-built behaviours that alter the UI automatically. Th
 
 ## Default Card Title <!-- omit from toc -->
 
-If the `Card Field API Names` config property is blank, Kanban Explorer automatically injects Salesforce's defualt `Name` filed as the card title. For most standard and all custom objects, this is generally `Name`. However, for some standard objects it is not `Name` (eg Case where it is `CaseNumber`). The component should automatically work out the correct field and inject it instead.
+If the `Card Field API Names` config property is blank, Kanban Explorer automatically injects Salesforce's default `Name` field as the card title. For most standard and all custom objects, this is generally `Name`. However, for some standard objects it is not `Name` (eg Case where it is `CaseNumber`). The component should automatically work out the correct field and inject it instead.
 
 ## Inaccessible Fields <!-- omit from toc -->
 
@@ -351,15 +373,15 @@ Kanban Explorer respects Field-Level Security. If the user viewing the board doe
 
 ## Parent Identifier <!-- omit from toc -->
 
-When in multi-select parent mode, and more than one parent is selected, cards will automatically display an additional gray pill box at the bottom displaying the parent record name they relate to. This helps distiguish what cards belong to what parent without having to explicitly include that field in the `Card Field API Names`.
+When in multi-select parent mode, and more than one parent is selected, cards will automatically display an additional gray pill box at the bottom of each card displaying the parent record name the card relates to. This helps distiguish what cards belong to what parent without having to explicitly include that field in the `Card Field API Names`.
 
 ## Lookup Traversals <!-- omit from toc -->
 
 For the `Card Field API Names` and `Parent Field API Names`, you are able to traverse lookup relationships. For example, you can do things like:
 
-- Owner.Name
-- Case.Contact.Account
-- Project**r.Due_Date**c
+- `Owner.Name`
+- `Case.Contact.Account`
+- `Project__r.Due_Date__c`
 
 Field labels will automatically reflect this by displaying as:
 
@@ -369,7 +391,7 @@ Field labels will automatically reflect this by displaying as:
 
 ## Parent Selector Search Box <!-- omit from toc -->
 
-When more than 25 parent record options are available in the dropdown, a search box appears to make it easier to find the parent(s) you want.
+When more than 25 parent record options are available to select, a search box appears within the parent selector dropdown to make it easier to find the parent(s) you want.
 
 ## Filter Dropdowns <!-- omit from toc -->
 

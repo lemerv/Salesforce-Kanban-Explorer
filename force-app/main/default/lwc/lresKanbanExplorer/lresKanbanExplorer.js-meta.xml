@@ -140,6 +140,12 @@
         description="Comma-separated list of fields to search when users type in the search box."
       />
             <property
+        name="columnSummariesDefinition"
+        type="String"
+        label="Column Summaries Definition"
+        description="Use this field to define up to 3 column summaries. Format is `[FieldApiName|SUMMARY_TYPE|Label]` and entries are separated by semicolons. Summary types: SUM, AVG, MIN, MAX, COUNT_TRUE, COUNT_FALSE. Example: `[Amount|SUM|Sum of amount];[Amount|AVG|Average amount]`. SUM/AVG require numeric fields (Number, Currency, Percent, Integer, Double). MIN/MAX allow numeric or Date/DateTime fields. COUNT_TRUE/COUNT_FALSE require Checkbox (Boolean) fields."
+      />
+            <property
         name="emptyGroupLabel"
         type="String"
         label="Empty Group Label"
@@ -150,7 +156,13 @@
         name="dateTimeFormat"
         type="String"
         label="Date and Time Format"
-        description="Java SimpleDateFormat pattern applied to date and datetime fields (for example, dd/MM/yyyy h:mm a). Leave blank to use the default dd/MM/yyyy h:mm a format."
+        description="Java SimpleDateFormat pattern applied to date and datetime fields (for example, dd/MM/yyyy h:mm a). Leave blank to use the running user's Salesforce locale."
+      />
+            <property
+        name="performanceModeThreshold"
+        type="Integer"
+        label="Performance Mode Threshold"
+        description="Improve performance by rendering only visible cards when total cards exceed this number. Enter a number from 100 upwards. If left blank the default is 200. Enter 0 to disable performance mode."
       />
             <property
         name="debugLogging"

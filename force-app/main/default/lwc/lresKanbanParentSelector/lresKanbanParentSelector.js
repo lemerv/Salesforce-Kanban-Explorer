@@ -8,7 +8,10 @@ import {
 } from "c/lresFieldUtils";
 import { parseError, showErrorToast } from "c/lresErrorHandler";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
-import { getFieldLabel as getFieldLabelField, formatFieldValueWithOptions } from "c/lresFieldDisplayUtils";
+import {
+  getFieldLabel as getFieldLabelField,
+  formatFieldValueWithOptions
+} from "c/lresFieldDisplayUtils";
 
 const DEFAULT_PARENT_LABEL = "Parent Record";
 const DEFAULT_DATETIME_FORMAT = "dd/MM/yyyy h:mm a";
@@ -128,7 +131,14 @@ export default class KanbanParentSelector extends LightningElement {
   }
 
   set debugLogging(value) {
-    this._debugLoggingEnabled = normalizeBoolean(value);
+    const normalized = normalizeBoolean(value);
+    if (normalized === this._debugLoggingEnabled) {
+      return;
+    }
+    this._debugLoggingEnabled = normalized;
+    if (this.parentObjectApiName) {
+      this.handleConfigChange();
+    }
   }
 
   @api
@@ -273,7 +283,8 @@ export default class KanbanParentSelector extends LightningElement {
         whereClause: this.parentRecordsWhereClause,
         orderByClause: this.parentRecordsOrderByClause,
         fieldApiNames: this.parentRecordFieldApiNames,
-        limitSize: this.parentRecordsLimit
+        limitSize: this.parentRecordsLimit,
+        debugWhereErrors: this._debugLoggingEnabled
       });
       if (requestId !== this.parentRecordsRequestId) {
         return;
@@ -555,7 +566,9 @@ export default class KanbanParentSelector extends LightningElement {
   }
 
   get hasMultipleParentSelection() {
-    return this._defaultToMultipleParentSelection && this.parentSelectionCount > 1;
+    return (
+      this._defaultToMultipleParentSelection && this.parentSelectionCount > 1
+    );
   }
 
   get showParentRecordSummaryRow() {
@@ -668,10 +681,16 @@ export default class KanbanParentSelector extends LightningElement {
       console.error("Mode toggle failed", error);
     }
 
-    showErrorToast(this, error || { message: "Could not switch parent selection mode. Please try again." }, {
-      title: "Mode Change Failed",
-      message: "Could not switch parent selection mode. Please try again."
-    });
+    showErrorToast(
+      this,
+      error || {
+        message: "Could not switch parent selection mode. Please try again."
+      },
+      {
+        title: "Mode Change Failed",
+        message: "Could not switch parent selection mode. Please try again."
+      }
+    );
   }
 
   toggleParentSelectorMenu(event) {

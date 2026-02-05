@@ -1,5 +1,6 @@
 import { LightningElement, api, wire } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
+import CURRENCY from "@salesforce/i18n/currency";
 import {
   getObjectInfo,
   getPicklistValuesByRecordType
@@ -13,6 +14,7 @@ import {
 } from "c/lresFieldUtils";
 import { sanitizeFieldOutput } from "c/lresOutputUtils";
 import { BLANK_KEY, buildColumns as buildColumnsUtil } from "./columnBuilder";
+import { parseSummaryDefinitions } from "./summaryConfigUtils";
 import {
   applySearchValue as applySearchValueInteractions,
   buildFilterDefinitions as buildFilterDefinitionsInteractions,
@@ -32,7 +34,6 @@ import {
   handleManualRefresh as handleManualRefreshInteractions,
   handleParentViewClick as handleParentViewClickInteractions,
   handleSearchInput as handleSearchInputInteractions,
-  handleSearchKeyup as handleSearchKeyupInteractions,
   clearDebouncedSearch as clearDebouncedSearchInteractions,
   handleSortDirectionToggle as handleSortDirectionToggleInteractions,
   handleSortMenuClick as handleSortMenuClickInteractions,
@@ -105,13 +106,49 @@ import {
   showErrorToast as showErrorToastLogger,
   showToast as showToastLogger
 } from "./loggingUtils";
+import {
+  coerceSummaryValue as coerceSummaryValueUtil,
+  formatSummaryValue as formatSummaryValueUtil,
+  resolveCurrencyCode as resolveCurrencyCodeUtil
+} from "./summaryValueUtils";
+import {
+  cancelScheduledRebuildColumns as cancelScheduledRebuildColumnsUtil,
+  cancelScheduledSummaryRebuild as cancelScheduledSummaryRebuildUtil,
+  cancelScheduledUserRebuild as cancelScheduledUserRebuildUtil,
+  scheduleRebuildColumns as scheduleRebuildColumnsUtil,
+  scheduleSummaryRebuild as scheduleSummaryRebuildUtil,
+  scheduleUserRebuild as scheduleUserRebuildUtil
+} from "./schedulerUtils";
 import KanbanRecordModal from "c/lresKanbanRecordModal";
-
-const DEFAULT_CARD_TITLE_FIELD = "Name";
 const DEFAULT_EMPTY_LABEL = "No Value";
 const MASTER_RECORD_TYPE_ID = "012000000000000AAA";
-const DEFAULT_DATETIME_FORMAT = "dd/MM/yyyy h:mm a";
 const SUPPORTED_GROUPING_FIELD_TYPES = new Set(["picklist", "string"]);
+const PERFORMANCE_MODE_DEFAULT_THRESHOLD = 200;
+const PERFORMANCE_MODE_MIN_THRESHOLD = 100;
+
+function normalizePerformanceModeThreshold(value) {
+  if (value === null || value === undefined || value === "") {
+    return null;
+  }
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) {
+    return null;
+  }
+  if (parsed === 0) {
+    return 0;
+  }
+  if (parsed > 0 && parsed < PERFORMANCE_MODE_MIN_THRESHOLD) {
+    return PERFORMANCE_MODE_MIN_THRESHOLD;
+  }
+  return Math.floor(parsed);
+}
+
+function resolvePerformanceModeThreshold(value) {
+  if (value === null || value === undefined) {
+    return PERFORMANCE_MODE_DEFAULT_THRESHOLD;
+  }
+  return value;
+}
 
 export default class KanbanExplorer extends NavigationMixin(LightningElement) {
   _contextRecordId;
@@ -123,11 +160,13 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
   _childRelationshipName;
   _groupingFieldApiName;
   _cardFieldApiNames = "";
+  _columnSummariesDefinition = "";
   _cardFieldIcons = "";
   _sortFieldApiNames = "";
   _filterFieldApiNames = "";
   _searchFieldApiNames = "";
   _cardRecordsLimit = 200;
+  _performanceModeThreshold = null;
   _parentRecordsLimit = 100;
   _boardTitle;
   _emptyGroupLabel;
@@ -145,14 +184,19 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
   sortDirection = "asc";
 
   filterDefinitions = [];
+  filtersDirty = true;
   activeFilterMenuId = null;
   isSortMenuOpen = false;
   searchValue = "";
 
   isLoading = false;
   errorMessage;
+  warningMessage;
   columns = [];
   relatedRecords = [];
+  summaryDefinitions = [];
+  summaryWarnings = [];
+  summaryRuntimeWarnings = [];
 
   objectInfo;
   objectInfoError;
@@ -167,9 +211,16 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
   _debugLoggingEnabled = true;
   _parentSelectionRefreshTimeout;
   patternTokenCache = new Map();
+  _fieldDataCache = null;
   _isConnected = false;
   _dataModeCache = null;
   _modalOpen = false;
+  _rebuildColumnsRafId = null;
+  _rebuildColumnsRafType = null;
+  _userRebuildTimeoutId = null;
+  _summaryRebuildRafId = null;
+  _summaryRebuildRafType = null;
+  _summaryRebuildToken = 0;
 
   shouldAutoRefreshOnConfig() {
     return shouldAutoRefreshOnConfigService(this);
@@ -356,6 +407,34 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
     this.handleConfigChange();
   }
 
+  /**
+   * Threshold at which performance mode (virtualized cards) activates.
+   *
+   * @returns {number|null} Null when unset, 0 when disabled, or a positive integer.
+   */
+  @api
+  get performanceModeThreshold() {
+    return this._performanceModeThreshold;
+  }
+
+  /**
+   * Sets the threshold for enabling card virtualization.
+   *
+   * @param {number|string|null} value Threshold value, blank for default.
+   */
+  set performanceModeThreshold(value) {
+    const normalized = normalizePerformanceModeThreshold(value);
+    if (normalized === this._performanceModeThreshold) {
+      return;
+    }
+    this.logDebug("performanceModeThreshold changed.", {
+      previous: this._performanceModeThreshold,
+      next: normalized
+    });
+    this._performanceModeThreshold = normalized;
+    this.handleConfigChange();
+  }
+
   // Grouping and column config
 
   /**
@@ -443,6 +522,35 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
   }
 
   /**
+   * Summary definitions configured via Lightning App Builder.
+   *
+   * @returns {string} Raw summary definition string.
+   */
+  @api
+  get columnSummariesDefinition() {
+    return this._columnSummariesDefinition;
+  }
+
+  /**
+   * Updates the summary definition string and triggers a config refresh.
+   *
+   * @param {string|string[]} value Summary definition string.
+   */
+  set columnSummariesDefinition(value) {
+    const normalized =
+      value === undefined || value === null ? "" : String(value);
+    if (normalized === this._columnSummariesDefinition) {
+      return;
+    }
+    this.logDebug("columnSummariesDefinition changed.", {
+      previous: this._columnSummariesDefinition,
+      next: normalized
+    });
+    this._columnSummariesDefinition = normalized;
+    this.handleConfigChange();
+  }
+
+  /**
    * Comma-delimited list pairing fields to icon metadata.
    *
    * @returns {string} Stored representation of requested icons.
@@ -498,8 +606,8 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
   }
 
   /**
-   * Custom date/time pattern applied to formatted values, falling back to
-   * `DEFAULT_DATETIME_FORMAT` when undefined.
+   * Custom date/time pattern applied to formatted values. When undefined,
+   * the running user's locale settings are used instead.
    *
    * @returns {string|null} Luxon-compatible format string.
    */
@@ -521,9 +629,12 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
     }
     this._dateTimeFormat = normalized;
     this.logDebug("dateTimeFormat changed.", {
-      format: this._dateTimeFormat || DEFAULT_DATETIME_FORMAT
+      format: this._dateTimeFormat || "locale-default"
     });
     this.patternTokenCache.clear();
+    this.filtersDirty = true;
+    this.clearFieldDataCache("dateTimeFormat change");
+    this.buildFieldDataCache(this.relatedRecords || []);
     this.buildFilterDefinitions(this.relatedRecords || []);
     this.rebuildColumnsWithPicklist();
   }
@@ -928,7 +1039,9 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
       previousRecordCount: this.relatedRecords?.length || 0,
       nextRecordCount: dataset.length
     });
+    this.filtersDirty = true;
     this.relatedRecords = dataset;
+    this.buildFieldDataCache(dataset);
     const groupingField = this.groupingFieldQualified;
     const cardFields = this.cardFieldsQualified;
     if (!this.validateSnapshotGrouping()) {
@@ -943,6 +1056,61 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
 
   normalizeCardRecords(records) {
     return Array.isArray(records) ? records : [];
+  }
+
+  clearFieldDataCache(reason) {
+    if (!this._fieldDataCache) {
+      return;
+    }
+    this._fieldDataCache = null;
+    this.logDebug("Field data cache cleared.", {
+      reason: reason || "unspecified"
+    });
+  }
+
+  getFieldCacheFields() {
+    const fields = new Set();
+    const addField = (field) => {
+      if (field) {
+        fields.add(field);
+      }
+    };
+
+    this.cardFieldsQualified.forEach(addField);
+    this.filterFieldsQualified.forEach(addField);
+    this.searchFieldsQualified.forEach(addField);
+    this.availableSortFields.forEach(addField);
+    (this.summaryDefinitions || []).forEach((summary) =>
+      addField(summary?.fieldApiName)
+    );
+
+    const needsCurrency = (this.summaryDefinitions || []).some(
+      (summary) => summary?.dataType === "currency"
+    );
+    if (needsCurrency) {
+      addField(this.qualifyFieldName("CurrencyIsoCode"));
+    }
+
+    return Array.from(fields);
+  }
+
+  buildFieldDataCache(records) {
+    const dataset = Array.isArray(records) ? records : [];
+    const fieldsToCache = this.getFieldCacheFields();
+    if (!dataset.length || !fieldsToCache.length) {
+      this._fieldDataCache = null;
+      return;
+    }
+    this._fieldDataCache = new Map();
+    dataset.forEach((record) => {
+      fieldsToCache.forEach((field) => {
+        this.extractFieldData(record, field);
+      });
+    });
+    this.logDebug("Field data cache built.", {
+      recordCount: dataset.length,
+      fieldCount: fieldsToCache.length
+    });
   }
 
   validateSnapshotGrouping() {
@@ -972,10 +1140,15 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
     this.closeSortMenu();
     this.closeFilterMenus();
     this.clearParentSelectionRefreshDebounce();
+    this.cancelScheduledRebuildColumns();
+    this.cancelScheduledUserRebuild();
+    this.cancelScheduledSummaryRebuild();
     clearDebouncedSearchInteractions(this);
   }
 
   handleConfigChange() {
+    this.clearFieldDataCache("config change");
+    this.refreshSummaryDefinitions();
     handleConfigChangeState(this);
   }
 
@@ -1043,15 +1216,38 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
    * @param {Array<string>} cardFields Fields rendered within each card (used for fallbacks).
    * @returns {Array<Object>} Array of column descriptors (key, label, records, count, etc).
    */
-  buildColumns(records, groupingField, cardFields = []) {
+  buildColumns(records, groupingField, cardFields = [], options = {}) {
     const resolvedCardFields = Array.isArray(cardFields) ? cardFields : [];
+    this.cancelScheduledSummaryRebuild();
+    const deferSummaries = options.deferSummaries !== false;
+    const shouldDeferSummaries =
+      deferSummaries && this.shouldDeferSummaries(records);
     const context = this.resolveColumnContext(
       groupingField,
       resolvedCardFields
     );
+    const summaryContext = {
+      ...context,
+      summaryDefinitions: shouldDeferSummaries ? [] : this.summaryDefinitions
+    };
     const callbacks = this.buildColumnCallbacks();
-    const options = this.buildColumnOptions(records, context, callbacks);
-    return buildColumnsUtil(records || [], options);
+    const buildOptions = this.buildColumnOptions(
+      records,
+      summaryContext,
+      callbacks
+    );
+    const columns = buildColumnsUtil(records || [], buildOptions);
+    if (shouldDeferSummaries) {
+      this.summaryRuntimeWarnings = [];
+      this.updateWarningMessage();
+      this.scheduleSummaryRebuild(records, groupingField, resolvedCardFields);
+      return this.applySummaryPlaceholders(columns);
+    }
+    this.summaryRuntimeWarnings = columns.flatMap(
+      (column) => column.summaryWarnings || []
+    );
+    this.updateWarningMessage();
+    return columns;
   }
 
   ensureSortField() {
@@ -1107,6 +1303,174 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
     });
   }
 
+  scheduleRebuildColumnsWithPicklist() {
+    scheduleRebuildColumnsUtil(this, () => this.rebuildColumnsWithPicklist());
+  }
+
+  scheduleUserRebuildColumnsWithPicklist() {
+    scheduleUserRebuildUtil(this, () =>
+      this.scheduleRebuildColumnsWithPicklist()
+    );
+  }
+
+  cancelScheduledUserRebuild() {
+    cancelScheduledUserRebuildUtil(this);
+  }
+
+  cancelScheduledRebuildColumns() {
+    cancelScheduledRebuildColumnsUtil(this);
+  }
+
+  cancelScheduledSummaryRebuild() {
+    cancelScheduledSummaryRebuildUtil(this);
+  }
+
+  shouldDeferSummaries(records) {
+    return (
+      Array.isArray(this.summaryDefinitions) &&
+      this.summaryDefinitions.length > 0 &&
+      Array.isArray(records) &&
+      records.length > 0
+    );
+  }
+
+  applySummaryPlaceholders(columns) {
+    const definitions = Array.isArray(this.summaryDefinitions)
+      ? this.summaryDefinitions
+      : [];
+    if (!definitions.length) {
+      return columns;
+    }
+    return (columns || []).map((column) => {
+      if (!column || typeof column !== "object") {
+        return column;
+      }
+      const hasRecords = Boolean(column.count);
+      const summaries = definitions.map((summary) => ({
+        key: [
+          summary?.fieldApiName || "",
+          summary?.summaryType || "",
+          summary?.label || ""
+        ].join("|"),
+        label: summary?.label || "",
+        value: hasRecords ? "" : "-",
+        isLoading: hasRecords
+      }));
+      return {
+        ...column,
+        summaries,
+        summaryWarnings: []
+      };
+    });
+  }
+
+  scheduleSummaryRebuild(records, groupingField, cardFields) {
+    scheduleSummaryRebuildUtil(this, {
+      records,
+      groupingField,
+      cardFields,
+      shouldDeferSummaries: (recordsToCheck) =>
+        this.shouldDeferSummaries(recordsToCheck),
+      buildColumns: (rows, grouping, fields, options) =>
+        this.buildColumns(rows, grouping, fields, options),
+      logDebug: (message, detail) => this.logDebug(message, detail)
+    });
+  }
+
+  @api
+  refreshSummaryDefinitions() {
+    const { summaries, warnings } = parseSummaryDefinitions(
+      this.columnSummariesDefinition
+    );
+
+    if (!this.objectInfo) {
+      this.summaryDefinitions = summaries.map((summary) => ({
+        ...summary,
+        fieldApiName: this.qualifyFieldName(summary.fieldApiName)
+      }));
+      this.summaryWarnings = warnings;
+      this.updateWarningMessage();
+      return;
+    }
+
+    const validSummaries = [];
+    const validationWarnings = [];
+    const numericTypes = new Set([
+      "currency",
+      "double",
+      "integer",
+      "int",
+      "percent",
+      "number"
+    ]);
+    const dateTypes = new Set(["date", "datetime"]);
+    const booleanTypes = new Set(["boolean"]);
+
+    summaries.forEach((summary) => {
+      const qualifiedField = this.qualifyFieldName(summary.fieldApiName);
+      if (!qualifiedField) {
+        validationWarnings.push(
+          `Summary field "${summary.fieldApiName}" is invalid.`
+        );
+        return;
+      }
+      const metadata = this.getFieldMetadata(qualifiedField);
+      if (!metadata) {
+        validationWarnings.push(
+          `Summary field "${summary.fieldApiName}" does not exist.`
+        );
+        return;
+      }
+      const dataType = normalizeString(metadata.dataType || metadata.type);
+      if (!dataType) {
+        validationWarnings.push(
+          `Summary field "${summary.fieldApiName}" has no supported data type.`
+        );
+        return;
+      }
+      const normalizedType = dataType.toLowerCase();
+      const summaryType = summary.summaryType;
+      const isNumericSummary = summaryType === "SUM" || summaryType === "AVG";
+      const isMinMaxSummary = summaryType === "MIN" || summaryType === "MAX";
+      const isCountSummary =
+        summaryType === "COUNT_TRUE" || summaryType === "COUNT_FALSE";
+      if (
+        (isNumericSummary && !numericTypes.has(normalizedType)) ||
+        (isMinMaxSummary &&
+          !numericTypes.has(normalizedType) &&
+          !dateTypes.has(normalizedType)) ||
+        (isCountSummary && !booleanTypes.has(normalizedType))
+      ) {
+        validationWarnings.push(
+          `Summary field "${summary.fieldApiName}" is not valid for ${summaryType}.`
+        );
+        return;
+      }
+      validSummaries.push({
+        ...summary,
+        fieldApiName: qualifiedField,
+        dataType: normalizedType,
+        scale: metadata.scale,
+        precision: metadata.precision
+      });
+    });
+
+    this.summaryDefinitions = validSummaries;
+    this.summaryWarnings = [...warnings, ...validationWarnings];
+    this.updateWarningMessage();
+  }
+
+  updateWarningMessage() {
+    const warnings = [
+      ...(this.summaryWarnings || []),
+      ...(this.summaryRuntimeWarnings || [])
+    ].filter(Boolean);
+    const uniqueWarnings = Array.from(new Set(warnings));
+    this.warningMessage = uniqueWarnings.length
+      ? uniqueWarnings.join(" ")
+      : undefined;
+  }
+
   @wire(getObjectInfo, { objectApiName: "$cardObjectApiName" })
   wiredObjectInfo({ error, data }) {
     if (data) {
@@ -1116,10 +1480,15 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
         apiName: data.apiName,
         defaultRecordTypeId: data.defaultRecordTypeId
       });
+      this.refreshSummaryDefinitions();
+      this.clearFieldDataCache("object info loaded");
+      this.buildFieldDataCache(this.relatedRecords || []);
+      this.filtersDirty = true;
       this.rebuildColumnsWithPicklist();
     } else if (error) {
       this.objectInfo = undefined;
       this.objectInfoError = error;
+      this.refreshSummaryDefinitions();
       this.logError("Failed to load object info.", error);
     }
   }
@@ -1136,6 +1505,7 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
         fieldCount: Object.keys(this.picklistFieldValues || {}).length,
         recordTypeId: this.effectiveRecordTypeId
       });
+      this.filtersDirty = true;
       this.rebuildColumnsWithPicklist();
     } else if (error) {
       this.picklistFieldValues = undefined;
@@ -1178,7 +1548,7 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
   }
 
   get effectiveDateTimeFormat() {
-    return this._dateTimeFormat || DEFAULT_DATETIME_FORMAT;
+    return this._dateTimeFormat;
   }
 
   get cardFieldsQualified() {
@@ -1509,6 +1879,7 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
   }
 
   get dataFetchFieldList() {
+    this.refreshSummaryDefinitions();
     if (!this.ensureGroupingFieldExists()) {
       return null;
     }
@@ -1535,6 +1906,17 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
     this.filterFieldDependencies.forEach((field) => {
       if (field) {
         fields.add(field);
+      }
+    });
+    (this.summaryDefinitions || []).forEach((summary) => {
+      if (summary?.fieldApiName) {
+        fields.add(summary.fieldApiName);
+      }
+      if (summary?.dataType === "currency") {
+        const currencyField = this.qualifyFieldName("CurrencyIsoCode");
+        if (currencyField) {
+          fields.add(currencyField);
+        }
       }
     });
     return Array.from(fields);
@@ -1669,10 +2051,6 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
 
   handleSearchInput(event) {
     return handleSearchInputInteractions(this, event);
-  }
-
-  handleSearchKeyup(event) {
-    return handleSearchKeyupInteractions(this, event);
   }
 
   applySearchValue(rawValue) {
@@ -1860,6 +2238,9 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
       fallbackSortField,
       sortDirection: this.sortDirection,
       cardFieldIcons: this.cardFieldIconsList,
+      dateTimeFormat: this.effectiveDateTimeFormat,
+      patternTokenCache: this.patternTokenCache,
+      summaryDefinitions: this.summaryDefinitions,
       shouldDisplayParentReferenceOnCards:
         this.shouldDisplayParentReferenceOnCards,
       parentBadgeLabel: this.parentBadgeLabel
@@ -1867,6 +2248,7 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
   }
 
   buildColumnCallbacks() {
+    const currencyFieldApiName = this.qualifyFieldName("CurrencyIsoCode");
     return {
       isRecordIncluded: (record) => this.isRecordIncluded(record),
       extractFieldData: (record, field) => this.extractFieldData(record, field),
@@ -1879,6 +2261,19 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
       sanitizeFieldOutput: (value) => sanitizeFieldOutput(value),
       getFieldMetadata: (field) => this.getFieldMetadata(field),
       getUiPicklistValues: (field) => this.getUiPicklistValues(field),
+      coerceSummaryValue: (record, summary) =>
+        coerceSummaryValueUtil(record, summary, (row, field) =>
+          this.extractFieldData(row, field)
+        ),
+      formatSummaryValue: (summary, value, options = {}) =>
+        formatSummaryValueUtil(summary, value, options),
+      getSummaryCurrencyCode: (record) =>
+        resolveCurrencyCodeUtil(
+          record,
+          (row, field) => this.extractFieldData(row, field),
+          currencyFieldApiName,
+          CURRENCY
+        ),
       logDebug: (message, detail) => this.logDebug(message, detail),
       logWarn: (message, detail) => this.logWarn(message, detail)
     };
@@ -1911,8 +2306,14 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
     return getFieldLabelField(this, field);
   }
 
-  formatFieldDisplayValue(field, rawValue, displayValue) {
-    return formatFieldDisplayValueField(this, field, rawValue, displayValue);
+  formatFieldDisplayValue(field, rawValue, displayValue, record) {
+    return formatFieldDisplayValueField(
+      this,
+      field,
+      rawValue,
+      displayValue,
+      record
+    );
   }
 
   logDebug(message, detail) {
@@ -1941,6 +2342,29 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
 
   formatError(error) {
     return formatErrorLogger(this, error);
+  }
+
+  get effectivePerformanceModeThreshold() {
+    return resolvePerformanceModeThreshold(this._performanceModeThreshold);
+  }
+
+  get enableVirtualization() {
+    if (this._performanceModeThreshold === 0) {
+      return false;
+    }
+    const threshold = this.effectivePerformanceModeThreshold;
+    if (!threshold) {
+      return false;
+    }
+    const totalCards = this.relatedRecords?.length || 0;
+    return totalCards > threshold;
+  }
+
+  get cardDisplayConfigKey() {
+    const fieldsKey = (this.cardFieldsQualified || []).join(",");
+    return `${fieldsKey}|${this.showCardFieldLabels ? 1 : 0}|${
+      this.shouldDisplayParentReferenceOnCards ? 1 : 0
+    }|${this.parentBadgeLabel || ""}`;
   }
 
   get showEmptyState() {

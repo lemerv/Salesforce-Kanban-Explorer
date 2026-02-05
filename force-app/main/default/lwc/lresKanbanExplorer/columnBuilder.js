@@ -26,6 +26,12 @@ export function buildColumns(records = [], options = {}) {
     sanitizeFieldOutput = (value) => value,
     getFieldMetadata = () => null,
     getUiPicklistValues,
+    dateTimeFormat,
+    patternTokenCache,
+    summaryDefinitions = [],
+    coerceSummaryValue = () => null,
+    formatSummaryValue = () => "",
+    getSummaryCurrencyCode = () => null,
     logDebug = () => {},
     logWarn = () => {}
   } = options;
@@ -113,6 +119,17 @@ export function buildColumns(records = [], options = {}) {
     const sortedEntries = sortEntries(entries, sortOptions);
     lane.entries = sortedEntries;
     lane.records = sortedEntries.map((entry) => entry.card);
+    const { summaries, warnings } = buildLaneSummaries(sortedEntries, {
+      summaryDefinitions,
+      coerceSummaryValue,
+      formatSummaryValue,
+      getSummaryCurrencyCode,
+      columnLabel: lane.label,
+      dateTimeFormat,
+      patternTokenCache
+    });
+    lane.summaries = summaries;
+    lane.summaryWarnings = warnings;
   });
 
   const orderedKeys = [];
@@ -134,6 +151,19 @@ export function buildColumns(records = [], options = {}) {
       lane.rawValue = columnDef.rawValue;
       lane.entries = lane.entries || [];
       lane.records = lane.records || [];
+    }
+    if (!Array.isArray(lane.summaries)) {
+      const { summaries, warnings } = buildLaneSummaries([], {
+        summaryDefinitions,
+        coerceSummaryValue,
+        formatSummaryValue,
+        getSummaryCurrencyCode,
+        columnLabel: lane.label,
+        dateTimeFormat,
+        patternTokenCache
+      });
+      lane.summaries = summaries;
+      lane.summaryWarnings = warnings;
     }
     orderedKeys.push(laneKey);
     usedKeys.add(laneKey);
@@ -167,7 +197,9 @@ export function buildColumns(records = [], options = {}) {
       label: lane.label,
       rawValue: lane.rawValue,
       records: lane.records,
-      count: lane.records.length
+      count: lane.records.length,
+      summaries: lane.summaries || [],
+      summaryWarnings: lane.summaryWarnings || []
     };
   });
 
@@ -178,7 +210,9 @@ export function buildColumns(records = [], options = {}) {
       label: lane.label,
       rawValue: lane.rawValue,
       records: lane.records,
-      count: lane.records.length
+      count: lane.records.length,
+      summaries: lane.summaries || [],
+      summaryWarnings: lane.summaryWarnings || []
     }))
     .sort((a, b) => {
       const aLabel = a.label || "";
@@ -189,6 +223,140 @@ export function buildColumns(records = [], options = {}) {
   const columns = [...orderedColumns, ...remainingColumns];
   logDebug("Column build complete.", { columnCount: columns.length });
   return columns;
+}
+
+function buildLaneSummaries(entries, options = {}) {
+  const {
+    summaryDefinitions = [],
+    coerceSummaryValue = () => null,
+    formatSummaryValue = () => "",
+    getSummaryCurrencyCode = () => null,
+    columnLabel,
+    dateTimeFormat,
+    patternTokenCache
+  } = options;
+
+  if (!Array.isArray(summaryDefinitions) || summaryDefinitions.length === 0) {
+    return { summaries: [], warnings: [] };
+  }
+
+  const summaries = [];
+  const warnings = [];
+  summaryDefinitions.forEach((summary) => {
+    const summaryKey = [
+      summary.fieldApiName || "",
+      summary.summaryType || "",
+      summary.label || ""
+    ].join("|");
+    if (summary.dataType === "currency") {
+      const currencyCodes = new Set(
+        entries
+          .map((entry) => getSummaryCurrencyCode(entry.record))
+          .map((value) => (typeof value === "string" ? value : value?.code))
+          .filter((value) => value)
+      );
+      if (currencyCodes.size > 1) {
+        const resolvedLabel = columnLabel || "this column";
+        warnings.push(
+          `Summary "${summary.label}" is blocked for "${resolvedLabel}" because multiple currencies are present.`
+        );
+        summaries.push({
+          key: summaryKey,
+          label: summary.label,
+          value: "Mixed currencies"
+        });
+        return;
+      }
+    }
+    const values = entries
+      .map((entry) => coerceSummaryValue(entry.record, summary))
+      .filter((value) => value !== null && value !== undefined);
+    if (!values.length) {
+      summaries.push({
+        key: summaryKey,
+        label: summary.label,
+        value: formatSummaryValue(summary, null)
+      });
+      return;
+    }
+    let result = null;
+    if (summary.summaryType === "COUNT_TRUE") {
+      result = values.filter((value) => value === true).length;
+    } else if (summary.summaryType === "COUNT_FALSE") {
+      result = values.filter((value) => value === false).length;
+    } else if (
+      summary.summaryType === "MIN" &&
+      (summary.dataType === "date" || summary.dataType === "datetime")
+    ) {
+      let best = null;
+      let bestTime = null;
+      values.forEach((value) => {
+        const time = new Date(value).getTime();
+        if (Number.isNaN(time)) {
+          return;
+        }
+        if (bestTime === null || time < bestTime) {
+          bestTime = time;
+          best = value;
+        }
+      });
+      result = best;
+    } else if (
+      summary.summaryType === "MAX" &&
+      (summary.dataType === "date" || summary.dataType === "datetime")
+    ) {
+      let best = null;
+      let bestTime = null;
+      values.forEach((value) => {
+        const time = new Date(value).getTime();
+        if (Number.isNaN(time)) {
+          return;
+        }
+        if (bestTime === null || time > bestTime) {
+          bestTime = time;
+          best = value;
+        }
+      });
+      result = best;
+    } else if (summary.summaryType === "SUM") {
+      result = values.reduce((total, value) => total + value, 0);
+    } else if (summary.summaryType === "AVG") {
+      const total = values.reduce((sum, value) => sum + value, 0);
+      result = total / values.length;
+    } else if (summary.summaryType === "MIN") {
+      result = Math.min(...values);
+    } else if (summary.summaryType === "MAX") {
+      result = Math.max(...values);
+    }
+    let currencyCode = null;
+    let useNarrowCurrencySymbol = false;
+    if (summary.dataType === "currency") {
+      const resolvedCurrency =
+        entries
+          .map((entry) => getSummaryCurrencyCode(entry.record))
+          .find((value) => value) || null;
+      if (resolvedCurrency) {
+        if (typeof resolvedCurrency === "string") {
+          currencyCode = resolvedCurrency;
+        } else {
+          currencyCode = resolvedCurrency.code;
+          useNarrowCurrencySymbol = Boolean(resolvedCurrency.isFallback);
+        }
+      }
+    }
+    summaries.push({
+      key: summaryKey,
+      label: summary.label,
+      value: formatSummaryValue(summary, result, {
+        currencyCode,
+        useNarrowCurrencySymbol,
+        dateTimeFormat,
+        patternTokenCache
+      })
+    });
+  });
+
+  return { summaries, warnings };
 }
 
 export function buildCard(record, options = {}) {

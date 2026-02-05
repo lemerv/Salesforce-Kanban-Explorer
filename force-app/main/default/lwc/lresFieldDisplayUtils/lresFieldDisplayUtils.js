@@ -1,9 +1,25 @@
-import { formatValueWithPattern, tryFormatDateOrDateTimeString } from "c/lresDateTimeUtils";
-import { formatApiName, formatObjectLabel, normalizeString } from "c/lresFieldUtils";
+import CURRENCY from "@salesforce/i18n/currency";
+import {
+  formatValueWithPattern,
+  tryFormatDateOrDateTimeString
+} from "c/lresDateTimeUtils";
+import {
+  formatApiName,
+  formatObjectLabel,
+  normalizeString
+} from "c/lresFieldUtils";
 import { sanitizeFieldOutput } from "c/lresOutputUtils";
 
 const DEFAULT_FIELD_PLACEHOLDER = "--";
 const DEFAULT_OBJECT_NAME_FIELD = "Name";
+const NUMERIC_TYPES = new Set([
+  "currency",
+  "percent",
+  "double",
+  "integer",
+  "long",
+  "number"
+]);
 const OBJECT_DEFAULT_NAME_FIELD_MAP = {
   Case: "CaseNumber",
   EmailMessage: "Subject",
@@ -78,7 +94,37 @@ export function qualifyFieldName(component, fieldName) {
   return `${cardObjectApiName}.${trimmed}`;
 }
 
+function resolveRecordCacheId(record) {
+  if (!record) {
+    return null;
+  }
+  const directId = record.id || record.Id;
+  if (directId) {
+    return String(directId);
+  }
+  const fieldId = record?.fields?.Id?.value || record?.fields?.Id?.displayValue;
+  return fieldId ? String(fieldId) : null;
+}
+
+function resolveFieldCacheKey(component, field) {
+  if (!field) {
+    return null;
+  }
+  const normalized = normalizeFieldPath(component, field);
+  return normalized || null;
+}
+
 export function extractFieldData(component, record, field) {
+  const cache = component?._fieldDataCache;
+  const recordId = resolveRecordCacheId(record);
+  const cacheKey = resolveFieldCacheKey(component, field);
+  if (cache && recordId && cacheKey) {
+    const recordCache = cache.get(recordId);
+    if (recordCache?.has(cacheKey)) {
+      return recordCache.get(cacheKey);
+    }
+  }
+
   const data = lookupFieldData(component, record, field);
   if (!data) {
     return { raw: null, display: "" };
@@ -89,12 +135,22 @@ export function extractFieldData(component, record, field) {
     component,
     field,
     raw,
-    initialDisplay
+    initialDisplay,
+    record
   );
-  return {
+  const result = {
     raw,
     display: display === null || display === undefined ? "" : display
   };
+  if (cache && recordId && cacheKey) {
+    let recordCache = cache.get(recordId);
+    if (!recordCache) {
+      recordCache = new Map();
+      cache.set(recordId, recordCache);
+    }
+    recordCache.set(cacheKey, result);
+  }
+  return result;
 }
 
 export function extractFieldValue(component, record, field) {
@@ -407,7 +463,8 @@ export function formatFieldDisplayValue(
   component,
   field,
   rawValue,
-  displayValue
+  displayValue,
+  record
 ) {
   const metadata = getFieldMetadata(component, field);
   if (!metadata) {
@@ -424,15 +481,60 @@ export function formatFieldDisplayValue(
   const dataType = metadata.dataType;
   const isDateTime = dataType === "Datetime" || dataType === "DateTime";
   const isDateOnly = dataType === "Date";
-  if (!isDateTime && !isDateOnly) {
+  if (isDateTime || isDateOnly) {
+    return (
+      formatValueWithPattern(valueToFormat, {
+        dateOnly: isDateOnly,
+        pattern: component?.effectiveDateTimeFormat,
+        patternTokenCache: component?.patternTokenCache
+      }) ?? displayValue
+    );
+  }
+  const normalizedType =
+    typeof dataType === "string" ? dataType.toLowerCase() : "";
+  if (!NUMERIC_TYPES.has(normalizedType)) {
     return displayValue;
   }
-  return (
-    formatValueWithPattern(valueToFormat, {
-      dateOnly: isDateOnly,
-      pattern: component?.effectiveDateTimeFormat,
-      patternTokenCache: component?.patternTokenCache
-    }) ?? displayValue
+  if (
+    displayValue !== null &&
+    displayValue !== undefined &&
+    displayValue !== ""
+  ) {
+    if (
+      rawValue === null ||
+      rawValue === undefined ||
+      normalizeNumericString(displayValue) !== normalizeNumericString(rawValue)
+    ) {
+      return displayValue;
+    }
+  }
+  const numericValue = coerceNumericValue(valueToFormat);
+  if (!Number.isFinite(numericValue)) {
+    return displayValue;
+  }
+  const formatterOptions = {};
+  const scale =
+    typeof metadata.scale === "number" && metadata.scale >= 0
+      ? metadata.scale
+      : undefined;
+  if (scale !== undefined) {
+    formatterOptions.minimumFractionDigits = scale;
+    formatterOptions.maximumFractionDigits = scale;
+  }
+  let normalizedValue = numericValue;
+  if (normalizedType === "percent") {
+    formatterOptions.style = "percent";
+    normalizedValue =
+      Math.abs(normalizedValue) > 1 ? normalizedValue / 100 : normalizedValue;
+  } else if (normalizedType === "currency") {
+    const currencyCode =
+      resolveCurrencyCodeFromRecord(record, CURRENCY) || CURRENCY;
+    formatterOptions.style = "currency";
+    formatterOptions.currency = currencyCode;
+    formatterOptions.currencyDisplay = "symbol";
+  }
+  return new Intl.NumberFormat(undefined, formatterOptions).format(
+    normalizedValue
   );
 }
 
@@ -445,13 +547,18 @@ export function formatFieldDisplayValue(
  * @param {Map} options.patternTokenCache - Pattern token cache for performance
  * @returns {string} Formatted value or empty string
  */
-export function formatFieldValueWithOptions(value, { pattern, patternTokenCache } = {}) {
+export function formatFieldValueWithOptions(
+  value,
+  { pattern, patternTokenCache } = {}
+) {
   if (value === null || value === undefined) {
     return "";
   }
   if (Array.isArray(value)) {
     return value
-      .map((item) => formatFieldValueWithOptions(item, { pattern, patternTokenCache }))
+      .map((item) =>
+        formatFieldValueWithOptions(item, { pattern, patternTokenCache })
+      )
       .filter((item) => item !== "")
       .join(", ");
   }
@@ -462,4 +569,50 @@ export function formatFieldValueWithOptions(value, { pattern, patternTokenCache 
       patternTokenCache
     }) || sanitized
   );
+}
+
+function coerceNumericValue(rawValue) {
+  if (rawValue === null || rawValue === undefined || rawValue === "") {
+    return null;
+  }
+  if (typeof rawValue === "number" && Number.isFinite(rawValue)) {
+    return rawValue;
+  }
+  const cleaned = String(rawValue).replace(/[^0-9.-]/g, "");
+  if (!cleaned) {
+    return null;
+  }
+  const parsed = Number(cleaned);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function resolveCurrencyCodeFromRecord(record, fallbackCurrencyCode) {
+  const isValidCurrencyCode = (value) => {
+    if (!value) {
+      return false;
+    }
+    const normalized = String(value).trim().toUpperCase();
+    return /^[A-Z]{3}$/.test(normalized) ? normalized : false;
+  };
+  const field = record?.fields?.CurrencyIsoCode;
+  if (!field) {
+    return isValidCurrencyCode(fallbackCurrencyCode) || null;
+  }
+  return (
+    isValidCurrencyCode(field.value) ||
+    isValidCurrencyCode(field.displayValue) ||
+    isValidCurrencyCode(fallbackCurrencyCode) ||
+    null
+  );
+}
+
+function normalizeNumericString(value) {
+  if (value === null || value === undefined) {
+    return "";
+  }
+  const normalized = String(value).trim();
+  if (!normalized) {
+    return "";
+  }
+  return normalized.replace(/,/g, "");
 }

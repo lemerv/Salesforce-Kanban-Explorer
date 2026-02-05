@@ -1,5 +1,6 @@
 <template>
   <lightning-card title={resolvedBoardTitle} icon-name="standard:kanban">
+    <div class="kanban-version"></div>
     <template if:true={actionsAvailable}>
       <c-lres-kanban-board-actions
         slot="actions"
@@ -17,7 +18,6 @@
         refresh-button-disabled={refreshButtonDisabled}
         onclearfilters={handleClearFilters}
         onsearchinput={handleSearchInput}
-        onsearchkeyup={handleSearchKeyup}
         onsortmenutoggle={toggleSortMenu}
         onsortmenuclick={handleSortMenuClick}
         onsortmenukeydown={handleSortMenuKeydown}
@@ -40,6 +40,7 @@
         default-to-multiple-parent-selection={defaultToMultipleParentSelection}
         selected-parent-record-ids={_selectedParentRecordIds}
         date-time-format={effectiveDateTimeFormat}
+        debug-logging={debugLogging}
         onparentselectionchange={handleParentSelectorChange}
         onparentoptionschange={handleParentOptionsChange}
         onparentrecordview={handleParentViewClick}
@@ -51,7 +52,10 @@
       show-card-field-labels={showCardFieldLabels}
       is-loading={isLoading}
       error-message={errorMessage}
+      warning-message={warningMessage}
       show-empty-state={showEmptyState}
+      enable-virtualization={enableVirtualization}
+      card-display-config-key={cardDisplayConfigKey}
       oncolumndrop={handleColumnDrop}
       oncardtitleclick={handleTitleClick}
       oncardopenexternallink={handleExternalOpen}

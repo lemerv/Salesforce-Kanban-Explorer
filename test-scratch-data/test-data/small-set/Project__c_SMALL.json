@@ -1,0 +1,104 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Project__c",
+        "referenceId": "ProjectRef1"
+      },
+      "Name": "Analytics Dashboard",
+      "Stage__c": "Upcoming",
+      "Due_Date__c": "2024-02-06",
+      "Account__c": "@AccountRef1"
+    },
+    {
+      "attributes": {
+        "type": "Project__c",
+        "referenceId": "ProjectRef2"
+      },
+      "Name": "Performance Optimization",
+      "Stage__c": "Handover",
+      "Due_Date__c": "2024-02-11",
+      "Account__c": "@AccountRef2"
+    },
+    {
+      "attributes": {
+        "type": "Project__c",
+        "referenceId": "ProjectRef3"
+      },
+      "Name": "CRM Integration",
+      "Stage__c": "Build",
+      "Due_Date__c": "2024-02-16",
+      "Account__c": "@AccountRef3"
+    },
+    {
+      "attributes": {
+        "type": "Project__c",
+        "referenceId": "ProjectRef4"
+      },
+      "Name": "Compliance Update",
+      "Stage__c": "Live",
+      "Due_Date__c": "2024-02-21",
+      "Account__c": "@AccountRef4"
+    },
+    {
+      "attributes": {
+        "type": "Project__c",
+        "referenceId": "ProjectRef5"
+      },
+      "Name": "Performance Optimization",
+      "Stage__c": "Done",
+      "Due_Date__c": "2024-02-26",
+      "Account__c": "@AccountRef5"
+    },
+    {
+      "attributes": {
+        "type": "Project__c",
+        "referenceId": "ProjectRef6"
+      },
+      "Name": "Training Program Launch",
+      "Stage__c": "Upcoming",
+      "Due_Date__c": "2024-03-02",
+      "Account__c": "@AccountRef6"
+    },
+    {
+      "attributes": {
+        "type": "Project__c",
+        "referenceId": "ProjectRef7"
+      },
+      "Name": "Training Program Launch",
+      "Stage__c": "Handover",
+      "Due_Date__c": "2024-03-07",
+      "Account__c": "@AccountRef7"
+    },
+    {
+      "attributes": {
+        "type": "Project__c",
+        "referenceId": "ProjectRef8"
+      },
+      "Name": "Mobile App Development",
+      "Stage__c": "Build",
+      "Due_Date__c": "2024-03-12",
+      "Account__c": "@AccountRef8"
+    },
+    {
+      "attributes": {
+        "type": "Project__c",
+        "referenceId": "ProjectRef9"
+      },
+      "Name": "Data Migration Project",
+      "Stage__c": "Live",
+      "Due_Date__c": "2024-03-17",
+      "Account__c": "@AccountRef9"
+    },
+    {
+      "attributes": {
+        "type": "Project__c",
+        "referenceId": "ProjectRef10"
+      },
+      "Name": "Performance Optimization",
+      "Stage__c": "Done",
+      "Due_Date__c": "2024-03-22",
+      "Account__c": "@AccountRef10"
+    }
+  ]
+}

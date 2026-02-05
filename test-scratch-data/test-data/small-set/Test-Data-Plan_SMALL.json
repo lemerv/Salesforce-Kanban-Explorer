@@ -1,0 +1,38 @@
+[
+  {
+    "sobject": "Account",
+    "files": [
+      "Account_SMALL.json"
+    ]
+  },
+  {
+    "sobject": "Contact",
+    "files": [
+      "Contact_SMALL.json"
+    ]
+  },
+  {
+    "sobject": "Case",
+    "files": [
+      "Case_SMALL.json"
+    ]
+  },
+  {
+    "sobject": "Project__c",
+    "files": [
+      "Project__c_SMALL.json"
+    ]
+  },
+  {
+    "sobject": "Project_Task__c",
+    "files": [
+      "Project_Task__c_SMALL.json"
+    ]
+  },
+  {
+    "sobject": "Opportunity",
+    "files": [
+      "Opportunity_SMALL.json"
+    ]
+  }
+]

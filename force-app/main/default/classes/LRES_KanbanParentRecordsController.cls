@@ -210,8 +210,14 @@ public with sharing class LRES_KanbanParentRecordsController {
       );
       records = securityDecision.getRecords();
     } catch (Exception ex) {
+      if (debugWhereErrors == true) {
+        System.debug(
+          LoggingLevel.WARN,
+          'Unable to load parent records. Root cause: ' + ex.getMessage()
+        );
+      }
       throw new AuraHandledException(
-        'Unable to load parent records: ' + ex.getMessage()
+        'Unable to load parent records. Contact your administrator.'
       );
     }
 

@@ -155,6 +155,8 @@ public with sharing class LRES_KanbanParentRecordsController {
     LRES_FieldValidationUtil.OrderByMessages orderByMessages = LRES_FieldValidationUtil.buildOrderByMessages(
       'Parent ORDER BY clause'
     );
+    // Admin-configured ORDER BY is authoritative for result ordering/top-N selection.
+    // Do not silently rewrite or drop configured sort fields per user.
     String sanitizedOrderBy = LRES_FieldValidationUtil.sanitizeOrderByClause(
       orderByClause,
       orderByMessages
@@ -179,6 +181,8 @@ public with sharing class LRES_KanbanParentRecordsController {
 
     soql += ' WITH SECURITY_ENFORCED';
 
+    // Apply admin-provided ORDER BY exactly as configured (after syntax sanitization).
+    // Fallback ordering is only used when no ORDER BY was configured.
     if (String.isNotBlank(effectiveOrderBy)) {
       soql += ' ORDER BY ' + effectiveOrderBy;
     } else if (orderFieldAccessible) {

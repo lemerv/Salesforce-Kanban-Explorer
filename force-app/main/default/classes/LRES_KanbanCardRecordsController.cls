@@ -256,12 +256,16 @@ public with sharing class LRES_KanbanCardRecordsController {
     LRES_FieldValidationUtil.OrderByMessages orderByMessages = LRES_FieldValidationUtil.buildOrderByMessages(
       'Card order clause'
     );
+    // Admin-configured ORDER BY is authoritative for result ordering/top-N selection.
+    // Preserve configured sorting semantics; do not degrade sort behavior per user.
     String sanitizedOrderBy = LRES_FieldValidationUtil.sanitizeOrderByClause(
       orderByClause,
       orderByMessages
     );
 
     List<String> orderByFragments = new List<String>();
+    // Use configured ORDER BY exactly (after sanitization).
+    // Dynamic sort field is additive when provided and valid.
     if (String.isNotBlank(sanitizedOrderBy)) {
       orderByFragments.add(sanitizedOrderBy);
     }

@@ -1,7 +1,3 @@
-# Lightning Record Explorer Suite
-
-A suite (of just one so far 😉) lightning web components for Salesforce.
-
 # Kanban Explorer
 
 The powerful kanban board component for Salesforce that brings true kanban functionality to your org.
@@ -10,7 +6,10 @@ The powerful kanban board component for Salesforce that brings true kanban funct
 
 ## What is Kanban Explorer?
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+![GitHub License](https://img.shields.io/github/license/lemerv/Salesforce-Kanban-Explorer?style=for-the-badge&color=blue)
+  ![GitHub Repo stars](https://img.shields.io/github/stars/lemerv/Salesforce-Kanban-Explorer?style=for-the-badge&logo=github&color=yellow)
+
+
 
 Kanban Explorer is a Lightning Web Component that transforms your Salesforce records into interactive kanban boards.
 
@@ -25,7 +24,7 @@ Kanban Explorer is a Lightning Web Component that transforms your Salesforce rec
 
 ## Quick Start
 
-1. **Install the latest package** from the [releases page](https://github.com/lemerv/Lightning-Record-Explorer-Suite/releases)
+1. **Install the latest package** from the [releases page](https://github.com/lemerv/Salesforce-Kanban-Explorer/releases)
 2. **Assign the `LRES_Access` permission set** to any users that will use the kanban board
 3. **Add LRES Kanban Explorer** to your Lightning page using the App Builder
 4. **Configure basic properties** (card object, grouping field, and card fields)

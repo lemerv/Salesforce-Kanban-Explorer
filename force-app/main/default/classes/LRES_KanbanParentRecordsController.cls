@@ -103,7 +103,7 @@ public with sharing class LRES_KanbanParentRecordsController {
     );
 
     // Log FLS removals for diagnostics
-    if (flsResult.hasRemovals) {
+    if (debugWhereErrors == true && flsResult.hasRemovals) {
       System.debug(
         LoggingLevel.WARN,
         'FLS Validation Removed Fields (Parent Records):'
@@ -171,7 +171,7 @@ public with sharing class LRES_KanbanParentRecordsController {
         .split('\\s+')[0];
       if (!flsResult.droppedOrderByFields.contains(firstOrderField)) {
         effectiveOrderBy = sanitizedOrderBy;
-      } else {
+      } else if (debugWhereErrors == true) {
         System.debug(
           LoggingLevel.WARN,
           'Dropped ORDER BY field due to FLS: ' + firstOrderField
@@ -192,10 +192,12 @@ public with sharing class LRES_KanbanParentRecordsController {
     }
 
     soql += ' LIMIT ' + recordLimit;
-    System.debug(
-      LoggingLevel.FINE,
-      'LRES_KanbanParentRecordsController SOQL: ' + soql
-    );
+    if (debugWhereErrors == true) {
+      System.debug(
+        LoggingLevel.FINE,
+        'LRES_KanbanParentRecordsController SOQL: ' + soql
+      );
+    }
 
     List<SObject> records;
     try {

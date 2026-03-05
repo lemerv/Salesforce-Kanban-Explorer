@@ -340,7 +340,7 @@ public with sharing class LRES_WhereClauseParser {
       String canonical = root != null ? root.serialize() : null;
       return new ParseResult(canonical, state.referencedFields);
     } catch (AuraHandledException ex) {
-      logParseFailure(objectApiName, ex.getMessage());
+      logParseFailure(objectApiName, ex.getMessage(), debugWhereErrors);
       throw ex;
     }
   }
@@ -1117,15 +1117,21 @@ public with sharing class LRES_WhereClauseParser {
     return buildException(blockedClausePrefix, message);
   }
 
-  private static void logParseFailure(String objectApiName, String message) {
-    System.debug(
-      LoggingLevel.WARN,
-      '[WhereClauseParser] Parse failure: ' +
-        message +
-        ' (object=' +
-        String.valueOf(objectApiName) +
-        ')'
-    );
+  private static void logParseFailure(
+    String objectApiName,
+    String message,
+    Boolean debugWhereErrors
+  ) {
+    if (debugWhereErrors == true) {
+      System.debug(
+        LoggingLevel.WARN,
+        '[WhereClauseParser] Parse failure: ' +
+          message +
+          ' (object=' +
+          String.valueOf(objectApiName) +
+          ')'
+      );
+    }
   }
 
   private static String normalizeObjectKey(String objectApiName) {

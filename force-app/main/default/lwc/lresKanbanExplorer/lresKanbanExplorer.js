@@ -208,7 +208,7 @@ export default class KanbanExplorer extends NavigationMixin(LightningElement) {
   parentObjectLabel;
   parentLabelById = new Map();
   manualRefreshInProgress = false;
-  _debugLoggingEnabled = true;
+  _debugLoggingEnabled = false;
   _parentSelectionRefreshTimeout;
   patternTokenCache = new Map();
   _fieldDataCache = null;

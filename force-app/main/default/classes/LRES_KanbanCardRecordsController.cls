@@ -104,6 +104,7 @@ public with sharing class LRES_KanbanCardRecordsController {
       sortDirection,
       maxLimit,
       orderByClause,
+      debugWhereErrors,
       describeSeedId,
       resolvedParentIds
     );
@@ -112,7 +113,8 @@ public with sharing class LRES_KanbanCardRecordsController {
       soqlFieldMap,
       queryResult.accessibleFieldMap,
       parentFieldApiName,
-      parentRelationshipName
+      parentRelationshipName,
+      debugWhereErrors
     );
   }
 
@@ -182,6 +184,7 @@ public with sharing class LRES_KanbanCardRecordsController {
       sortDirection,
       limitSize,
       orderByClause,
+      debugWhereErrors,
       null,
       null
     );
@@ -190,7 +193,8 @@ public with sharing class LRES_KanbanCardRecordsController {
       soqlFieldMap,
       queryResult.accessibleFieldMap,
       null,
-      null
+      null,
+      debugWhereErrors
     );
   }
 
@@ -202,6 +206,7 @@ public with sharing class LRES_KanbanCardRecordsController {
     String sortDirection,
     Integer limitSize,
     String orderByClause,
+    Boolean debugWhereErrors,
     Id describeSeedId,
     List<Id> resolvedParentIds
   ) {
@@ -219,7 +224,7 @@ public with sharing class LRES_KanbanCardRecordsController {
     );
 
     // Log FLS removals for diagnostics
-    if (flsResult.hasRemovals) {
+    if (debugWhereErrors == true && flsResult.hasRemovals) {
       System.debug(LoggingLevel.WARN, 'FLS Validation Removed Fields:');
       System.debug(
         LoggingLevel.WARN,
@@ -425,7 +430,8 @@ public with sharing class LRES_KanbanCardRecordsController {
     Map<String, String> originalFieldMap,
     Map<String, String> accessibleFieldMap,
     String parentFieldApiName,
-    String parentRelationshipName
+    String parentRelationshipName,
+    Boolean debugWhereErrors
   ) {
     List<RelatedRecord> results = new List<RelatedRecord>();
     for (SObject row : rows) {
@@ -452,7 +458,8 @@ public with sharing class LRES_KanbanCardRecordsController {
       record.parent = buildParentDescriptor(
         row,
         parentFieldApiName,
-        parentRelationshipName
+        parentRelationshipName,
+        debugWhereErrors
       );
       results.add(record);
     }
@@ -462,7 +469,8 @@ public with sharing class LRES_KanbanCardRecordsController {
   private static ParentDescriptor buildParentDescriptor(
     SObject row,
     String parentFieldApiName,
-    String parentRelationshipName
+    String parentRelationshipName,
+    Boolean debugWhereErrors
   ) {
     if (row == null || String.isBlank(parentFieldApiName)) {
       return null;
@@ -483,7 +491,9 @@ public with sharing class LRES_KanbanCardRecordsController {
           }
         }
       } catch (Exception ex) {
-        System.debug(LoggingLevel.FINE, ex);
+        if (debugWhereErrors == true) {
+          System.debug(LoggingLevel.FINE, ex);
+        }
       }
     }
     return descriptor;
